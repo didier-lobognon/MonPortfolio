@@ -9,8 +9,6 @@
 
 ---
 
-# 🌐 Portfolio – Didier Lobognon
-
 ## 🔗 Démonstration
 
 👉 **Portfolio en ligne :** https://ton-lien.vercel.app
