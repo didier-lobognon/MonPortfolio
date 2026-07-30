@@ -117,14 +117,26 @@ export function Hero() {
             className="mt-8 flex flex-wrap gap-4"
           >
             <MagneticButton>
-              <Button size="lg" variant="gradient" className="gap-2" onClick={() => scrollToSection('projects')}>
+              <Button
+                size="lg"
+                variant="gradient"
+                className="gap-2"
+                data-cursor="projets"
+                onClick={() => scrollToSection('projects')}
+              >
                 Voir mes projets
                 <ArrowRight size={18} />
               </Button>
             </MagneticButton>
 
             <MagneticButton>
-              <Button size="lg" variant="secondary" className="gap-2" onClick={() => scrollToSection('contact')}>
+              <Button
+                size="lg"
+                variant="secondary"
+                className="gap-2"
+                data-cursor="contact"
+                onClick={() => scrollToSection('contact')}
+              >
                 <Sparkles size={16} />
                 Me contacter
               </Button>
