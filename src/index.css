@@ -16,6 +16,7 @@
 
   --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.25);
   --shadow-glow-violet: 0 0 40px rgba(139, 92, 246, 0.25);
