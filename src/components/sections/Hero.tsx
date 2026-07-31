@@ -468,7 +468,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className="font-name text-[clamp(1.85rem,4.8vw,3.15rem)] font-bold leading-[1.15] tracking-[-0.03em] text-text whitespace-nowrap">
+            <h1 className="font-name text-[3rem] font-semibold leading-[1.2] tracking-[-0.02em] text-text whitespace-nowrap">
               {personalInfo.name}
             </h1>
           </motion.div>
