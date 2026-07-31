@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { cn, scrollToSection } from '@/lib/utils'
-import { personalInfo } from '@/data/personal'
+import logo from '@/assets/logo-ld-didier.png'
 
 const links = [
   { id: 'about', label: 'À propos' },
@@ -34,19 +34,25 @@ export function Navbar() {
       className={cn(
         'fixed top-0 inset-x-0 z-50 transition-all duration-300',
         scrolled
-          ? 'bg-bg/75 py-3 backdrop-blur-md'
-          : 'bg-transparent py-5',
+          ? 'bg-bg/75 py-2.5 backdrop-blur-md'
+          : 'bg-transparent py-3',
       )}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 sm:px-8">
         <button
           type="button"
           onClick={() => scrollToSection('hero')}
-          className="font-display text-xl font-bold tracking-tight"
+          className="flex items-center transition-opacity hover:opacity-90"
           aria-label="Retour à l'accueil"
         >
-          <span className="gradient-text">{personalInfo.firstName.charAt(0)}{personalInfo.lastName.charAt(0)}</span>
-          <span className="ml-2 hidden sm:inline text-text/90">{personalInfo.firstName}</span>
+          <img
+            src={logo}
+            alt="LD Didier"
+            className="h-[4.75rem] w-auto sm:h-20 md:h-[5.5rem]"
+            width={352}
+            height={88}
+            decoding="async"
+          />
         </button>
 
         <ul className="hidden lg:flex items-center gap-0.5">

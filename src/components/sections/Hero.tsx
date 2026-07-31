@@ -1,4 +1,4 @@
-import { motion, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion'
+import { AnimatePresence, motion, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion'
 import { useEffect, useState, type MouseEvent } from 'react'
 import { ArrowDown, ArrowRight, MapPin, Sparkles } from 'lucide-react'
 import { personalInfo } from '@/data/personal'
@@ -10,8 +10,11 @@ import { GradientMesh } from '@/components/shared/GradientMesh'
 import { SkillIcon } from '@/components/shared/SkillIcon'
 import { scrollToSection } from '@/lib/utils'
 
-/** Fichier TypeScript — stack & valeur pour recruteurs */
-const CODE_LINES = [
+type Token = { t: string; c: string }
+type CodeLine = { tokens: Token[] }
+type TabId = 'profile' | 'stack'
+
+const PROFILE_LINES: CodeLine[] = [
   { tokens: [{ t: '/**', c: 'cmt' }] },
   { tokens: [{ t: ' * Stack & delivery — prêt pour collab produit', c: 'cmt' }] },
   { tokens: [{ t: ' */', c: 'cmt' }] },
@@ -79,18 +82,101 @@ const CODE_LINES = [
     ],
   },
   { tokens: [{ t: '} ', c: 'plain' }, { t: 'as', c: 'kw' }, { t: ' const', c: 'kw' }] },
-  { tokens: [{ t: '', c: 'plain' }] },
+]
+
+const STACK_LINES: CodeLine[] = [
+  { tokens: [{ t: '/**', c: 'cmt' }] },
+  { tokens: [{ t: ' * Compétences techniques — niveaux 0–100', c: 'cmt' }] },
+  { tokens: [{ t: ' */', c: 'cmt' }] },
+  { tokens: [{ t: 'export', c: 'kw' }, { t: ' const', c: 'kw' }, { t: ' stack', c: 'var' }, { t: ' = {', c: 'plain' }] },
   {
     tokens: [
-      { t: 'export', c: 'kw' },
-      { t: ' type ', c: 'plain' },
-      { t: 'Profile', c: 'type' },
-      { t: ' = ', c: 'plain' },
-      { t: 'typeof', c: 'kw' },
-      { t: ' profile', c: 'var' },
+      { t: '  react', c: 'key' },
+      { t: ': ', c: 'plain' },
+      { t: '92', c: 'num' },
+      { t: ',', c: 'plain' },
+      { t: '    ', c: 'plain' },
+      { t: '// UI dynamiques', c: 'cmt' },
+    ],
+  },
+  {
+    tokens: [
+      { t: '  angular', c: 'key' },
+      { t: ': ', c: 'plain' },
+      { t: '84', c: 'num' },
+      { t: ',', c: 'plain' },
+      { t: '  ', c: 'plain' },
+      { t: '// Apps structurées', c: 'cmt' },
+    ],
+  },
+  {
+    tokens: [
+      { t: '  vue', c: 'key' },
+      { t: ': ', c: 'plain' },
+      { t: '86', c: 'num' },
+      { t: ',', c: 'plain' },
+      { t: '      ', c: 'plain' },
+      { t: '// Prototypes rapides', c: 'cmt' },
+    ],
+  },
+  {
+    tokens: [
+      { t: '  node', c: 'key' },
+      { t: ': ', c: 'plain' },
+      { t: '90', c: 'num' },
+      { t: ',', c: 'plain' },
+      { t: '     ', c: 'plain' },
+      { t: '// APIs & services', c: 'cmt' },
+    ],
+  },
+  {
+    tokens: [
+      { t: '  php', c: 'key' },
+      { t: ': ', c: 'plain' },
+      { t: '88', c: 'num' },
+      { t: ',', c: 'plain' },
+      { t: '      ', c: 'plain' },
+      { t: '// Laravel / métier', c: 'cmt' },
+    ],
+  },
+  {
+    tokens: [
+      { t: '  python', c: 'key' },
+      { t: ': ', c: 'plain' },
+      { t: '82', c: 'num' },
+      { t: ',', c: 'plain' },
+      { t: '   ', c: 'plain' },
+      { t: '// Scripts & APIs', c: 'cmt' },
+    ],
+  },
+  {
+    tokens: [
+      { t: '  java', c: 'key' },
+      { t: ': ', c: 'plain' },
+      { t: '78', c: 'num' },
+      { t: ',', c: 'plain' },
+      { t: '     ', c: 'plain' },
+      { t: '// Backend robuste', c: 'cmt' },
+    ],
+  },
+  {
+    tokens: [
+      { t: '} ', c: 'plain' },
+      { t: 'satisfies', c: 'kw' },
+      { t: ' Record', c: 'type' },
+      { t: '<', c: 'plain' },
+      { t: 'string', c: 'type' },
+      { t: ', ', c: 'plain' },
+      { t: 'number', c: 'type' },
+      { t: '>', c: 'plain' },
     ],
   },
 ]
+
+const FILES: Record<TabId, { label: string; lines: CodeLine[] }> = {
+  profile: { label: 'profile.ts', lines: PROFILE_LINES },
+  stack: { label: 'stack.ts', lines: STACK_LINES },
+}
 
 const STACK = [
   { id: 'react', label: 'React' },
@@ -108,32 +194,91 @@ const tokenClass: Record<string, string> = {
   key: 'text-[#f78c6c]',
   str: 'text-[#c3e88d]',
   hl: 'text-[#ffcb6b]',
+  num: 'text-accent-cyan',
   type: 'text-[#89ddff]',
   cmt: 'text-slate-500',
   ok: 'text-emerald-400',
   plain: 'text-slate-300',
 }
 
-function useTypedLines(active: boolean) {
+function useTypedLines(active: boolean, lineCount: number, resetKey: string) {
   const [visible, setVisible] = useState(0)
   const [done, setDone] = useState(false)
 
   useEffect(() => {
+    setVisible(0)
+    setDone(false)
+  }, [resetKey])
+
+  useEffect(() => {
     if (!active) return
-    if (visible >= CODE_LINES.length) {
+    if (visible >= lineCount) {
       setDone(true)
       return
     }
-    const id = window.setTimeout(() => setVisible((v) => v + 1), 180 + visible * 30)
+    const id = window.setTimeout(() => setVisible((v) => v + 1), 110 + visible * 20)
     return () => window.clearTimeout(id)
-  }, [active, visible])
+  }, [active, visible, lineCount])
 
   return { visible, done }
 }
 
+function CodePane({
+  lines,
+  visible,
+  done,
+}: {
+  lines: CodeLine[]
+  visible: number
+  done: boolean
+}) {
+  return (
+    <div className="grid grid-cols-[auto_1fr] gap-x-3 px-4 py-3.5 font-mono text-[12px] leading-7 sm:px-5 sm:py-4 sm:text-[13px] sm:leading-[1.75]">
+      <div className="select-none text-right text-slate-600 tabular-nums" aria-hidden>
+        {lines.map((_, i) => (
+          <div key={i} className={i < visible ? 'text-slate-500' : ''}>
+            {String(i + 1).padStart(2, '0')}
+          </div>
+        ))}
+      </div>
+      <div className="min-w-0 overflow-x-auto overflow-y-hidden">
+        {lines.map((line, i) => (
+          <div
+            key={i}
+            className="whitespace-pre"
+            style={{
+              opacity: i < visible ? 1 : 0.1,
+              transition: 'opacity 0.18s ease',
+            }}
+          >
+            {line.tokens.length === 1 && line.tokens[0].t === '' ? (
+              <span>&nbsp;</span>
+            ) : (
+              line.tokens.map((tok, j) => (
+                <span key={j} className={tokenClass[tok.c]}>
+                  {tok.t}
+                </span>
+              ))
+            )}
+            {i === visible - 1 && !done && (
+              <motion.span
+                className="ml-0.5 inline-block h-[1.05em] w-[2px] translate-y-[2px] bg-accent-cyan align-middle"
+                animate={{ opacity: [1, 0] }}
+                transition={{ duration: 0.65, repeat: Infinity }}
+              />
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 function HeroVisual() {
+  const [tab, setTab] = useState<TabId>('profile')
   const [ready, setReady] = useState(false)
-  const { visible, done } = useTypedLines(ready)
+  const file = FILES[tab]
+  const { visible, done } = useTypedLines(ready, file.lines.length, tab)
 
   const mx = useMotionValue(0)
   const my = useMotionValue(0)
@@ -142,7 +287,7 @@ function HeroVisual() {
   const transform = useMotionTemplate`perspective(1400px) rotateY(${sx}deg) rotateX(${sy}deg)`
 
   useEffect(() => {
-    const t = window.setTimeout(() => setReady(true), 550)
+    const t = window.setTimeout(() => setReady(true), 450)
     return () => window.clearTimeout(t)
   }, [])
 
@@ -186,19 +331,44 @@ function HeroVisual() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="flex items-center gap-3 border-b border-white/[0.07] bg-[#0b1220] px-4 py-3 sm:px-5">
-          <div className="flex shrink-0 gap-1.5">
+        <div className="flex items-center gap-3 border-b border-white/[0.07] bg-[#0b1220] px-3 py-2 sm:px-4">
+          <div className="flex shrink-0 gap-1.5 pl-1">
             <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
             <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
             <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
           </div>
-          <div className="flex min-w-0 flex-1 items-center gap-1.5 overflow-x-auto">
-            <span className="rounded-t-md border border-b-0 border-white/10 bg-[#121a2e] px-3 py-1 font-mono text-[11px] text-slate-200">
-              profile.ts
-            </span>
-            <span className="hidden rounded-t-md px-3 py-1 font-mono text-[11px] text-slate-500 sm:inline">
-              stack.ts
-            </span>
+          <div
+            className="flex min-w-0 flex-1 items-end gap-1 overflow-x-auto pt-1"
+            role="tablist"
+            aria-label="Fichiers"
+          >
+            {(Object.keys(FILES) as TabId[]).map((id) => {
+              const active = tab === id
+              return (
+                <button
+                  key={id}
+                  type="button"
+                  role="tab"
+                  aria-selected={active}
+                  data-cursor="ouvrir"
+                  onClick={() => setTab(id)}
+                  className={`relative rounded-t-md px-3 py-1.5 font-mono text-[11px] transition-colors sm:text-xs ${
+                    active
+                      ? 'bg-[#121a2e] text-slate-100'
+                      : 'text-slate-500 hover:bg-white/[0.04] hover:text-slate-300'
+                  }`}
+                >
+                  {FILES[id].label}
+                  {active && (
+                    <motion.span
+                      layoutId="hero-tab-indicator"
+                      className="absolute inset-x-2 -bottom-px h-0.5 rounded-full bg-accent"
+                      transition={{ type: 'spring', stiffness: 420, damping: 32 }}
+                    />
+                  )}
+                </button>
+              )
+            })}
           </div>
           <span className="hidden shrink-0 items-center gap-1.5 font-mono text-[10px] tracking-wider text-emerald-400/90 sm:inline-flex">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
@@ -206,9 +376,9 @@ function HeroVisual() {
           </span>
         </div>
 
-        <div className="flex min-h-[300px] sm:min-h-[330px]">
+        <div className="flex min-h-[300px]">
           <div
-            className="hidden w-10 shrink-0 flex-col items-center gap-3.5 border-r border-white/[0.06] bg-[#080e1a] py-3.5 sm:flex"
+            className="hidden w-10 shrink-0 flex-col items-center gap-3.5 border-r border-white/[0.06] bg-[#080e1a] py-3 sm:flex"
             aria-hidden
           >
             <span className="h-4 w-4 rounded-sm border border-accent/40 bg-accent/15" />
@@ -217,64 +387,36 @@ function HeroVisual() {
             <span className="mt-auto h-4 w-4 rounded-full bg-white/5" />
           </div>
 
-          <div className="relative min-w-0 flex-1">
-            <div className="grid grid-cols-[auto_1fr] gap-x-3.5 px-4 py-5 font-mono text-[12.5px] leading-7 sm:px-5 sm:py-6 sm:text-[13.5px] sm:leading-8">
-              <div className="select-none text-right text-slate-600 tabular-nums" aria-hidden>
-                {CODE_LINES.map((_, i) => (
-                  <div key={i} className={i < visible ? 'text-slate-500' : ''}>
-                    {String(i + 1).padStart(2, '0')}
-                  </div>
-                ))}
-              </div>
-              <div className="min-w-0 overflow-x-auto overflow-y-hidden">
-                {CODE_LINES.map((line, i) => (
-                  <div
-                    key={i}
-                    className="whitespace-pre"
-                    style={{
-                      opacity: i < visible ? 1 : 0.1,
-                      transition: 'opacity 0.2s ease',
-                    }}
-                  >
-                    {line.tokens.length === 1 && line.tokens[0].t === '' ? (
-                      <span>&nbsp;</span>
-                    ) : (
-                      line.tokens.map((tok, j) => (
-                        <span key={j} className={tokenClass[tok.c]}>
-                          {tok.t}
-                        </span>
-                      ))
-                    )}
-                    {i === visible - 1 && !done && (
-                      <motion.span
-                        className="ml-0.5 inline-block h-[1.05em] w-[2px] translate-y-[2px] bg-accent-cyan align-middle"
-                        animate={{ opacity: [1, 0] }}
-                        transition={{ duration: 0.65, repeat: Infinity }}
-                      />
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="relative min-w-0 flex-1 overflow-hidden">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={tab}
+                initial={{ opacity: 0, x: tab === 'stack' ? 28 : -28, filter: 'blur(4px)' }}
+                animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, x: tab === 'stack' ? -18 : 18, filter: 'blur(3px)' }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <CodePane lines={file.lines} visible={visible} done={done} />
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
 
-        {/* Pied structuré : meta | stack */}
         <div className="border-t border-white/[0.07] bg-[#0b1220]">
-          <div className="flex items-center justify-between gap-4 px-4 py-2 sm:px-5">
+          <div className="flex items-center justify-between gap-4 px-4 py-1.5 sm:px-5">
             <div className="flex items-center gap-2 font-mono text-[10px] text-slate-500 sm:text-[11px]">
               <span className="rounded bg-accent/15 px-1.5 py-0.5 text-accent">TS</span>
               <span>UTF-8</span>
               <span className="text-slate-600">|</span>
               <span>
-                Ln {Math.min(Math.max(visible, 1), CODE_LINES.length)}
+                {file.label} · Ln {Math.min(Math.max(visible, 1), file.lines.length)}
               </span>
             </div>
             <span className="font-mono text-[10px] text-slate-500 sm:text-[11px]">
               Spaces: 2
             </span>
           </div>
-          <div className="flex items-center gap-1 overflow-x-auto border-t border-white/[0.05] px-3 py-2 sm:px-4">
+          <div className="flex items-center gap-1 overflow-x-auto border-t border-white/[0.05] px-3 py-1.5 sm:px-4">
             {STACK.map((tech) => (
               <span
                 key={tech.id}
@@ -297,7 +439,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen items-center overflow-hidden pt-28 pb-16"
+      className="relative flex min-h-screen items-center overflow-hidden pt-32 pb-16"
     >
       <GradientMesh />
       <ParticleBackground />
