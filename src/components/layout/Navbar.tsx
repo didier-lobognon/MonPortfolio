@@ -33,7 +33,9 @@ export function Navbar() {
     <header
       className={cn(
         'fixed top-0 inset-x-0 z-50 transition-all duration-300',
-        scrolled ? 'glass py-3 shadow-lg shadow-black/20' : 'bg-transparent py-5',
+        scrolled
+          ? 'bg-bg/75 py-3 backdrop-blur-md'
+          : 'bg-transparent py-5',
       )}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 sm:px-8">
@@ -47,13 +49,13 @@ export function Navbar() {
           <span className="ml-2 hidden sm:inline text-text/90">{personalInfo.firstName}</span>
         </button>
 
-        <ul className="hidden lg:flex items-center gap-1">
+        <ul className="hidden lg:flex items-center gap-0.5">
           {links.map((link) => (
             <li key={link.id}>
               <button
                 type="button"
                 onClick={() => go(link.id)}
-                className="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-text hover:bg-white/5"
+                className="rounded-lg px-3 py-2 text-[15px] text-muted transition-colors hover:text-text hover:bg-white/5"
               >
                 {link.label}
               </button>

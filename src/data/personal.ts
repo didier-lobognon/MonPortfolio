@@ -9,8 +9,8 @@ export const personalInfo: PersonalInfo = {
     'Je conçois des applications web modernes, performantes et centrées sur l\'expérience utilisateur.',
   email: 'didier.lobognon@email.com',
   phone: '+33 6 00 00 00 00',
-  location: 'France',
-  availability: 'Disponible pour de nouvelles opportunités',
+  location: 'Abidjan, Côte d\'Ivoire',
+  availability: 'Disponible — nouvelles opportunités',
   bio: [
     'Je suis un développeur Full Stack passionné par la création d\'applications web modernes.',
     'Je développe aussi bien le Front-End que le Back-End, avec une attention particulière portée à la qualité du code et à l\'expérience utilisateur.',

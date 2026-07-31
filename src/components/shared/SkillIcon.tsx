@@ -18,6 +18,9 @@ import {
   SiDocker,
   SiPostman,
   SiFigma,
+  SiAngular,
+  SiVuedotjs,
+  SiOpenjdk,
 } from 'react-icons/si'
 import type { IconType } from 'react-icons'
 
@@ -41,6 +44,9 @@ const iconMap: Record<string, IconType> = {
   docker: SiDocker,
   postman: SiPostman,
   figma: SiFigma,
+  angular: SiAngular,
+  vue: SiVuedotjs,
+  java: SiOpenjdk,
 }
 
 interface SkillIconProps {
