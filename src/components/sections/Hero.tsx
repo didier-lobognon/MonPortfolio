@@ -1,6 +1,6 @@
 import { AnimatePresence, motion, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion'
-import { useEffect, useState, type MouseEvent } from 'react'
-import { ArrowDown, ArrowRight, MapPin, Sparkles } from 'lucide-react'
+import { useEffect, useRef, useState, type MouseEvent } from 'react'
+import { ArrowDown, ArrowRight, MapPin, Smartphone } from 'lucide-react'
 import { personalInfo } from '@/data/personal'
 import { Button } from '@/components/ui/button'
 import { AnimatedText } from '@/components/shared/AnimatedText'
@@ -277,6 +277,7 @@ function CodePane({
 function HeroVisual() {
   const [tab, setTab] = useState<TabId>('profile')
   const [ready, setReady] = useState(false)
+  const userLocked = useRef(false)
   const file = FILES[tab]
   const { visible, done } = useTypedLines(ready, file.lines.length, tab)
 
@@ -290,6 +291,24 @@ function HeroVisual() {
     const t = window.setTimeout(() => setReady(true), 450)
     return () => window.clearTimeout(t)
   }, [])
+
+  // Auto-switch bidirectionnel profile ↔ stack à intervalle régulier
+  useEffect(() => {
+    if (!ready || userLocked.current) return
+
+    const INTERVAL_MS = 8000
+    const id = window.setInterval(() => {
+      if (userLocked.current) return
+      setTab((current) => (current === 'profile' ? 'stack' : 'profile'))
+    }, INTERVAL_MS)
+
+    return () => window.clearInterval(id)
+  }, [ready])
+
+  const selectTab = (id: TabId) => {
+    userLocked.current = true
+    setTab(id)
+  }
 
   const onMove = (e: MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect()
@@ -351,7 +370,7 @@ function HeroVisual() {
                   role="tab"
                   aria-selected={active}
                   data-cursor="ouvrir"
-                  onClick={() => setTab(id)}
+                  onClick={() => selectTab(id)}
                   className={`relative rounded-t-md px-3 py-1.5 font-mono text-[11px] transition-colors sm:text-xs ${
                     active
                       ? 'bg-[#121a2e] text-slate-100'
@@ -390,10 +409,11 @@ function HeroVisual() {
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={tab}
-                initial={{ opacity: 0, x: tab === 'stack' ? 28 : -28, filter: 'blur(4px)' }}
-                animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, x: tab === 'stack' ? -18 : 18, filter: 'blur(3px)' }}
-                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                initial={{ opacity: 0, x: 36, y: 8, filter: 'blur(6px)', rotateX: 6 }}
+                animate={{ opacity: 1, x: 0, y: 0, filter: 'blur(0px)', rotateX: 0 }}
+                exit={{ opacity: 0, x: -28, y: -4, filter: 'blur(5px)', rotateX: -4 }}
+                transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                style={{ transformPerspective: 900 }}
               >
                 <CodePane lines={file.lines} visible={visible} done={done} />
               </motion.div>
@@ -526,7 +546,7 @@ export function Hero() {
                 data-cursor="contact"
                 onClick={() => scrollToSection('contact')}
               >
-                <Sparkles size={16} />
+                <Smartphone size={17} strokeWidth={2} />
                 Me contacter
               </Button>
             </MagneticButton>
