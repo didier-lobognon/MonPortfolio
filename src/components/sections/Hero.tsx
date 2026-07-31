@@ -179,13 +179,13 @@ const FILES: Record<TabId, { label: string; lines: CodeLine[] }> = {
 }
 
 const STACK = [
-  { id: 'react', label: 'React' },
-  { id: 'angular', label: 'Angular' },
-  { id: 'vue', label: 'Vue' },
-  { id: 'nodejs', label: 'Node' },
-  { id: 'php', label: 'PHP' },
-  { id: 'python', label: 'Python' },
-  { id: 'java', label: 'Java' },
+  { id: 'react', label: 'React', color: 'text-[#61DAFB]' },
+  { id: 'angular', label: 'Angular', color: 'text-[#DD0031]' },
+  { id: 'vue', label: 'Vue', color: 'text-[#4FC08D]' },
+  { id: 'nodejs', label: 'Node', color: 'text-[#339933]' },
+  { id: 'php', label: 'PHP', color: 'text-[#777BB4]' },
+  { id: 'python', label: 'Python', color: 'text-[#3776AB]' },
+  { id: 'java', label: 'Java', color: 'text-[#ED8B00]' },
 ] as const
 
 const tokenClass: Record<string, string> = {
@@ -370,8 +370,7 @@ function HeroVisual() {
               )
             })}
           </div>
-          <span className="hidden shrink-0 items-center gap-1.5 font-mono text-[10px] tracking-wider text-emerald-400/90 sm:inline-flex">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+          <span className="hidden shrink-0 font-mono text-[10px] tracking-wider text-emerald-400/90 sm:inline">
             main
           </span>
         </div>
@@ -416,14 +415,14 @@ function HeroVisual() {
               Spaces: 2
             </span>
           </div>
-          <div className="flex items-center gap-1 overflow-x-auto border-t border-white/[0.05] px-3 py-1.5 sm:px-4">
+          <div className="flex items-center gap-1 overflow-x-auto border-t border-white/[0.05] px-3 py-2 sm:px-4">
             {STACK.map((tech) => (
               <span
                 key={tech.id}
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-md px-2.5 py-1 text-slate-400 transition-colors hover:bg-white/5 hover:text-slate-200"
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-md px-2.5 py-1.5 text-slate-400 transition-colors hover:bg-white/5 hover:text-slate-200"
               >
-                <SkillIcon name={tech.id} className="h-3.5 w-3.5" />
-                <span className="font-mono text-[10px] tracking-wide sm:text-[11px]">
+                <SkillIcon name={tech.id} className={`h-4 w-4 ${tech.color}`} />
+                <span className={`font-mono text-[10px] tracking-wide sm:text-[11px] ${tech.color}`}>
                   {tech.label}
                 </span>
               </span>
@@ -439,7 +438,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen items-center overflow-hidden pt-32 pb-16"
+      className="relative flex min-h-screen items-center overflow-x-hidden pt-32 pb-16"
     >
       <GradientMesh />
       <ParticleBackground />
@@ -464,15 +463,15 @@ export function Hero() {
             </div>
           </motion.div>
 
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="font-display text-[2.35rem] font-extrabold tracking-tight text-text sm:text-5xl lg:text-[3.35rem]"
           >
-            <span className="block leading-[1.15]">{personalInfo.firstName}</span>
-            <span className="block leading-[1.25] pb-1">{personalInfo.lastName}</span>
-          </motion.h1>
+            <h1 className="font-name text-[clamp(1.85rem,4.8vw,3.15rem)] font-bold leading-[1.15] tracking-[-0.03em] text-text whitespace-nowrap">
+              {personalInfo.name}
+            </h1>
+          </motion.div>
 
           <AnimatedText
             text={personalInfo.title}
@@ -485,7 +484,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.5 }}
-            className="mt-5 max-w-md text-[15px] leading-relaxed text-muted sm:text-base"
+            className="mt-5 max-w-lg text-[15px] leading-relaxed text-muted sm:text-base"
           >
             {personalInfo.subtitle}
           </motion.p>
