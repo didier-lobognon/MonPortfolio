@@ -2,15 +2,18 @@ import { motion } from 'framer-motion'
 import { personalInfo } from '@/data/personal'
 import { SectionHeading } from '@/components/shared/SectionHeading'
 import { fadeInUp, staggerContainer, viewportOnce } from '@/lib/animations'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 export function About() {
+  const { t } = useLanguage()
+
   return (
     <section id="about" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
-          eyebrow="À propos"
-          title="Un développeur, une vision produit"
-          description="Du pixel à l'API — je construis des expériences web cohérentes de bout en bout."
+          eyebrow={t.about.eyebrow}
+          title={t.about.title}
+          description={t.about.description}
         />
 
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] items-start">
@@ -21,8 +24,8 @@ export function About() {
             viewport={viewportOnce}
             className="space-y-5 text-muted text-base sm:text-lg leading-relaxed"
           >
-            {personalInfo.bio.map((paragraph) => (
-              <motion.p key={paragraph.slice(0, 24)} variants={fadeInUp}>
+            {t.about.bio.map((paragraph) => (
+              <motion.p key={paragraph.slice(0, 28)} variants={fadeInUp}>
                 {paragraph}
               </motion.p>
             ))}
@@ -36,7 +39,7 @@ export function About() {
             className="glass rounded-3xl p-7 sm:p-8 gradient-border"
           >
             <h3 className="font-display text-lg font-semibold text-text mb-5">
-              Ce qui m'intéresse particulièrement
+              {t.about.interestsTitle}
             </h3>
             <ul className="grid grid-cols-2 gap-3">
               {personalInfo.interests.map((item, i) => (

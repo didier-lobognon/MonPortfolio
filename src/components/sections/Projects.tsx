@@ -7,6 +7,7 @@ import { SectionHeading } from '@/components/shared/SectionHeading'
 import { Badge } from '@/components/ui/badge'
 import { fadeInUp, staggerContainer, viewportOnce } from '@/lib/animations'
 import type { Project } from '@/types'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [hovered, setHovered] = useState(false)
@@ -95,13 +96,15 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 }
 
 export function Projects() {
+  const { t } = useLanguage()
+
   return (
     <section id="projects" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
-          eyebrow="Projets"
-          title="Sélection de réalisations"
-          description="Des produits concrets — du SaaS au e-commerce, en passant par les APIs."
+          eyebrow={t.projects.eyebrow}
+          title={t.projects.title}
+          description={t.projects.description}
         />
 
         <motion.div

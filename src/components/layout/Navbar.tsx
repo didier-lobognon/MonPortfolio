@@ -3,19 +3,22 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { cn, scrollToSection } from '@/lib/utils'
 import logo from '@/assets/logo-ld-didier.png'
-
-const links = [
-  { id: 'about', label: 'À propos' },
-  { id: 'skills', label: 'Compétences' },
-  { id: 'projects', label: 'Projets' },
-  { id: 'journey', label: 'Parcours' },
-  { id: 'services', label: 'Services' },
-  { id: 'contact', label: 'Contact' },
-]
+import { LanguageToggle } from '@/components/layout/LanguageToggle'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 export function Navbar() {
+  const { t } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+
+  const links = [
+    { id: 'about', label: t.nav.about },
+    { id: 'skills', label: t.nav.skills },
+    { id: 'projects', label: t.nav.projects },
+    { id: 'journey', label: t.nav.journey },
+    { id: 'services', label: t.nav.services },
+    { id: 'contact', label: t.nav.contact },
+  ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -43,7 +46,7 @@ export function Navbar() {
           type="button"
           onClick={() => scrollToSection('hero')}
           className="flex items-center transition-opacity hover:opacity-90"
-          aria-label="Retour à l'accueil"
+          aria-label={t.nav.home}
         >
           <img
             src={logo}
@@ -61,7 +64,7 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => go(link.id)}
-                className="rounded-lg px-3 py-2 text-[15px] text-muted transition-colors hover:text-text hover:bg-white/5"
+                className="rounded-lg px-3.5 py-2 text-base text-muted transition-colors hover:text-text hover:bg-white/5"
               >
                 {link.label}
               </button>
@@ -69,13 +72,15 @@ export function Navbar() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <LanguageToggle />
+
           <button
             type="button"
             onClick={() => go('contact')}
             className="hidden sm:inline-flex h-10 items-center rounded-xl bg-accent/15 px-4 text-sm font-medium text-accent border border-accent/25 hover:bg-accent/25 transition-colors"
           >
-            Me contacter
+            {t.nav.contactCta}
           </button>
 
           <button
@@ -83,7 +88,7 @@ export function Navbar() {
             className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface/60"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
-            aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
+            aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
           >
             {open ? <X size={18} /> : <Menu size={18} />}
           </button>
@@ -104,12 +109,21 @@ export function Navbar() {
                   <button
                     type="button"
                     onClick={() => go(link.id)}
-                    className="w-full rounded-xl px-4 py-3 text-left text-text hover:bg-white/5"
+                    className="w-full rounded-xl px-4 py-3 text-left text-base text-text hover:bg-white/5"
                   >
                     {link.label}
                   </button>
                 </li>
               ))}
+              <li className="pt-2">
+                <button
+                  type="button"
+                  onClick={() => go('contact')}
+                  className="w-full rounded-xl bg-accent/15 px-4 py-3 text-left font-medium text-accent"
+                >
+                  {t.nav.contactCta}
+                </button>
+              </li>
             </ul>
           </motion.div>
         )}

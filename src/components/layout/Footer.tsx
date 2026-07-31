@@ -1,7 +1,9 @@
 import { personalInfo } from '@/data/personal'
 import { scrollToSection } from '@/lib/utils'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 export function Footer() {
+  const { t } = useLanguage()
   const year = new Date().getFullYear()
 
   return (
@@ -13,20 +15,19 @@ export function Footer() {
               {personalInfo.name}
             </p>
             <blockquote className="max-w-md text-muted text-sm leading-relaxed italic">
-              « Le détail fait la différence entre un produit correct et une expérience
-              mémorable. »
+              {t.footer.quote}
             </blockquote>
           </div>
 
           <div className="flex flex-wrap gap-4 text-sm text-muted">
             <button type="button" onClick={() => scrollToSection('projects')} className="hover:text-text transition-colors">
-              Projets
+              {t.nav.projects}
             </button>
             <button type="button" onClick={() => scrollToSection('about')} className="hover:text-text transition-colors">
-              À propos
+              {t.nav.about}
             </button>
             <button type="button" onClick={() => scrollToSection('contact')} className="hover:text-text transition-colors">
-              Contact
+              {t.nav.contact}
             </button>
             <a href={personalInfo.socials.find((s) => s.id === 'github')?.href} target="_blank" rel="noreferrer" className="hover:text-text transition-colors">
               GitHub
@@ -35,8 +36,8 @@ export function Footer() {
         </div>
 
         <div className="mt-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-t border-border pt-6 text-xs text-muted/80">
-          <p>© {year} {personalInfo.name}. Tous droits réservés.</p>
-          <p>Conçu avec React, Framer Motion & GSAP.</p>
+          <p>© {year} {personalInfo.name}. {t.footer.rights}</p>
+          <p>{t.footer.crafted}</p>
         </div>
       </div>
     </footer>

@@ -9,6 +9,7 @@ import { ParticleBackground } from '@/components/shared/ParticleBackground'
 import { GradientMesh } from '@/components/shared/GradientMesh'
 import { SkillIcon } from '@/components/shared/SkillIcon'
 import { scrollToSection } from '@/lib/utils'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 type Token = { t: string; c: string }
 type CodeLine = { tokens: Token[] }
@@ -455,6 +456,8 @@ function HeroVisual() {
 }
 
 export function Hero() {
+  const { t, locale } = useLanguage()
+
   return (
     <section
       id="hero"
@@ -479,7 +482,7 @@ export function Hero() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
               </span>
-              <span className="tracking-wide">{personalInfo.availability}</span>
+              <span className="tracking-wide">{t.hero.availability}</span>
             </div>
           </motion.div>
 
@@ -494,25 +497,27 @@ export function Hero() {
           </motion.div>
 
           <AnimatedText
-            text={personalInfo.title}
+            key={`title-${locale}`}
+            text={t.hero.title}
             as="p"
             className="mt-3 font-display text-xl font-semibold tracking-tight text-accent sm:text-2xl"
-            delay={0.4}
+            delay={0.15}
           />
 
           <motion.p
+            key={`sub-${locale}`}
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.5 }}
+            transition={{ delay: 0.25, duration: 0.45 }}
             className="mt-5 max-w-lg text-[15px] leading-relaxed text-muted sm:text-base"
           >
-            {personalInfo.subtitle}
+            {t.hero.subtitle}
           </motion.p>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.85 }}
+            transition={{ delay: 0.35 }}
             className="mt-4 inline-flex items-center gap-1.5 text-sm text-muted/80"
           >
             <MapPin size={14} className="text-accent/70" aria-hidden />
@@ -522,7 +527,7 @@ export function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.95, duration: 0.5 }}
+            transition={{ delay: 0.4, duration: 0.45 }}
             className="mt-8 flex flex-wrap gap-3"
           >
             <MagneticButton>
@@ -533,7 +538,7 @@ export function Hero() {
                 data-cursor="projets"
                 onClick={() => scrollToSection('projects')}
               >
-                Voir mes projets
+                {t.hero.ctaProjects}
                 <ArrowRight size={18} />
               </Button>
             </MagneticButton>
@@ -547,7 +552,7 @@ export function Hero() {
                 onClick={() => scrollToSection('contact')}
               >
                 <Smartphone size={17} strokeWidth={2} />
-                Me contacter
+                {t.hero.ctaContact}
               </Button>
             </MagneticButton>
           </motion.div>
@@ -565,9 +570,9 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.15 }}
-        aria-label="Défiler vers À propos"
+        aria-label={t.nav.about}
       >
-        <span className="text-[10px] tracking-[0.22em] uppercase">Scroll</span>
+        <span className="text-[10px] tracking-[0.22em] uppercase">{t.hero.scroll}</span>
         <motion.span
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 1.4, repeat: Infinity }}

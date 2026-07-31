@@ -3,8 +3,10 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react'
 import { testimonials } from '@/data/testimonials'
 import { SectionHeading } from '@/components/shared/SectionHeading'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 export function Testimonials() {
+  const { t } = useLanguage()
   const [index, setIndex] = useState(0)
   const total = testimonials.length
   const current = testimonials[index]
@@ -23,9 +25,9 @@ export function Testimonials() {
     <section id="testimonials" className="relative py-24 sm:py-32 bg-surface/30">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
-          eyebrow="Témoignages"
-          title="Ce qu'on dit de moi"
-          description="Retour d'expérience de collaborateurs et clients."
+          eyebrow={t.testimonials.eyebrow}
+          title={t.testimonials.title}
+          description={t.testimonials.description}
         />
 
         <div className="relative mx-auto max-w-3xl">

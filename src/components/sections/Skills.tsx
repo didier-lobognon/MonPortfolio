@@ -8,8 +8,10 @@ import { Progress } from '@/components/ui/progress'
 import { fadeInUp, staggerFast, viewportOnce } from '@/lib/animations'
 import type { SkillCategory } from '@/types'
 import { cn } from '@/lib/utils'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 export function Skills() {
+  const { t } = useLanguage()
   const [active, setActive] = useState<SkillCategory | 'all'>('all')
 
   const filtered =
@@ -19,9 +21,9 @@ export function Skills() {
     <section id="skills" className="relative py-24 sm:py-32 bg-surface/30">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
-          eyebrow="Compétences"
-          title="Stack technique"
-          description="Un éventail d'outils choisis pour livrer vite, proprement, et à l'échelle."
+          eyebrow={t.skills.eyebrow}
+          title={t.skills.title}
+          description={t.skills.description}
         />
 
         <div className="mb-10 flex flex-wrap justify-center gap-2">

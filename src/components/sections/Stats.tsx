@@ -4,6 +4,7 @@ import { stats } from '@/data/stats'
 import { useCountUp } from '@/hooks/useCountUp'
 import { SectionHeading } from '@/components/shared/SectionHeading'
 import { fadeInUp, staggerContainer, viewportOnce } from '@/lib/animations'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 function StatItem({
   value,
@@ -37,14 +38,16 @@ function StatItem({
 }
 
 export function Stats() {
+  const { t } = useLanguage()
+
   return (
     <section id="stats" className="relative py-24 sm:py-28">
       <div className="absolute inset-0 mesh-bg opacity-60 pointer-events-none" aria-hidden />
       <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
-          eyebrow="Impact"
-          title="Quelques chiffres"
-          description="Des indicateurs concrets de mon parcours et de mon engagement."
+          eyebrow={t.stats.eyebrow}
+          title={t.stats.title}
+          description={t.stats.description}
         />
 
         <motion.div

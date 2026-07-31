@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge'
 import { useGsapReveal } from '@/hooks/useGsapReveal'
 import { cn } from '@/lib/utils'
 import type { TimelineItem } from '@/types'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 const typeLabel: Record<TimelineItem['type'], string> = {
   formation: 'Formation',
@@ -21,15 +22,16 @@ const typeVariant: Record<TimelineItem['type'], 'default' | 'violet' | 'cyan' | 
 }
 
 export function Timeline() {
+  const { t } = useLanguage()
   const listRef = useGsapReveal<HTMLUListElement>()
 
   return (
     <section id="journey" className="relative py-24 sm:py-32 bg-surface/30">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
-          eyebrow="Parcours"
-          title="Timeline"
-          description="Formation, expériences, stages et missions freelance."
+          eyebrow={t.journey.eyebrow}
+          title={t.journey.title}
+          description={t.journey.description}
         />
 
         <div className="relative mx-auto max-w-3xl">
