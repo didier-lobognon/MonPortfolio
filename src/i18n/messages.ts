@@ -53,8 +53,14 @@ export const messages = {
     },
     skills: {
       eyebrow: 'Compétences',
-      title: 'Stack technique',
-      description: 'Des outils choisis pour livrer vite, propre et scalable.',
+      title: 'Maîtrise avant quantité',
+      description:
+        'Une stack volontairement ciblée : des outils que je pilote vraiment, pour livrer propre, vite et durable.',
+      coreLabel: 'Stack cœur',
+      domainsLabel: 'Domaines',
+      all: 'Vue d’ensemble',
+      reassurance: 'Moins d’outils. Plus de maîtrise.',
+      mastery: 'Niveau de maîtrise',
     },
     projects: {
       eyebrow: 'Projets',
@@ -145,8 +151,14 @@ export const messages = {
     },
     skills: {
       eyebrow: 'Skills',
-      title: 'Tech stack',
-      description: 'Tools chosen to ship fast, clean, and scalable.',
+      title: 'Mastery over quantity',
+      description:
+        'A deliberately focused stack: tools I truly own, to ship clean, fast, and durable products.',
+      coreLabel: 'Core stack',
+      domainsLabel: 'Domains',
+      all: 'Overview',
+      reassurance: 'Fewer tools. Deeper mastery.',
+      mastery: 'Mastery level',
     },
     projects: {
       eyebrow: 'Projects',

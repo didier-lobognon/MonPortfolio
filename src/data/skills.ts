@@ -5,7 +5,7 @@ import type { Skill } from '@/types'
  * level : 0–100 pour la barre de progression.
  */
 export const skills: Skill[] = [
-  // Frontend
+  // Frontend & Mobile
   {
     id: 'react',
     name: 'React',
@@ -13,6 +13,30 @@ export const skills: Skill[] = [
     level: 92,
     description: 'Interfaces dynamiques, hooks avancés et architecture composable.',
     icon: 'react',
+  },
+  {
+    id: 'angular',
+    name: 'Angular',
+    category: 'frontend',
+    level: 84,
+    description: 'Applications structurées, RxJS et architecture enterprise.',
+    icon: 'angular',
+  },
+  {
+    id: 'vue',
+    name: 'Vue.js',
+    category: 'frontend',
+    level: 86,
+    description: 'UI réactives, Composition API et prototypes rapides.',
+    icon: 'vue',
+  },
+  {
+    id: 'nextjs',
+    name: 'Next.js',
+    category: 'frontend',
+    level: 88,
+    description: 'SSR/SSG, App Router et apps React prêtes pour la prod.',
+    icon: 'nextjs',
   },
   {
     id: 'typescript',
@@ -39,6 +63,14 @@ export const skills: Skill[] = [
     icon: 'tailwind',
   },
   {
+    id: 'bootstrap',
+    name: 'Bootstrap',
+    category: 'frontend',
+    level: 85,
+    description: 'Layouts responsives et composants UI éprouvés.',
+    icon: 'bootstrap',
+  },
+  {
     id: 'html',
     name: 'HTML',
     category: 'frontend',
@@ -54,6 +86,22 @@ export const skills: Skill[] = [
     description: 'Animations, layouts complexes et micro-interactions.',
     icon: 'css',
   },
+  {
+    id: 'reactnative',
+    name: 'React Native',
+    category: 'frontend',
+    level: 78,
+    description: 'Apps mobiles cross-platform avec écosystème React.',
+    icon: 'reactnative',
+  },
+  {
+    id: 'flutter',
+    name: 'Flutter',
+    category: 'frontend',
+    level: 76,
+    description: 'UI natives performantes avec Dart et widgets.',
+    icon: 'flutter',
+  },
 
   // Backend
   {
@@ -63,6 +111,14 @@ export const skills: Skill[] = [
     level: 88,
     description: 'APIs performantes et services backend scalables.',
     icon: 'nodejs',
+  },
+  {
+    id: 'express',
+    name: 'Express',
+    category: 'backend',
+    level: 87,
+    description: 'APIs REST légères, middlewares et routing clair.',
+    icon: 'express',
   },
   {
     id: 'nestjs',
@@ -76,7 +132,7 @@ export const skills: Skill[] = [
     id: 'php',
     name: 'PHP',
     category: 'backend',
-    level: 82,
+    level: 88,
     description: 'Applications web classiques et intégrations métier.',
     icon: 'php',
   },
@@ -84,25 +140,57 @@ export const skills: Skill[] = [
     id: 'laravel',
     name: 'Laravel',
     category: 'backend',
-    level: 84,
+    level: 86,
     description: 'Eloquent, queues, auth et écosystème mature.',
     icon: 'laravel',
+  },
+  {
+    id: 'java',
+    name: 'Java',
+    category: 'backend',
+    level: 80,
+    description: 'Backend robuste, typage fort et applicatifs durables.',
+    icon: 'java',
+  },
+  {
+    id: 'spring',
+    name: 'Spring',
+    category: 'backend',
+    level: 78,
+    description: 'Écosystème Java enterprise, DI et services métier.',
+    icon: 'spring',
+  },
+  {
+    id: 'springboot',
+    name: 'Spring Boot',
+    category: 'backend',
+    level: 78,
+    description: 'APIs Java production-ready, config et déploiement simplifiés.',
+    icon: 'springboot',
   },
   {
     id: 'python',
     name: 'Python',
     category: 'backend',
-    level: 80,
-    description: 'Scripts, automatisation et services légers.',
+    level: 84,
+    description: 'Scripts, automatisation et services backend.',
     icon: 'python',
   },
   {
     id: 'fastapi',
     name: 'FastAPI',
     category: 'backend',
-    level: 78,
+    level: 82,
     description: 'APIs Python rapides avec validation Pydantic.',
     icon: 'fastapi',
+  },
+  {
+    id: 'flask',
+    name: 'Flask',
+    category: 'backend',
+    level: 80,
+    description: 'Micro-framework Python pour APIs et services légers.',
+    icon: 'flask',
   },
 
   // Databases
@@ -131,7 +219,7 @@ export const skills: Skill[] = [
     icon: 'mongodb',
   },
 
-  // Tools
+  // Tools & platforms
   {
     id: 'git',
     name: 'Git',
@@ -139,6 +227,30 @@ export const skills: Skill[] = [
     level: 92,
     description: 'Workflows collaboratifs, branches et code review.',
     icon: 'git',
+  },
+  {
+    id: 'github',
+    name: 'GitHub',
+    category: 'tools',
+    level: 90,
+    description: 'Repos, PRs, Actions et collaboration open source.',
+    icon: 'github',
+  },
+  {
+    id: 'gitlab',
+    name: 'GitLab',
+    category: 'tools',
+    level: 84,
+    description: 'CI/CD, merge requests et gestion de projets.',
+    icon: 'gitlab',
+  },
+  {
+    id: 'bash',
+    name: 'Bash',
+    category: 'tools',
+    level: 82,
+    description: 'Automatisation shell, scripts et tooling CLI.',
+    icon: 'bash',
   },
   {
     id: 'docker',
@@ -149,11 +261,35 @@ export const skills: Skill[] = [
     icon: 'docker',
   },
   {
+    id: 'docusaurus',
+    name: 'Docusaurus',
+    category: 'tools',
+    level: 78,
+    description: 'Documentation technique moderne et versionnée.',
+    icon: 'docusaurus',
+  },
+  {
+    id: 'moodle',
+    name: 'Moodle',
+    category: 'tools',
+    level: 76,
+    description: 'Plateformes e-learning et personnalisation LMS.',
+    icon: 'moodle',
+  },
+  {
+    id: 'wordpress',
+    name: 'WordPress',
+    category: 'tools',
+    level: 80,
+    description: 'Sites, thèmes et extensions sur mesure.',
+    icon: 'wordpress',
+  },
+  {
     id: 'postman',
     name: 'Postman',
     category: 'tools',
     level: 88,
-    description: 'Tests d\'API, collections et documentation.',
+    description: "Tests d'API, collections et documentation.",
     icon: 'postman',
   },
   {
