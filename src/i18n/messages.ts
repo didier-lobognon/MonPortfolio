@@ -26,15 +26,30 @@ export const messages = {
     },
     about: {
       eyebrow: 'À propos',
-      title: 'Un développeur, une vision produit',
-      description:
-        "Du pixel à l'API — je construis des expériences web cohérentes de bout en bout.",
-      interestsTitle: "Ce qui m'intéresse particulièrement",
+      title: 'L’humain derrière le code',
+      lead: 'Full Stack avec une obsession produit : des interfaces nettes, des APIs solides, et des livraisons qui tiennent en production.',
       bio: [
-        "Je suis un développeur Full Stack passionné par la création d'applications web modernes.",
-        "Je développe aussi bien le Front-End que le Back-End, avec une attention particulière portée à la qualité du code et à l'expérience utilisateur.",
-        'Ce qui me motive au quotidien : transformer des idées en produits concrets, propres et agréables à utiliser.',
+        'Je conçois des applications web de bout en bout — du front React/Angular/Vue jusqu’aux backends Node, PHP, Python ou Java.',
+        'Mon approche mélange rigueur technique et sens du détail UX : chaque écran, chaque endpoint, chaque déploiement doit servir une expérience claire.',
+        'Basé à Abidjan, j’accompagne les équipes et les projets qui veulent passer d’une idée à un produit fiable, élégant et prêt à scaler.',
       ],
+      focusLabel: 'Axes de prédilection',
+      signature: 'Brief → architecture → produit livré.',
+      pillars: [
+        {
+          title: 'Craft',
+          text: 'Code propre, lisible, maintenable — sans compromis sur la qualité.',
+        },
+        {
+          title: 'Ship',
+          text: 'Livrer vite, mais bien : MVP utiles et itérations continues.',
+        },
+        {
+          title: 'UX',
+          text: 'Des parcours fluides pensés pour les vrais utilisateurs.',
+        },
+      ],
+      cta: 'Discutons de votre projet',
     },
     skills: {
       eyebrow: 'Compétences',
@@ -103,15 +118,30 @@ export const messages = {
     },
     about: {
       eyebrow: 'About',
-      title: 'A developer with a product mindset',
-      description:
-        'From pixel to API — I craft coherent end-to-end web experiences.',
-      interestsTitle: 'What I care about most',
+      title: 'The person behind the code',
+      lead: 'Full Stack with a product obsession: sharp interfaces, solid APIs, and releases that hold up in production.',
       bio: [
-        'I am a Full Stack developer passionate about building modern web applications.',
-        'I work across Front-End and Back-End, with particular attention to code quality and user experience.',
-        'What drives me daily: turning ideas into clean, concrete products that feel great to use.',
+        'I build end-to-end web applications — from React/Angular/Vue frontends to Node, PHP, Python, or Java backends.',
+        'My approach blends technical rigor with UX detail: every screen, endpoint, and deploy should serve a clear experience.',
+        'Based in Abidjan, I partner with teams and projects that want to go from idea to a reliable, elegant, scalable product.',
       ],
+      focusLabel: 'Focus areas',
+      signature: 'Brief → architecture → shipped product.',
+      pillars: [
+        {
+          title: 'Craft',
+          text: 'Clean, readable, maintainable code — no compromise on quality.',
+        },
+        {
+          title: 'Ship',
+          text: 'Move fast, ship well: useful MVPs and continuous iteration.',
+        },
+        {
+          title: 'UX',
+          text: 'Fluid journeys designed for real users.',
+        },
+      ],
+      cta: "Let's talk about your project",
     },
     skills: {
       eyebrow: 'Skills',
@@ -159,8 +189,12 @@ export const messages = {
 
 export type Messages = {
   [K in keyof (typeof messages)['fr']]: {
-    [P in keyof (typeof messages)['fr'][K]]: (typeof messages)['fr'][K][P] extends readonly string[]
-      ? readonly string[]
-      : string
+    [P in keyof (typeof messages)['fr'][K]]: (typeof messages)['fr'][K][P] extends string
+      ? string
+      : (typeof messages)['fr'][K][P] extends readonly (infer Item)[]
+        ? Item extends string
+          ? readonly string[]
+          : readonly { readonly [Key in keyof Item]: string }[]
+        : string
   }
 }
