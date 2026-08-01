@@ -1,95 +1,462 @@
-import { motion } from 'framer-motion'
+import { useMemo, useRef, useState } from 'react'
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
+  AnimatePresence,
+  type MotionValue,
+} from 'framer-motion'
+import {
+  Award,
+  Briefcase,
+  GraduationCap,
+  Rocket,
+  Sparkles,
+  ArrowDown,
+  ExternalLink,
+  MapPin,
+  Trophy,
+} from 'lucide-react'
 import { timeline } from '@/data/timeline'
+import { personalInfo } from '@/data/personal'
 import { SectionHeading } from '@/components/shared/SectionHeading'
-import { Badge } from '@/components/ui/badge'
-import { useGsapReveal } from '@/hooks/useGsapReveal'
+import { viewportOnce } from '@/lib/animations'
 import { cn } from '@/lib/utils'
-import type { TimelineItem } from '@/types'
+import type { TimelineItem, TimelineType } from '@/types'
 import { useLanguage } from '@/i18n/LanguageProvider'
 
-const typeLabel: Record<TimelineItem['type'], string> = {
-  formation: 'Formation',
-  experience: 'Expérience',
-  stage: 'Stage',
-  freelance: 'Freelance',
+type FilterKey = 'all' | 'experience' | 'formation' | 'certificat'
+
+const TYPE_META: Record<
+  TimelineType,
+  { icon: typeof Briefcase; labelFr: string; labelEn: string; accent: string }
+> = {
+  experience: {
+    icon: Briefcase,
+    labelFr: 'Expérience',
+    labelEn: 'Experience',
+    accent: '#3B82F6',
+  },
+  formation: {
+    icon: GraduationCap,
+    labelFr: 'Formation',
+    labelEn: 'Education',
+    accent: '#22D3EE',
+  },
+  certificat: {
+    icon: Award,
+    labelFr: 'Certificat',
+    labelEn: 'Certificate',
+    accent: '#A78BFA',
+  },
+  milestone: {
+    icon: Trophy,
+    labelFr: 'Temps fort',
+    labelEn: 'Milestone',
+    accent: '#F59E0B',
+  },
+  stage: {
+    icon: Rocket,
+    labelFr: 'Stage',
+    labelEn: 'Internship',
+    accent: '#94A3B8',
+  },
+  freelance: {
+    icon: Sparkles,
+    labelFr: 'Freelance',
+    labelEn: 'Freelance',
+    accent: '#F472B6',
+  },
 }
 
-const typeVariant: Record<TimelineItem['type'], 'default' | 'violet' | 'cyan' | 'muted'> = {
-  formation: 'cyan',
-  experience: 'default',
-  stage: 'muted',
-  freelance: 'violet',
+function matchesFilter(item: TimelineItem, filter: FilterKey) {
+  if (filter === 'all') return true
+  if (filter === 'experience') {
+    return item.type === 'experience' || item.type === 'stage' || item.type === 'freelance'
+  }
+  if (filter === 'formation') {
+    return item.type === 'formation' || item.type === 'milestone'
+  }
+  return item.type === 'certificat'
+}
+
+function JourneyNode({
+  item,
+  index,
+  progress,
+  fr,
+  currentLabel,
+}: {
+  item: TimelineItem
+  index: number
+  progress: MotionValue<number>
+  fr: boolean
+  currentLabel: string
+}) {
+  const meta = TYPE_META[item.type]
+  const Icon = meta.icon
+  const start = Math.max(0, index * 0.09)
+  const end = Math.min(1, start + 0.22)
+  const nodeOpacity = useTransform(progress, [start, end], [0.35, 1])
+  const nodeScale = useTransform(progress, [start, end], [0.92, 1])
+  const glow = useTransform(progress, [start, (start + end) / 2, end], [0, 1, 0.55])
+  const nodeGlow = useTransform(
+    glow,
+    (v) => `0 0 ${18 + v * 28}px ${meta.accent}${Math.round(v * 90).toString(16).padStart(2, '0')}`,
+  )
+  const side = index % 2 === 0 ? 'left' : 'right'
+
+  return (
+    <motion.li
+      style={{ opacity: nodeOpacity, scale: nodeScale }}
+      initial={{ opacity: 0, y: 48, filter: 'blur(8px)' }}
+      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      viewport={{ once: true, amount: 0.35, margin: '-40px' }}
+      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: Math.min(index * 0.04, 0.2) }}
+      className="relative grid grid-cols-1 gap-4 lg:grid-cols-[1fr_auto_1fr] lg:gap-0"
+    >
+      {/* Carte — alterne gauche / droite sur desktop */}
+      <div
+        className={cn(
+          'lg:row-start-1',
+          side === 'left' ? 'lg:col-start-1 lg:pr-10 lg:text-right' : 'lg:col-start-3 lg:pl-10',
+          side === 'right' && 'lg:col-start-3',
+        )}
+      >
+        <motion.article
+          whileHover={{ y: -6, transition: { type: 'spring', stiffness: 380, damping: 28 } }}
+          className={cn(
+            'group relative overflow-hidden rounded-[1.4rem] border p-5 sm:p-6 text-left',
+            item.highlight
+              ? 'border-white/15 bg-[#121c30]'
+              : 'border-white/[0.1] bg-[#0d1524]/90',
+          )}
+          style={{
+            boxShadow: item.highlight
+              ? `0 0 0 1px ${meta.accent}33, 0 24px 60px rgba(0,0,0,0.45), 0 0 40px ${meta.accent}18`
+              : '0 16px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04)',
+          }}
+        >
+          <motion.div
+            aria-hidden
+            className="pointer-events-none absolute -inset-px rounded-[1.4rem] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+            style={{
+              background: `radial-gradient(500px circle at var(--x,50%) var(--y,0%), ${meta.accent}22, transparent 55%)`,
+            }}
+          />
+
+          <div
+            className={cn(
+              'relative flex flex-wrap items-center gap-2',
+              side === 'left' && 'lg:flex-row-reverse lg:justify-start',
+            )}
+          >
+            {item.logo && (
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/12 bg-white p-1.5 shadow-[0_8px_20px_rgba(0,0,0,0.25)]">
+                <img
+                  src={item.logo}
+                  alt=""
+                  className="h-full w-full object-contain"
+                  loading="lazy"
+                />
+              </span>
+            )}
+            <div
+              className={cn(
+                'flex min-w-0 flex-1 flex-wrap items-center gap-2',
+                side === 'left' && 'lg:justify-end',
+              )}
+            >
+              <span
+                className="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold tracking-wide uppercase"
+                style={{
+                  color: meta.accent,
+                  borderColor: `${meta.accent}55`,
+                  background: `${meta.accent}14`,
+                }}
+              >
+                <Icon className="h-3 w-3" />
+                {fr ? meta.labelFr : meta.labelEn}
+              </span>
+              <span className="font-mono text-[11px] text-slate-500">{item.period}</span>
+              {item.current && (
+                <span className="inline-flex items-center gap-1 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2 py-0.5 text-[10px] font-medium text-emerald-300">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                  </span>
+                  {currentLabel}
+                </span>
+              )}
+            </div>
+          </div>
+
+          <h3
+            className={cn(
+              'relative mt-3 font-display text-xl font-bold tracking-tight text-white sm:text-2xl',
+              side === 'left' && 'lg:text-right',
+            )}
+          >
+            {item.title}
+          </h3>
+          <p
+            className={cn(
+              'relative mt-1.5 text-sm font-medium',
+              side === 'left' && 'lg:text-right',
+            )}
+            style={{ color: meta.accent }}
+          >
+            {item.organization}
+          </p>
+          <p
+            className={cn(
+              'relative mt-1 inline-flex items-center gap-1 text-xs text-slate-500',
+              side === 'left' && 'lg:w-full lg:justify-end',
+            )}
+          >
+            <MapPin className="h-3 w-3 shrink-0" />
+            {item.location}
+          </p>
+          <p
+            className={cn(
+              'relative mt-3 text-sm leading-relaxed text-slate-300',
+              side === 'left' && 'lg:text-right',
+            )}
+          >
+            {item.description}
+          </p>
+
+          {item.tags && item.tags.length > 0 && (
+            <div
+              className={cn(
+                'relative mt-4 flex flex-wrap gap-1.5',
+                side === 'left' && 'lg:justify-end',
+              )}
+            >
+              {item.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-md border border-white/10 bg-white/[0.03] px-2 py-0.5 text-[10px] text-slate-400"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </motion.article>
+      </div>
+
+      {/* Nœud central */}
+      <div className="relative z-10 hidden items-start justify-center lg:flex lg:col-start-2 lg:row-start-1 lg:px-3">
+        <motion.div
+          style={{ boxShadow: nodeGlow }}
+          className="relative mt-8 flex h-12 w-12 items-center justify-center rounded-full bg-[#0a1220]"
+        >
+          <span
+            className="absolute inset-0 rounded-full"
+            style={{ border: `2px solid ${meta.accent}`, opacity: 0.85 }}
+          />
+          <Icon className="relative h-5 w-5" style={{ color: meta.accent }} />
+          <motion.span
+            aria-hidden
+            className="absolute inset-[-6px] rounded-full border"
+            style={{ borderColor: `${meta.accent}40` }}
+            animate={{ scale: [1, 1.25, 1], opacity: [0.5, 0, 0.5] }}
+            transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut', delay: index * 0.15 }}
+          />
+        </motion.div>
+      </div>
+
+      {/* Colonne vide pour l’alternance */}
+      <div
+        className={cn(
+          'hidden lg:block lg:row-start-1',
+          side === 'left' ? 'lg:col-start-3' : 'lg:col-start-1',
+        )}
+        aria-hidden
+      />
+    </motion.li>
+  )
 }
 
 export function Timeline() {
-  const { t } = useLanguage()
-  const listRef = useGsapReveal<HTMLUListElement>()
+  const { t, locale } = useLanguage()
+  const fr = locale === 'fr'
+  const [filter, setFilter] = useState<FilterKey>('all')
+  const sectionRef = useRef<HTMLElement>(null)
+
+  const visible = useMemo(
+    () => timeline.filter((item) => matchesFilter(item, filter)),
+    [filter],
+  )
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start 70%', 'end 85%'],
+  })
+  const pathProgress = useSpring(scrollYProgress, { stiffness: 90, damping: 24, mass: 0.35 })
+  const pathHeight = useTransform(pathProgress, [0, 1], ['0%', '100%'])
+
+  const filters: { key: FilterKey; label: string }[] = [
+    { key: 'all', label: t.journey.filters.all },
+    { key: 'experience', label: t.journey.filters.experience },
+    { key: 'formation', label: t.journey.filters.formation },
+    { key: 'certificat', label: t.journey.filters.certificat },
+  ]
+
+  const linkedin = personalInfo.socials.find((s) => s.id === 'linkedin')?.href
 
   return (
-    <section id="journey" className="relative py-24 sm:py-32 bg-surface/30">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+    <section
+      id="journey"
+      ref={sectionRef}
+      className="relative overflow-hidden py-24 sm:py-32"
+    >
+      {/* Atmosphère */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(59,130,246,0.12),transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(167,139,250,0.1),transparent_50%)]" />
+        <div
+          className="absolute inset-0 opacity-[0.35]"
+          style={{
+            backgroundImage:
+              'radial-gradient(circle at 20% 20%, rgba(255,255,255,0.05) 0.5px, transparent 0.5px), radial-gradient(circle at 80% 60%, rgba(255,255,255,0.04) 0.5px, transparent 0.5px)',
+            backgroundSize: '48px 48px, 72px 72px',
+          }}
+        />
+        <motion.div
+          className="absolute top-1/4 left-[12%] h-64 w-64 rounded-full bg-accent/15 blur-[100px]"
+          animate={{ y: [0, 30, 0], opacity: [0.35, 0.55, 0.35] }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          className="absolute right-[10%] bottom-1/4 h-72 w-72 rounded-full bg-accent-violet/15 blur-[110px]"
+          animate={{ y: [0, -24, 0], opacity: [0.3, 0.5, 0.3] }}
+          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+        />
+      </div>
+
+      <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
           eyebrow={t.journey.eyebrow}
           title={t.journey.title}
           description={t.journey.description}
         />
 
-        <div className="relative mx-auto max-w-3xl">
-          <div className="absolute left-4 sm:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-accent via-accent-violet to-accent-cyan sm:-translate-x-1/2" />
-
-          <ul ref={listRef} className="space-y-10">
-            {timeline.map((item, i) => {
-              const left = i % 2 === 0
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewportOnce}
+          className="mb-10 flex flex-col items-center gap-4 sm:mb-14"
+        >
+          <div className="inline-flex flex-wrap items-center justify-center gap-1 rounded-full border border-white/10 bg-white/[0.03] p-1.5">
+            {filters.map((f) => {
+              const active = filter === f.key
               return (
-                <li
-                  key={item.id}
-                  data-gsap-item
-                  className="relative sm:grid sm:grid-cols-2 sm:gap-10"
+                <button
+                  key={f.key}
+                  type="button"
+                  onClick={() => setFilter(f.key)}
+                  data-cursor={f.label}
+                  className={cn(
+                    'relative rounded-full px-4 py-2 text-sm font-medium transition-colors',
+                    active ? 'text-text' : 'text-muted hover:text-text/85',
+                  )}
                 >
-                  <span className="absolute left-4 sm:left-1/2 top-3 h-3 w-3 -translate-x-1/2 rounded-full bg-accent shadow-glow z-10" />
-
-                  <div
-                    className={cn(
-                      'ml-10 sm:ml-0',
-                      left ? 'sm:col-start-1 sm:text-right sm:pr-8' : 'sm:col-start-2 sm:pl-8',
-                    )}
-                  >
-                    <motion.div
-                      whileHover={{ y: -4 }}
-                      className="glass rounded-2xl p-5 sm:p-6 text-left"
-                    >
-                      <div className="mb-3 flex flex-wrap items-center gap-2">
-                        <Badge variant={typeVariant[item.type]}>{typeLabel[item.type]}</Badge>
-                        <span className="text-xs text-muted">{item.period}</span>
-                      </div>
-                      <h3 className="font-display text-lg font-semibold text-text">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-accent mt-1">
-                        {item.organization} · {item.location}
-                      </p>
-                      <p className="mt-3 text-sm text-muted leading-relaxed">
-                        {item.description}
-                      </p>
-                      {item.tags && (
-                        <div className="mt-4 flex flex-wrap gap-2">
-                          {item.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="rounded-md bg-white/5 px-2 py-1 text-[11px] text-muted"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </motion.div>
-                  </div>
-                </li>
+                  {active && (
+                    <motion.span
+                      layoutId="journey-filter-pill"
+                      className="absolute inset-0 rounded-full border border-accent-cyan/35 bg-accent-cyan/15 shadow-[0_0_24px_rgba(34,211,238,0.16)]"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative z-10">{f.label}</span>
+                </button>
               )
             })}
-          </ul>
+          </div>
+
+          <motion.p
+            className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.18em] text-slate-500 uppercase"
+            animate={{ opacity: [0.45, 1, 0.45], y: [0, 3, 0] }}
+            transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <ArrowDown className="h-3.5 w-3.5" />
+            {t.journey.nextHint}
+          </motion.p>
+        </motion.div>
+
+        <div className="relative mx-auto max-w-5xl">
+          {/* Rail */}
+          <div
+            className="pointer-events-none absolute top-0 bottom-0 left-6 w-px bg-white/10 sm:left-1/2 sm:-translate-x-1/2 lg:left-1/2"
+            aria-hidden
+          >
+            <motion.div
+              className="absolute top-0 left-0 w-full origin-top rounded-full"
+              style={{
+                height: pathHeight,
+                background:
+                  'linear-gradient(180deg, #3B82F6 0%, #A78BFA 45%, #22D3EE 100%)',
+                boxShadow: '0 0 24px rgba(59,130,246,0.45)',
+              }}
+            />
+          </div>
+
+          <AnimatePresence mode="wait">
+            <motion.ol
+              key={filter}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.35 }}
+              className="relative space-y-10 sm:space-y-14 lg:space-y-16"
+            >
+              {visible.map((item, i) => (
+                <div key={item.id} className="relative">
+                  {/* Point mobile */}
+                  <span
+                    className="absolute top-7 left-6 z-10 flex h-3 w-3 -translate-x-1/2 rounded-full lg:hidden"
+                    style={{
+                      background: TYPE_META[item.type].accent,
+                      boxShadow: `0 0 16px ${TYPE_META[item.type].accent}`,
+                    }}
+                  />
+                  <div className="pl-12 lg:pl-0">
+                    <JourneyNode
+                      item={item}
+                      index={i}
+                      progress={pathProgress}
+                      fr={fr}
+                      currentLabel={t.journey.current}
+                    />
+                  </div>
+                </div>
+              ))}
+            </motion.ol>
+          </AnimatePresence>
         </div>
+
+        {linkedin && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewportOnce}
+            className="mt-14 flex justify-center"
+          >
+            <a
+              href={linkedin}
+              target="_blank"
+              rel="noreferrer"
+              data-cursor={t.journey.linkedin}
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-5 py-2.5 text-sm font-medium text-slate-200 transition-colors hover:border-accent/40 hover:bg-accent/10 hover:text-white"
+            >
+              {t.journey.linkedin}
+              <ExternalLink className="h-3.5 w-3.5" />
+            </a>
+          </motion.div>
+        )}
       </div>
     </section>
   )

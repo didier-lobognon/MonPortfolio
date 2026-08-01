@@ -70,8 +70,18 @@ export const messages = {
     },
     journey: {
       eyebrow: 'Parcours',
-      title: 'Timeline',
-      description: 'Formations, expériences et étapes clés.',
+      title: 'Une trajectoire en mouvement',
+      description:
+        'Formations, certifications et expériences — un fil qui se dévoile étape après étape.',
+      filters: {
+        all: 'Tout',
+        experience: 'Expériences',
+        formation: 'Formations',
+        certificat: 'Certificats',
+      },
+      current: 'En cours',
+      nextHint: 'Faites défiler pour la suite',
+      linkedin: 'Voir sur LinkedIn',
     },
     services: {
       eyebrow: 'Services',
@@ -169,8 +179,18 @@ export const messages = {
     },
     journey: {
       eyebrow: 'Journey',
-      title: 'Timeline',
-      description: 'Education, experience, and key milestones.',
+      title: 'A path still unfolding',
+      description:
+        'Education, certifications, and experience — a story that reveals itself step by step.',
+      filters: {
+        all: 'All',
+        experience: 'Experience',
+        formation: 'Education',
+        certificat: 'Certificates',
+      },
+      current: 'Current',
+      nextHint: 'Scroll to keep going',
+      linkedin: 'View on LinkedIn',
     },
     services: {
       eyebrow: 'Services',

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { cn, scrollToSection } from '@/lib/utils'
-import logo from '@/assets/logo-ld-didier.png'
+import logo from '@/assets/brand/logo-ld-didier.png'
 import { LanguageToggle } from '@/components/layout/LanguageToggle'
 import { useLanguage } from '@/i18n/LanguageProvider'
 

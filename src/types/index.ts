@@ -66,15 +66,29 @@ export interface Project {
 }
 
 
+export type TimelineType =
+  | 'formation'
+  | 'experience'
+  | 'stage'
+  | 'freelance'
+  | 'certificat'
+  | 'milestone'
+
 export interface TimelineItem {
   id: string
-  type: 'formation' | 'experience' | 'stage' | 'freelance'
+  type: TimelineType
   title: string
   organization: string
   location: string
   period: string
   description: string
   tags?: string[]
+  /** Logo entreprise / établissement */
+  logo?: string
+  /** Mise en avant (poste actuel, certif clé…) */
+  highlight?: boolean
+  /** En cours */
+  current?: boolean
 }
 
 export interface Service {
