@@ -29,6 +29,9 @@ import docEngeem2 from '@/assets/doc-engeem2.png'
 import docEngeem3 from '@/assets/doc-engeem3.png'
 import pimediaImg from '@/assets/pimedia.png'
 import pimedia1 from '@/assets/pimedia1.png'
+import wamImg from '@/assets/wam.png'
+import wam1 from '@/assets/wam1.png'
+import wam2 from '@/assets/wam2.png'
 
 /**
  * Projets du portfolio.
@@ -749,13 +752,13 @@ export const projects: Project[] = [
   },
   {
     id: 'classstem',
-    title: 'ClasseStem',
+    title: 'ClassStem',
     description:
       'Plateforme LMS Moodle STEM : thème & plugins sur mesure, parcours programmation, robotique et impression 3D.',
     longDescription:
-      'ClasseStem (Classstem) est la plateforme d’apprentissage de DynExcAfrica : programmation, robotique et impression 3D dans une expérience interactive pour élèves, étudiants et formateurs — construite sur Moodle avec thème et plugins personnalisés.',
+      'ClassStem est la plateforme d’apprentissage de DynExcAfrica : programmation, robotique et impression 3D dans une expérience interactive pour élèves, étudiants et formateurs — construite sur Moodle avec thème et plugins personnalisés.',
     overview: [
-      'ClasseStem réunit trois parcours complets — Programmation (Python, JavaScript, C++), Impression 3D (Blender, Fusion 360) et Robotique (Arduino, Raspberry Pi) — au sein d’un LMS Moodle bilingue (FR/EN).',
+      'ClassStem réunit trois parcours complets — Programmation (Python, JavaScript, C++), Impression 3D (Blender, Fusion 360) et Robotique (Arduino, Raspberry Pi) — au sein d’un LMS Moodle bilingue (FR/EN).',
       'Portée par DynExcAfrica (« Former, Innover, Inspirer »), la plateforme s’appuie sur 7 ans d’expertise STEM, +20 formateurs et 5 000+ apprenants, avec espaces dédiés aux élèves/étudiants et aux enseignants/formateurs.',
       'Mise en place Moodle : création et installation de thème custom, développement/installation de plugins, structuration et gestion des cours et modules de formation. Prod : classstem.dynexcafrica.org.',
     ],
@@ -770,12 +773,12 @@ export const projects: Project[] = [
     demo: 'https://classstem.dynexcafrica.org',
     contributionTeaser: 'Thème Moodle, plugins & gestion des cours STEM',
     contributionNote:
-      'Mise en place de ClasseStem sur Moodle : création et installation d’un thème sur mesure, plugins métier, et gestion / structuration des cours (programmation, robotique, impression 3D).',
+      'Mise en place de ClassStem sur Moodle : création et installation d’un thème sur mesure, plugins métier, et gestion / structuration des cours (programmation, robotique, impression 3D).',
     contributionHighlights: [
       {
         title: 'Thème Moodle custom',
         description:
-          'Conception et installation d’un thème aligné sur l’identité DynExcAfrica / ClasseStem.',
+          'Conception et installation d’un thème aligné sur l’identité DynExcAfrica / ClassStem.',
       },
       {
         title: 'Plugins & cours',
@@ -825,7 +828,7 @@ export const projects: Project[] = [
       },
       {
         title: 'Thème & plugins',
-        description: 'Personnalisation profonde de Moodle pour ClasseStem.',
+        description: 'Personnalisation profonde de Moodle pour ClassStem.',
       },
     ],
     architecture: [
@@ -1174,5 +1177,108 @@ export const projects: Project[] = [
       { label: 'Média', items: ['SEO', 'Newsletter', 'Social'] },
     ],
     gallery: [pimediaImg, pimedia1],
+  },
+  {
+    id: 'wam',
+    title: 'West Africa Mobility',
+    description:
+      'Plateforme web pour la mobilité durable en Afrique de l’Ouest — événements, livres blancs et partenariats.',
+    longDescription:
+      'West Africa Mobility (WAM) est la plateforme stratégique dédiée à l’accélération de solutions de mobilité résilientes, durables et intelligentes en Afrique de l’Ouest : innovations, collaboration institutionnelle et recommandations politiques.',
+    overview: [
+      'WAM valorise les innovations de transport intelligent adaptées au contexte urbain africain, connecte dirigeants, investisseurs et acteurs tech, et produit des analyses pour guider les politiques d’infrastructure régionales (CEDEAO).',
+      'Le site regroupe agenda (sommets, ateliers, showcases start-ups), plateau d’experts, livres blancs, photothèque, inscriptions participants et parcours partenariats, avec interface bilingue FR / EN.',
+      'Application web moderne (React + Vite + Tailwind) : vitrine dark premium, pages événements / ressources / contact. Prod : www.westafricamobility.net.',
+    ],
+    image: wamImg,
+    technologies: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'i18n', 'SPA'],
+    featured: true,
+    year: '2025',
+    category: 'Mobilité · Événementiel',
+    role: 'Développeur Frontend',
+    accent: '#0EA5E9',
+    caseStudy: true,
+    demo: 'https://www.westafricamobility.net/',
+    contributionTeaser: 'Site React — agenda, livres blancs, inscriptions & partenariats',
+    contributionNote:
+      'Développement frontend de la plateforme West Africa Mobility : vitrine mobilité durable, agenda d’événements, ressources (livres blancs), photothèque et parcours d’inscription / partenariat.',
+    contributionHighlights: [
+      {
+        title: 'Vitrine & agenda',
+        description:
+          'Pages Accueil, À propos, Événements (sommets, ateliers) et CTAs réserver / programme.',
+      },
+      {
+        title: 'Ressources & conversion',
+        description:
+          'Livres blancs, photothèque, formulaires participation / partenariat et i18n FR/EN.',
+      },
+    ],
+    contributions: [
+      {
+        area: 'frontend',
+        items: [
+          'UI React / Vite / Tailwind (mode dark, navigation sticky)',
+          'Sections agenda, speakers, livres blancs et photothèque',
+          'Parcours inscription événement et demande de partenariat',
+          'Interface bilingue FR / EN',
+        ],
+      },
+    ],
+    features: [
+      {
+        title: 'Mobilité durable',
+        description: 'Focus transport intelligent et intégration régionale.',
+      },
+      {
+        title: 'Agenda & sommets',
+        description: 'Conférences, ateliers, tables rondes et showcases.',
+      },
+      {
+        title: 'Livres blancs',
+        description: 'Analyses et recommandations basées sur les données.',
+      },
+      {
+        title: 'Plateau d’experts',
+        description: 'Décideurs et spécialistes de la mobilité ouest-africaine.',
+      },
+      {
+        title: 'Inscriptions & partenariats',
+        description: 'Formulaires dédiés participants et sponsors.',
+      },
+      {
+        title: 'Photothèque',
+        description: 'Moments forts des éditions précédentes.',
+      },
+    ],
+    architecture: [
+      {
+        title: 'SPA React',
+        description: 'Frontend Vite servi en application monolithe client.',
+      },
+      {
+        title: 'Tailwind UI',
+        description: 'Design system dark / light et composants responsive.',
+      },
+      {
+        title: 'Contenu événementiel',
+        description: 'Agenda, speakers, ressources et galerie.',
+      },
+      {
+        title: 'i18n',
+        description: 'Basculer FR / EN pour un public régional.',
+      },
+      {
+        title: 'Prod',
+        description: 'www.westafricamobility.net',
+      },
+    ],
+    techStack: [
+      { label: 'Frontend', items: ['React', 'TypeScript', 'Vite'] },
+      { label: 'UI', items: ['Tailwind CSS', 'SPA'] },
+      { label: 'Produit', items: ['Événements', 'Livres blancs', 'Partenariats'] },
+      { label: 'Livraison', items: ['i18n FR/EN', 'Responsive'] },
+    ],
+    gallery: [wamImg, wam1, wam2],
   },
 ]

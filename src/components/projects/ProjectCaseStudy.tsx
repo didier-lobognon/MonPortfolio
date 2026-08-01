@@ -75,8 +75,11 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 32, scale: 0.98 }}
             transition={{ type: 'spring', stiffness: 320, damping: 32 }}
-            className="relative z-10 flex h-[92vh] max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-t-[1.75rem] border border-white/15 bg-[#152033] shadow-[0_40px_120px_rgba(0,0,0,0.45)] sm:rounded-[1.75rem]"
-            style={{ boxShadow: `0 0 0 1px ${accent}33, 0 40px 120px rgba(0,0,0,0.45)` }}
+            className="relative z-10 flex h-[92vh] max-h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-t-[1.75rem] border-2 bg-[#152033] sm:rounded-[1.75rem]"
+            style={{
+              borderColor: accent,
+              boxShadow: `0 0 0 1px ${accent}55, 0 0 48px ${accent}28, 0 40px 120px rgba(0,0,0,0.5)`,
+            }}
           >
             <div className="flex shrink-0 items-center justify-between gap-3 border-b border-white/10 bg-[#1a2740]/95 px-5 py-3.5 backdrop-blur-xl sm:px-7">
               <div className="min-w-0">
