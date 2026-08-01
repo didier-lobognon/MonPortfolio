@@ -64,8 +64,9 @@ export const messages = {
     },
     projects: {
       eyebrow: 'Projets',
-      title: 'Sélection de réalisations',
-      description: 'Des produits pensés pour la performance et l’expérience.',
+      title: 'Des produits qui marquent',
+      description:
+        'Du dashboard au e-commerce, des apps livrées avec du caractère — perf, UX et détails qui se ressentent.',
     },
     journey: {
       eyebrow: 'Parcours',
@@ -162,8 +163,9 @@ export const messages = {
     },
     projects: {
       eyebrow: 'Projects',
-      title: 'Selected work',
-      description: 'Products built for performance and experience.',
+      title: 'Work that leaves a mark',
+      description:
+        'From dashboards to e-commerce — shipped apps with character: performance, UX, and details you can feel.',
     },
     journey: {
       eyebrow: 'Journey',
