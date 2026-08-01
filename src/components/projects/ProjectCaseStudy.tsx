@@ -110,12 +110,7 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                     alt={project.title}
                     className="h-full w-full object-cover object-top"
                   />
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background: `linear-gradient(180deg, transparent 25%, #152033 100%), linear-gradient(90deg, ${accent}28, transparent 50%)`,
-                    }}
-                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#152033]" />
                 </div>
 
                 <div className="relative -mt-12 px-5 pb-2 sm:-mt-14 sm:px-8">
@@ -124,7 +119,6 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1, duration: 0.45 }}
                     className="rounded-3xl border border-white/15 bg-[#1c2a42] p-5 shadow-xl sm:p-7"
-                    style={{ boxShadow: `inset 0 1px 0 ${accent}44` }}
                   >
                     <p
                       className="mb-3 font-medium text-[11px] tracking-[0.2em] uppercase"
@@ -134,14 +128,7 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                     </p>
                     <div className="flex flex-wrap items-center gap-2">
                       {project.category && (
-                        <span
-                          className="rounded-full border px-3 py-1 text-[11px] font-medium"
-                          style={{
-                            color: accent,
-                            borderColor: `${accent}66`,
-                            background: `${accent}22`,
-                          }}
-                        >
+                        <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-medium text-slate-200">
                           {project.category}
                         </span>
                       )}
@@ -214,16 +201,9 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                               whileInView={{ opacity: 1, y: 0 }}
                               viewport={{ once: true }}
                               transition={{ delay: i * 0.06 }}
-                              className="rounded-2xl border p-5"
-                              style={{
-                                borderColor: `${accent}55`,
-                                background: `linear-gradient(160deg, ${accent}28, #1c2a42 70%)`,
-                              }}
+                              className="rounded-2xl border border-white/12 bg-[#1c2a42] p-5"
                             >
-                              <p
-                                className="font-mono text-[10px] tracking-[0.18em] uppercase"
-                                style={{ color: accent }}
-                              >
+                              <p className="font-mono text-[10px] tracking-[0.18em] text-slate-500 uppercase">
                                 {fr ? 'Mon apport' : 'My impact'}
                               </p>
                               <h4 className="mt-2 font-display text-base font-semibold text-white sm:text-lg">
@@ -287,10 +267,7 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                             whileHover={{ y: -4 }}
                             className="rounded-2xl border border-white/12 bg-[#1c2a42] p-4"
                           >
-                            <div
-                              className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl border border-white/10"
-                              style={{ color: accent, background: `${accent}20` }}
-                            >
+                            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-[#121c2e] text-slate-300">
                               <Icon className="h-4 w-4" />
                             </div>
                             <h4 className="font-display text-sm font-semibold text-white">
@@ -315,8 +292,7 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                     </h3>
                     <div className="relative mt-8">
                       <div
-                        className="absolute top-3 bottom-3 left-[15px] w-px sm:left-[19px]"
-                        style={{ background: `linear-gradient(180deg, ${accent}, ${accent}33)` }}
+                        className="absolute top-3 bottom-3 left-[15px] w-px bg-white/15 sm:left-[19px]"
                         aria-hidden
                       />
                       {project.architecture.map((step, i) => (
@@ -328,14 +304,7 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                           transition={{ delay: i * 0.06, duration: 0.4 }}
                           className="relative flex gap-4 pb-7 last:pb-0 sm:gap-5"
                         >
-                          <div
-                            className="relative z-10 mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border sm:h-10 sm:w-10"
-                            style={{
-                              borderColor: `${accent}66`,
-                              background: `${accent}25`,
-                              color: accent,
-                            }}
-                          >
+                          <div className="relative z-10 mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/15 bg-[#121c2e] text-slate-300 sm:h-10 sm:w-10">
                             {i === 0 ? (
                               <Boxes className="h-3.5 w-3.5" />
                             ) : i === project.architecture!.length - 1 ? (

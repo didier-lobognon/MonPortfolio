@@ -20,6 +20,8 @@ const THEME: Record<string, { accent: string; soft: string; label: string }> = {
   'dynexc-gp': { accent: '#F8FAFC', soft: 'rgba(248,250,252,0.18)', label: 'RH' },
   kanie: { accent: '#7C3AED', soft: 'rgba(124,58,237,0.22)', label: 'E-commerce' },
   'cnr-ci': { accent: '#14B8A6', soft: 'rgba(20,184,166,0.22)', label: 'Robotique' },
+  'ccnr-classement': { accent: '#F97316', soft: 'rgba(249,115,22,0.22)', label: 'Live CNR' },
+  mecagirls: { accent: '#FF6A00', soft: 'rgba(255,106,0,0.22)', label: 'STEM' },
   classstem: { accent: '#F59E0B', soft: 'rgba(245,158,11,0.22)', label: 'LMS' },
   engeem: { accent: '#22D3EE', soft: 'rgba(34,211,238,0.22)', label: 'Data' },
   'engeem-docs': { accent: '#A78BFA', soft: 'rgba(167,139,250,0.22)', label: 'Docs' },
