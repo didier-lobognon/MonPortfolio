@@ -223,7 +223,7 @@ export function Skills() {
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               exit={{ opacity: 0, y: -12, filter: 'blur(4px)' }}
               transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
-              className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-5"
+              className="flex flex-wrap justify-center gap-3 sm:gap-4"
             >
               {domainSkills.map((skill, i) => {
                 const color = BRAND[skill.id] ?? '#3b82f6'
@@ -238,7 +238,7 @@ export function Skills() {
                       ease: [0.22, 1, 0.36, 1],
                     }}
                     whileHover={{ y: -6, scale: 1.02 }}
-                    className="group relative flex aspect-square flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0b1220]/80 p-4 backdrop-blur-sm sm:rounded-3xl sm:p-5"
+                    className="group relative flex aspect-square w-[calc((100%-0.75rem)/2)] flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0b1220]/80 p-4 backdrop-blur-sm sm:w-[calc((100%-2rem)/3)] sm:rounded-3xl sm:p-5 md:w-[calc((100%-3rem)/4)] lg:w-[calc((100%-4rem)/5)]"
                     style={{
                       boxShadow: `0 0 0 1px ${color}14, 0 18px 40px rgba(0,0,0,0.28)`,
                     }}
