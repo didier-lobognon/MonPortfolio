@@ -53,19 +53,20 @@ export const messages = {
     },
     skills: {
       eyebrow: 'Compétences',
-      title: 'Maîtrise avant quantité',
+      title: 'La stack qui fait tenir la prod',
       description:
-        'Une stack volontairement ciblée : des outils que je pilote vraiment, pour livrer propre, vite et durable.',
+        'Front, API, data, mobile, serveurs — des outils que je manie vraiment, du premier commit au reverse proxy.',
       coreLabel: 'Stack cœur',
       domainsLabel: 'Domaines',
       all: 'Vue d’ensemble',
-      reassurance: 'Moins d’outils. Plus de maîtrise.',
+      reassurance: 'Pas une liste à rallonge. Une maîtrise qui se voit dans le livrable.',
       mastery: 'Niveau de maîtrise',
     },
     projects: {
       eyebrow: 'Projets',
-      title: 'Sélection de réalisations',
-      description: 'Des produits pensés pour la performance et l’expérience.',
+      title: 'Des produits qui marquent',
+      description:
+        'Du dashboard au e-commerce, des apps livrées avec du caractère — perf, UX et détails qui se ressentent.',
     },
     journey: {
       eyebrow: 'Parcours',
@@ -151,19 +152,20 @@ export const messages = {
     },
     skills: {
       eyebrow: 'Skills',
-      title: 'Mastery over quantity',
+      title: 'The stack that holds in production',
       description:
-        'A deliberately focused stack: tools I truly own, to ship clean, fast, and durable products.',
+        'Front, API, data, mobile, servers — tools I actually own, from the first commit to the reverse proxy.',
       coreLabel: 'Core stack',
       domainsLabel: 'Domains',
       all: 'Overview',
-      reassurance: 'Fewer tools. Deeper mastery.',
+      reassurance: 'Not a laundry list. Mastery you can see in the shipped product.',
       mastery: 'Mastery level',
     },
     projects: {
       eyebrow: 'Projects',
-      title: 'Selected work',
-      description: 'Products built for performance and experience.',
+      title: 'Work that leaves a mark',
+      description:
+        'From dashboards to e-commerce — shipped apps with character: performance, UX, and details you can feel.',
     },
     journey: {
       eyebrow: 'Journey',

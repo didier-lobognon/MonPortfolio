@@ -11,6 +11,26 @@ export interface Skill {
   icon: string
 }
 
+export interface ProjectFeature {
+  title: string
+  description: string
+}
+
+export interface ProjectArchStep {
+  title: string
+  description: string
+}
+
+export interface ProjectContribution {
+  area: 'frontend' | 'backend'
+  items: string[]
+}
+
+export interface ProjectTechGroup {
+  label: string
+  items: string[]
+}
+
 export interface Project {
   id: string
   title: string
@@ -23,7 +43,28 @@ export interface Project {
   demo?: string
   featured?: boolean
   year: string
+  /** Période affichée (ex. juil. 2025 – déc. 2025) */
+  period?: string
+  /** Case study enrichie (modal détail) */
+  category?: string
+  role?: string
+  accent?: string
+  features?: ProjectFeature[]
+  architecture?: ProjectArchStep[]
+  contributions?: ProjectContribution[]
+  /** Précision transparente sur le périmètre de contribution */
+  contributionNote?: string
+  /** Accroche courte affichée sur la carte */
+  contributionTeaser?: string
+  /** Paragraphes détaillés du système (modal) */
+  overview?: string[]
+  /** Highlights de contribution (cartes mises en avant) */
+  contributionHighlights?: ProjectFeature[]
+  techStack?: ProjectTechGroup[]
+  gallery?: string[]
+  caseStudy?: boolean
 }
+
 
 export interface TimelineItem {
   id: string

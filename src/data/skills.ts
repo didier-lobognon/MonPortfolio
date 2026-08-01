@@ -261,6 +261,22 @@ export const skills: Skill[] = [
     icon: 'docker',
   },
   {
+    id: 'nginx',
+    name: 'Nginx',
+    category: 'tools',
+    level: 80,
+    description: 'Reverse proxy, SSL et serving haute performance.',
+    icon: 'nginx',
+  },
+  {
+    id: 'apache',
+    name: 'Apache',
+    category: 'tools',
+    level: 78,
+    description: 'Serveur web, virtual hosts et configs production.',
+    icon: 'apache',
+  },
+  {
     id: 'docusaurus',
     name: 'Docusaurus',
     category: 'tools',

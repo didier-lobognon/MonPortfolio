@@ -4,6 +4,8 @@ type LenisLike = {
   scrollTo: (target: HTMLElement | string | number, options?: object) => void
   raf: (time: number) => void
   destroy: () => void
+  stop: () => void
+  start: () => void
 }
 
 let lenisInstance: LenisLike | null = null
