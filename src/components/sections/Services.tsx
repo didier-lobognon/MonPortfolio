@@ -13,6 +13,7 @@ import { SectionHeading } from '@/components/shared/SectionHeading'
 import { GlowCard } from '@/components/shared/GlowCard'
 import { fadeInUp, staggerContainer, viewportOnce } from '@/lib/animations'
 import type { LucideIcon } from 'lucide-react'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 const icons: Record<string, LucideIcon> = {
   code: Code2,
@@ -25,13 +26,15 @@ const icons: Record<string, LucideIcon> = {
 }
 
 export function Services() {
+  const { t } = useLanguage()
+
   return (
     <section id="services" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
-          eyebrow="Services"
-          title="Ce que je peux faire pour vous"
-          description="Du conseil à la livraison — un accompagnement clair et orienté résultats."
+          eyebrow={t.services.eyebrow}
+          title={t.services.title}
+          description={t.services.description}
         />
 
         <motion.div

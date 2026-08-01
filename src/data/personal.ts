@@ -6,11 +6,11 @@ export const personalInfo: PersonalInfo = {
   lastName: 'Lobognon',
   title: 'Développeur Full Stack',
   subtitle:
-    'Je conçois des applications web modernes, performantes et centrées sur l\'expérience utilisateur.',
+    'Je conçois et développe des applications web complètes — du front à l’API — avec une exigence forte sur la performance, la qualité du code et l’expérience utilisateur. Mon objectif : transformer un brief en produit fiable, élégant et prêt pour la production.',
   email: 'didier.lobognon@email.com',
   phone: '+33 6 00 00 00 00',
-  location: 'France',
-  availability: 'Disponible pour de nouvelles opportunités',
+  location: 'Abidjan, Côte d\'Ivoire',
+  availability: 'Disponible — nouvelles opportunités',
   bio: [
     'Je suis un développeur Full Stack passionné par la création d\'applications web modernes.',
     'Je développe aussi bien le Front-End que le Back-End, avec une attention particulière portée à la qualité du code et à l\'expérience utilisateur.',

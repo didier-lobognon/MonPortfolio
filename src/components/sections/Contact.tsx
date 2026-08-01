@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { fadeInUp, slideInLeft, slideInRight, viewportOnce } from '@/lib/animations'
 import { cn } from '@/lib/utils'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 interface FormState {
   name: string
@@ -39,6 +40,7 @@ function validate(values: FormState): FormErrors {
 }
 
 export function Contact() {
+  const { t } = useLanguage()
   const [values, setValues] = useState<FormState>({
     name: '',
     email: '',
@@ -67,9 +69,9 @@ export function Contact() {
     <section id="contact" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
-          eyebrow="Contact"
-          title="Parlons de votre projet"
-          description="Une idée, une opportunité, une question ? Écrivez-moi — je réponds rapidement."
+          eyebrow={t.contact.eyebrow}
+          title={t.contact.title}
+          description={t.contact.description}
         />
 
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">

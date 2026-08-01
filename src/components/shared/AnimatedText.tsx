@@ -20,7 +20,7 @@ export function AnimatedText({
   return (
     <Tag className={cn('flex flex-wrap gap-x-[0.3em] gap-y-1', className)}>
       {words.map((word, i) => (
-        <span key={`${word}-${i}`} className="overflow-hidden inline-block">
+        <span key={`${word}-${i}`} className="inline-block overflow-hidden pb-[0.18em] -mb-[0.18em]">
           <motion.span
             className="inline-block"
             initial={{ y: '110%', opacity: 0 }}
