@@ -84,18 +84,36 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
             <div className="flex shrink-0 items-center justify-between gap-3 border-b border-white/10 bg-[#1a2740]/95 px-5 py-3.5 backdrop-blur-xl sm:px-7">
               <div className="min-w-0">
                 <p className="truncate font-mono text-[10px] tracking-[0.2em] text-slate-400 uppercase">
-                  {fr ? 'Étude de cas' : 'Case study'}
+                  {fr ? 'Détail du projet' : 'Project details'}
                 </p>
                 <p className="truncate text-sm font-medium text-white">{project.title}</p>
               </div>
-              <button
-                type="button"
-                onClick={onClose}
-                data-cursor={fr ? 'Fermer' : 'Close'}
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/10 text-slate-200 transition-colors hover:bg-white/15 hover:text-white"
-              >
-                <X className="h-4 w-4" />
-              </button>
+              <div className="flex shrink-0 items-center gap-2">
+                {project.demo && (
+                  <a
+                    href={project.demo}
+                    target="_blank"
+                    rel="noreferrer"
+                    data-cursor={fr ? 'Voir le site' : 'Visit site'}
+                    className="inline-flex h-10 items-center gap-1.5 rounded-full px-3.5 text-xs font-semibold text-[#050816] transition-transform hover:scale-[1.02] sm:px-4"
+                    style={{
+                      background: accent,
+                      boxShadow: `0 8px 24px ${accent}33`,
+                    }}
+                  >
+                    {fr ? 'Voir le site' : 'Visit site'}
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </a>
+                )}
+                <button
+                  type="button"
+                  onClick={onClose}
+                  data-cursor={fr ? 'Fermer' : 'Close'}
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/10 text-slate-200 transition-colors hover:bg-white/15 hover:text-white"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
             </div>
 
             <div

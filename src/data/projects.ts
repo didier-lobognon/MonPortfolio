@@ -433,8 +433,6 @@ export const projects: Project[] = [
     role: 'Développeur Full Stack',
     accent: '#F8FAFC',
     caseStudy: true,
-    demo: 'https://gp.dynexcafrica.org',
-    github: 'https://github.com/IT-DYNEXCAFRICA/Plateforme-de-Gestion-DynExcAfrica',
     contributionTeaser: 'RH, pointages, timesheets, événements, mails & CI/CD Docker',
     contributionNote:
       'Développement full-stack de la plateforme de gestion : frontend React (rôles Standard / Gestionnaire / Super Admin) et backend Express (API, cron, emails, rapports), déployée en Docker derrière Traefik avec CI/CD GitHub Actions.',
@@ -560,6 +558,7 @@ export const projects: Project[] = [
     role: 'Développeur Full Stack',
     accent: '#7C3AED',
     caseStudy: true,
+    demo: 'https://kanie.ci/',
     contributionTeaser: 'Catalogue, panier, admin, JWT, Mobile Money & notifications',
     contributionNote:
       'En équipe de deux, j’ai contribué full stack : frontend React et backend NestJS — fonctionnalités métier, interfaces modernes et API REST sécurisées (API-first).',
