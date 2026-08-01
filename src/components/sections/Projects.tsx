@@ -16,8 +16,9 @@ const THEME: Record<string, { accent: string; soft: string; label: string }> = {
   'couvoir-baf': { accent: '#EA580C', soft: 'rgba(234,88,12,0.22)', label: 'ERP' },
   dynexcafrica: { accent: '#3B82F6', soft: 'rgba(59,130,246,0.22)', label: 'ONG' },
   'dynexc-gp': { accent: '#F8FAFC', soft: 'rgba(248,250,252,0.18)', label: 'RH' },
-  'orbit-portfolio': { accent: '#F59E0B', soft: 'rgba(245,158,11,0.22)', label: 'Studio' },
-  'forge-tasks': { accent: '#38BDF8', soft: 'rgba(56,189,248,0.22)', label: 'Collab' },
+  kanie: { accent: '#7C3AED', soft: 'rgba(124,58,237,0.22)', label: 'E-commerce' },
+  'cnr-ci': { accent: '#14B8A6', soft: 'rgba(20,184,166,0.22)', label: 'Robotique' },
+  classstem: { accent: '#F59E0B', soft: 'rgba(245,158,11,0.22)', label: 'LMS' },
 }
 
 function themeOf(id: string, project?: Project) {

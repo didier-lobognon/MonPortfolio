@@ -9,6 +9,17 @@ import gpImg from '@/assets/gp.png'
 import gp1 from '@/assets/gp1.png'
 import gp2 from '@/assets/gp2.png'
 import gp3 from '@/assets/gp3.png'
+import kanieImg from '@/assets/kanie.png'
+import kanie1 from '@/assets/kanie1.png'
+import kanie2 from '@/assets/kanie2.png'
+import kanie3 from '@/assets/kanie3.png'
+import cnrImg from '@/assets/cnr.png'
+import cnr1 from '@/assets/cnr1.png'
+import cnr2 from '@/assets/cnr2.png'
+import classstemImg from '@/assets/classstem.png'
+import classstem1 from '@/assets/classstem1.png'
+import classstem2 from '@/assets/classstem2.png'
+import classstem3 from '@/assets/classstem3.png'
 
 /**
  * Projets du portfolio.
@@ -499,28 +510,343 @@ export const projects: Project[] = [
     gallery: [gpImg, gp1, gp2, gp3],
   },
   {
-    id: 'orbit-portfolio',
-    title: 'Orbit Studio',
+    id: 'kanie',
+    title: 'Kaniè',
     description:
-      'Site vitrine immersif pour une agence créative, animations GSAP et SEO soigné.',
+      'Plateforme e-commerce & services digitaux : catalogue, commandes, admin et paiements Mobile Money.',
     longDescription:
-      'Landing page Awwwards-like avec scroll storytelling et performance Lighthouse élevée.',
-    image: '/projects/orbit.svg',
-    technologies: ['React', 'GSAP', 'Framer Motion', 'Tailwind'],
-    github: 'https://github.com/didier-lobognon/orbit-studio',
-    demo: 'https://orbit-demo.example.com',
-    year: '2024',
+      'Plateforme e-commerce destinée à digitaliser la vente de produits informatiques, électroniques et d’accessoires, tout en centralisant la gestion des commandes, des clients et de plusieurs services numériques au sein d’une application unique.',
+    overview: [
+      'Kaniè regroupe boutique en ligne et services digitaux (formations, produits IT, accessoires) dans une application full stack React + NestJS, conçue en architecture API-first.',
+      'La plateforme couvre le catalogue et les catégories, le panier et le checkout, un back-office d’administration (produits, commandes, contenus), l’auth JWT avec rôles, les paiements Mobile Money et les notifications de suivi de commande.',
+      'Développée en équipe de deux développeurs (juil. 2026 – août 2026), avec Docker, Git/GitHub, PostgreSQL / TypeORM et stockage MinIO.',
+    ],
+    image: kanieImg,
+    technologies: ['React', 'TypeScript', 'NestJS', 'PostgreSQL', 'JWT', 'Docker'],
+    featured: true,
+    year: '2026',
+    period: 'juil. 2026 – août 2026',
+    category: 'E-commerce · Services digitaux',
+    role: 'Développeur Full Stack',
+    accent: '#7C3AED',
+    caseStudy: true,
+    contributionTeaser: 'Catalogue, panier, admin, JWT, Mobile Money & notifications',
+    contributionNote:
+      'En équipe de deux, j’ai contribué full stack : frontend React et backend NestJS — fonctionnalités métier, interfaces modernes et API REST sécurisées (API-first).',
+    contributionHighlights: [
+      {
+        title: 'Parcours d’achat',
+        description:
+          'Catalogue, catégories, panier et processus de commande pour une expérience e-commerce fluide.',
+      },
+      {
+        title: 'Admin, paiements & notifs',
+        description:
+          'Back-office produits/commandes/contenus, JWT & rôles, Mobile Money et notifications de suivi.',
+      },
+    ],
+    contributions: [
+      {
+        area: 'frontend',
+        items: [
+          'Interfaces React + TypeScript (React Router, Axios)',
+          'Parcours catalogue, panier et commande',
+          'Back-office d’administration moderne',
+        ],
+      },
+      {
+        area: 'backend',
+        items: [
+          'API REST NestJS sécurisées (JWT, rôles)',
+          'Gestion produits, commandes et clients',
+          'Intégration paiements Mobile Money',
+          'Automatisation des notifications de suivi',
+          'PostgreSQL / TypeORM, Docker, MinIO',
+        ],
+      },
+    ],
+    features: [
+      {
+        title: 'Catalogue & catégories',
+        description: 'Produits informatiques, électroniques et accessoires organisés.',
+      },
+      {
+        title: 'Panier & commandes',
+        description: 'Parcours d’achat jusqu’à la validation de commande.',
+      },
+      {
+        title: 'Back-office admin',
+        description: 'Gestion des produits, commandes et contenus.',
+      },
+      {
+        title: 'Auth & rôles',
+        description: 'Authentification JWT et contrôle d’accès.',
+      },
+      {
+        title: 'Mobile Money',
+        description: 'Paiements via solutions Mobile Money.',
+      },
+      {
+        title: 'Notifications',
+        description: 'Suivi automatique des commandes pour les clients.',
+      },
+    ],
+    architecture: [
+      {
+        title: 'Frontend React',
+        description: 'Boutique publique et interfaces d’administration.',
+      },
+      {
+        title: 'API NestJS',
+        description: 'API REST API-first pour le métier e-commerce.',
+      },
+      {
+        title: 'Auth JWT',
+        description: 'Sécurité et gestion des rôles utilisateurs.',
+      },
+      {
+        title: 'PostgreSQL',
+        description: 'Persistance TypeORM des produits, clients et commandes.',
+      },
+      {
+        title: 'Docker & MinIO',
+        description: 'Conteneurisation et stockage objets.',
+      },
+    ],
+    techStack: [
+      {
+        label: 'Frontend',
+        items: ['React', 'TypeScript', 'React Router', 'Axios'],
+      },
+      {
+        label: 'Backend',
+        items: ['NestJS', 'Node.js', 'TypeORM', 'PostgreSQL', 'REST API', 'JWT'],
+      },
+      { label: 'Outils', items: ['Docker', 'Git', 'GitHub'] },
+      { label: 'Extras', items: ['MinIO', 'Mobile Money'] },
+    ],
+    gallery: [kanieImg, kanie1, kanie2, kanie3],
   },
   {
-    id: 'forge-tasks',
-    title: 'Forge Tasks',
+    id: 'cnr-ci',
+    title: 'CNR – CI',
     description:
-      'Outil collaboratif de gestion de tâches avec synchronisation temps réel.',
+      'Site officiel du Championnat National de Robotique : WordPress + plugins métier sur mesure.',
     longDescription:
-      'Kanban moderne, commentaires, notifications et intégrations API.',
-    image: '/projects/forge.svg',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Socket.io'],
-    github: 'https://github.com/didier-lobognon/forge-tasks',
-    year: '2023',
+      'Site web du Championnat National de Robotique – Côte d’Ivoire, organisé par DynExcAfrica avec la First Lego League. Vitrine institutionnelle et plateforme opérationnelle pour fédérer écoles, équipes, mentors, bénévoles, partenaires et le public autour d’un écosystème éducatif STEM.',
+    overview: [
+      'Le Championnat National de Robotique – CI s’adresse aux collégiens et lycéens sur tout le territoire, avec un fort accent sur les équipes féminines. Le site présente la mission, la vision, le parcours en 6 temps (préparation, lancement, formations, show final, STEM Camp) et les partenariats.',
+      'Au-delà de la vitrine, la plateforme permet de rejoindre l’aventure (mentor, bénévole, arbitre/jury, coach), d’inscrire des équipes, de suivre les projets innovants et de devenir partenaire — avec réservation de places et contenus éditoriaux (galerie, chiffres clés, Fab Lab pour les vainqueurs).',
+      'Mis en place sous WordPress, avec création de plusieurs plugins internes pour des fonctionnalités métier précises (inscriptions, formulaires de recrutement, gestion de contenus liés aux équipes et au programme).',
+    ],
+    image: cnrImg,
+    technologies: ['WordPress', 'PHP', 'Plugins custom', 'MySQL', 'JavaScript', 'CSS'],
+    featured: true,
+    year: '2025',
+    category: 'Éducation · Robotique',
+    role: 'Développeur WordPress',
+    accent: '#14B8A6',
+    caseStudy: true,
+    demo: 'https://championnatnationalrobotique.com/',
+    contributionTeaser: 'WordPress, plugins métier & parcours inscriptions / recrutement',
+    contributionNote:
+      'Mise en place du site WordPress du CNR et développement de plugins internes pour des fonctionnalités précises : inscriptions d’équipes, candidatures (mentor, bénévole, coach, jury) et contenus opérationnels du championnat.',
+    contributionHighlights: [
+      {
+        title: 'Site WordPress CNR',
+        description:
+          'Structure du site officiel : vitrine, parcours d’innovation, partenaires, galerie et appels à l’action.',
+      },
+      {
+        title: 'Plugins internes',
+        description:
+          'Plugins sur mesure pour inscriptions d’équipes, recrutement (mentor / bénévole / coach / jury) et besoins métier du CNR.',
+      },
+    ],
+    contributions: [
+      {
+        area: 'frontend',
+        items: [
+          'Intégration et personnalisation du thème WordPress',
+          'Pages institutionnelles et parcours UX (rejoindre, équipes, partenaires)',
+          'Interfaces responsives alignées sur l’identité CNR',
+        ],
+      },
+      {
+        area: 'backend',
+        items: [
+          'Développement de plugins WordPress internes',
+          'Logique métier inscriptions et formulaires de recrutement',
+          'Gestion de contenus liés aux équipes et au programme',
+          'Stack : WordPress, PHP, MySQL, JavaScript',
+        ],
+      },
+    ],
+    features: [
+      {
+        title: 'Vitrine & vision',
+        description: 'Mission, engagement STEM et parcours en 6 temps du championnat.',
+      },
+      {
+        title: 'Nous rejoindre',
+        description: 'Devenir mentor, bénévole, arbitre/jury ou coach.',
+      },
+      {
+        title: 'Équipes & inscriptions',
+        description: 'Équipes en compétition, inscriptions et projets innovants.',
+      },
+      {
+        title: 'Partenaires',
+        description: 'Espace organisateur, partenaires et devenir partenaire.',
+      },
+      {
+        title: 'Événements & galerie',
+        description: 'Show final, STEM Camp, Fab Lab et galerie édition.',
+      },
+      {
+        title: 'Plugins métier',
+        description: 'Fonctionnalités WordPress sur mesure pour le CNR.',
+      },
+    ],
+    architecture: [
+      {
+        title: 'WordPress',
+        description: 'CMS pour contenus, pages et administration éditoriale.',
+      },
+      {
+        title: 'Thème & UI',
+        description: 'Vitrine responsive alignée sur la charte CNR.',
+      },
+      {
+        title: 'Plugins custom',
+        description: 'Modules PHP internes pour les flux métier (inscriptions, recrutement).',
+      },
+      {
+        title: 'MySQL',
+        description: 'Persistance WordPress et données des plugins.',
+      },
+      {
+        title: 'Prod web',
+        description: 'Site public : championnatnationalrobotique.com',
+      },
+    ],
+    techStack: [
+      { label: 'CMS', items: ['WordPress', 'PHP'] },
+      { label: 'Custom', items: ['Plugins internes', 'Hooks WP', 'Custom post types'] },
+      { label: 'Data', items: ['MySQL'] },
+      { label: 'Front', items: ['HTML', 'CSS', 'JavaScript'] },
+    ],
+    gallery: [cnrImg, cnr1, cnr2],
+  },
+  {
+    id: 'classstem',
+    title: 'ClasseStem',
+    description:
+      'Plateforme LMS Moodle STEM : thème & plugins sur mesure, parcours programmation, robotique et impression 3D.',
+    longDescription:
+      'ClasseStem (Classstem) est la plateforme d’apprentissage de DynExcAfrica : programmation, robotique et impression 3D dans une expérience interactive pour élèves, étudiants et formateurs — construite sur Moodle avec thème et plugins personnalisés.',
+    overview: [
+      'ClasseStem réunit trois parcours complets — Programmation (Python, JavaScript, C++), Impression 3D (Blender, Fusion 360) et Robotique (Arduino, Raspberry Pi) — au sein d’un LMS Moodle bilingue (FR/EN).',
+      'Portée par DynExcAfrica (« Former, Innover, Inspirer »), la plateforme s’appuie sur 7 ans d’expertise STEM, +20 formateurs et 5 000+ apprenants, avec espaces dédiés aux élèves/étudiants et aux enseignants/formateurs.',
+      'Mise en place Moodle : création et installation de thème custom, développement/installation de plugins, structuration et gestion des cours et modules de formation. Prod : classstem.dynexcafrica.org.',
+    ],
+    image: classstemImg,
+    technologies: ['Moodle', 'PHP', 'Thème custom', 'Plugins', 'MySQL', 'JavaScript'],
+    featured: true,
+    year: '2025',
+    category: 'LMS · Formation STEM',
+    role: 'Développeur Moodle',
+    accent: '#F59E0B',
+    caseStudy: true,
+    demo: 'https://classstem.dynexcafrica.org',
+    contributionTeaser: 'Thème Moodle, plugins & gestion des cours STEM',
+    contributionNote:
+      'Mise en place de ClasseStem sur Moodle : création et installation d’un thème sur mesure, plugins métier, et gestion / structuration des cours (programmation, robotique, impression 3D).',
+    contributionHighlights: [
+      {
+        title: 'Thème Moodle custom',
+        description:
+          'Conception et installation d’un thème aligné sur l’identité DynExcAfrica / ClasseStem.',
+      },
+      {
+        title: 'Plugins & cours',
+        description:
+          'Création / installation de plugins et organisation pédagogique des modules de formation.',
+      },
+    ],
+    contributions: [
+      {
+        area: 'frontend',
+        items: [
+          'Création et installation du thème Moodle',
+          'Personnalisation UI (accueil, catalogue, parcours apprenant)',
+          'Expérience bilingue FR / EN',
+        ],
+      },
+      {
+        area: 'backend',
+        items: [
+          'Création et installation de plugins Moodle',
+          'Configuration LMS et gestion des cours',
+          'Structuration des modules Programmation, Impression 3D, Robotique',
+          'Stack : Moodle, PHP, MySQL, JavaScript',
+        ],
+      },
+    ],
+    features: [
+      {
+        title: 'Parcours Programmation',
+        description: 'Python, JavaScript, C++, algorithmes et projets guidés.',
+      },
+      {
+        title: 'Impression 3D',
+        description: 'Blender, Fusion 360, paramétrage et techniques avancées.',
+      },
+      {
+        title: 'Robotique',
+        description: 'Arduino, Raspberry Pi, capteurs et programmation embarquée.',
+      },
+      {
+        title: 'Publics multiples',
+        description: 'Espaces élèves/étudiants et enseignants/formateurs.',
+      },
+      {
+        title: 'LMS Moodle',
+        description: 'Connexion, cours, certifications et contenus interactifs.',
+      },
+      {
+        title: 'Thème & plugins',
+        description: 'Personnalisation profonde de Moodle pour ClasseStem.',
+      },
+    ],
+    architecture: [
+      {
+        title: 'Moodle LMS',
+        description: 'Cœur pédagogique : cours, rôles, inscriptions, contenus.',
+      },
+      {
+        title: 'Thème custom',
+        description: 'Identité visuelle et UX de la vitrine / plateforme.',
+      },
+      {
+        title: 'Plugins',
+        description: 'Extensions métier installées et adaptées aux besoins STEM.',
+      },
+      {
+        title: 'MySQL',
+        description: 'Base de données Moodle (utilisateurs, cours, activités).',
+      },
+      {
+        title: 'Prod',
+        description: 'Hébergement : classstem.dynexcafrica.org',
+      },
+    ],
+    techStack: [
+      { label: 'LMS', items: ['Moodle', 'PHP'] },
+      { label: 'Custom', items: ['Thème custom', 'Plugins Moodle'] },
+      { label: 'Data', items: ['MySQL'] },
+      { label: 'Front', items: ['HTML', 'CSS', 'JavaScript'] },
+    ],
+    gallery: [classstemImg, classstem1, classstem2, classstem3],
   },
 ]
