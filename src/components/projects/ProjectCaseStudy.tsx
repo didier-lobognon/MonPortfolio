@@ -234,18 +234,30 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                         </div>
                       )}
 
-                    {project.contributions?.[0] && (
-                      <ul className="mt-6 max-w-3xl space-y-2.5 rounded-2xl border border-white/12 bg-[#1c2a42] p-5">
-                        {project.contributions[0].items.map((item) => (
-                          <li key={item} className="flex gap-2.5 text-sm text-slate-300">
-                            <CheckCircle2
-                              className="mt-0.5 h-4 w-4 shrink-0"
-                              style={{ color: accent }}
-                            />
-                            <span>{item}</span>
-                          </li>
+                    {project.contributions && project.contributions.length > 0 && (
+                      <div
+                        className={`mt-6 grid gap-4 ${project.contributions.length > 1 ? 'lg:grid-cols-2' : 'max-w-3xl'}`}
+                      >
+                        {project.contributions.map((block) => (
+                          <ul
+                            key={block.area}
+                            className="space-y-2.5 rounded-2xl border border-white/12 bg-[#1c2a42] p-5"
+                          >
+                            <li className="mb-1 list-none font-display text-sm font-semibold text-white">
+                              {block.area === 'frontend' ? 'Frontend' : 'Backend'}
+                            </li>
+                            {block.items.map((item) => (
+                              <li key={item} className="flex gap-2.5 text-sm text-slate-300">
+                                <CheckCircle2
+                                  className="mt-0.5 h-4 w-4 shrink-0"
+                                  style={{ color: accent }}
+                                />
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
                         ))}
-                      </ul>
+                      </div>
                     )}
                   </section>
                 )}
@@ -296,7 +308,7 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                   <section>
                     <SectionLabel accent={accent}>{fr ? 'Architecture' : 'Architecture'}</SectionLabel>
                     <h3 className="mt-2 font-display text-xl font-semibold text-white sm:text-2xl">
-                      {fr ? 'Flux microservices' : 'Microservices flow'}
+                      {fr ? 'Architecture technique' : 'Technical architecture'}
                     </h3>
                     <div className="relative mt-8">
                       <div
@@ -407,17 +419,18 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                         />
                       </motion.div>
                     ))}
-                    {[1, 2].map((n) => (
-                      <div
-                        key={`ph-${n}`}
-                        className="flex aspect-[16/10] flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-white/15 bg-[#1c2a42]"
-                      >
-                        <ImageIcon className="h-6 w-6 text-slate-500" />
-                        <p className="text-xs text-slate-500">
-                          {fr ? `Capture à venir 0${n}` : `Coming soon 0${n}`}
-                        </p>
-                      </div>
-                    ))}
+                    {(project.gallery?.length ?? 1) < 2 &&
+                      [1, 2].map((n) => (
+                        <div
+                          key={`ph-${n}`}
+                          className="flex aspect-[16/10] flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-white/15 bg-[#1c2a42]"
+                        >
+                          <ImageIcon className="h-6 w-6 text-slate-500" />
+                          <p className="text-xs text-slate-500">
+                            {fr ? `Capture à venir 0${n}` : `Coming soon 0${n}`}
+                          </p>
+                        </div>
+                      ))}
                   </div>
                 </section>
               </div>

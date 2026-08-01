@@ -14,8 +14,8 @@ type FilterKey = 'all' | 'featured'
 const THEME: Record<string, { accent: string; soft: string; label: string }> = {
   masafinance: { accent: '#12B76A', soft: 'rgba(18,183,106,0.22)', label: 'FinTech' },
   'couvoir-baf': { accent: '#EA580C', soft: 'rgba(234,88,12,0.22)', label: 'ERP' },
-  'pulse-api': { accent: '#22D3EE', soft: 'rgba(34,211,238,0.22)', label: 'API' },
-  'haven-crm': { accent: '#10B981', soft: 'rgba(16,185,129,0.22)', label: 'CRM' },
+  dynexcafrica: { accent: '#3B82F6', soft: 'rgba(59,130,246,0.22)', label: 'ONG' },
+  'dynexc-gp': { accent: '#F8FAFC', soft: 'rgba(248,250,252,0.18)', label: 'RH' },
   'orbit-portfolio': { accent: '#F59E0B', soft: 'rgba(245,158,11,0.22)', label: 'Studio' },
   'forge-tasks': { accent: '#38BDF8', soft: 'rgba(56,189,248,0.22)', label: 'Collab' },
 }
