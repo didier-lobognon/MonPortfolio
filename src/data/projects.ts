@@ -20,6 +20,15 @@ import classstemImg from '@/assets/classstem.png'
 import classstem1 from '@/assets/classstem1.png'
 import classstem2 from '@/assets/classstem2.png'
 import classstem3 from '@/assets/classstem3.png'
+import engeemImg from '@/assets/engeem.png'
+import engeem1 from '@/assets/engeem1.png'
+import engeem2 from '@/assets/engeem2.png'
+import docEngeemImg from '@/assets/doc-engeem.png'
+import docEngeem1 from '@/assets/doc-engeem1.png'
+import docEngeem2 from '@/assets/doc-engeem2.png'
+import docEngeem3 from '@/assets/doc-engeem3.png'
+import pimediaImg from '@/assets/pimedia.png'
+import pimedia1 from '@/assets/pimedia1.png'
 
 /**
  * Projets du portfolio.
@@ -848,5 +857,322 @@ export const projects: Project[] = [
       { label: 'Front', items: ['HTML', 'CSS', 'JavaScript'] },
     ],
     gallery: [classstemImg, classstem1, classstem2, classstem3],
+  },
+  {
+    id: 'engeem',
+    title: 'ENGEEM',
+    description:
+      'Site produit Angular pour ENGEEM : Data Control Plane, gouvernance et fiabilité des décisions data / AI.',
+    longDescription:
+      'Site officiel d’ENGEEM, plateforme Data Control Plane (DSaaP) qui rend les décisions métier — dashboards, sorties IA, actions automatisées — fiables, explicables et sous contrôle. Vitrine produit, solutions industrielles, ressources et console.',
+    overview: [
+      'ENGEEM adresse le vrai problème entreprise : non pas le manque de données, mais la perte de contrôle sur ce que produisent les systèmes (pipelines, dashboards, modèles IA). Le site présente le control plane qui garantit des outcomes fiables, contractuels et auditable.',
+      'Contenu structuré autour de Why ENGEEM, Platform (YIALI Gateway, EDSM metadata, SLO, observabilité agentique, sécurité), Solutions (finance, telecom, retail, énergie, secteur public…), use cases (Safe AI / RAG, gouvernance exécutable, automation cross-domain) et déploiements (cloud, BYOC, on-prem, hybrid).',
+      'Site web Angular moderne (app-root, build modulaire), UX dark premium, navigation multi-sections et CTA vers workshop / use cases / console. Prod : www.engeem.com.',
+    ],
+    image: engeemImg,
+    technologies: ['Angular', 'TypeScript', 'HTML', 'CSS', 'RxJS', 'SPA'],
+    featured: true,
+    year: '2025',
+    category: 'Data · Control Plane',
+    role: 'Développeur Frontend',
+    accent: '#22D3EE',
+    caseStudy: true,
+    demo: 'https://www.engeem.com/',
+    contributionTeaser: 'Site Angular produit — vitrine DSaaP, platform & solutions',
+    contributionNote:
+      'Développement du site produit ENGEEM en Angular : vitrine Data Control Plane, pages platform / solutions / resources, et expérience UI dark orientée conversion.',
+    contributionHighlights: [
+      {
+        title: 'Vitrine produit Angular',
+        description:
+          'Interface SPA moderne : hero, messaging « reliable by design », navigation plateforme et CTA.',
+      },
+      {
+        title: 'Parcours contenu métier',
+        description:
+          'Structuration des sections Platform, Solutions, Industries, Use cases et Resources pour un positionnement control plane.',
+      },
+    ],
+    contributions: [
+      {
+        area: 'frontend',
+        items: [
+          'Développement frontend Angular / TypeScript du site produit',
+          'Intégration UI dark premium et composants de navigation',
+          'Pages Why ENGEEM, Platform, Solutions, Resources, Pricing',
+          'Expérience responsive et CTA (workshop, use cases, console)',
+        ],
+      },
+    ],
+    features: [
+      {
+        title: 'Reliable by design',
+        description: 'Message clé : décisions data / AI toujours sous contrôle.',
+      },
+      {
+        title: 'Platform DSaaP',
+        description: 'Control plane, gateway YIALI, metadata EDSM, SLO & sécurité.',
+      },
+      {
+        title: 'Solutions industrielles',
+        description: 'Finance, telecom, retail, énergie, public & compliance.',
+      },
+      {
+        title: 'Safe AI & RAG',
+        description: 'Use cases gouvernance exécutable et contrôle des outcomes IA.',
+      },
+      {
+        title: 'Déploiements flexibles',
+        description: 'Cloud, BYOC, on-prem, hybrid & multi-cloud.',
+      },
+      {
+        title: 'Resources & console',
+        description: 'Library, insights, documentation et accès console.',
+      },
+    ],
+    architecture: [
+      {
+        title: 'SPA Angular',
+        description: 'Application frontend modulaire (app-root, bundles JS).',
+      },
+      {
+        title: 'Contenu produit',
+        description: 'Why / Platform / Solutions / Resources / Pricing.',
+      },
+      {
+        title: 'Positionnement DSaaP',
+        description: 'Data Control Plane overlay sur stacks existants.',
+      },
+      {
+        title: 'CTA & conversion',
+        description: 'Workshop, use cases, console et pricing.',
+      },
+      {
+        title: 'Prod',
+        description: 'www.engeem.com',
+      },
+    ],
+    techStack: [
+      { label: 'Frontend', items: ['Angular', 'TypeScript', 'RxJS'] },
+      { label: 'UI', items: ['HTML', 'CSS', 'SPA'] },
+      { label: 'Produit', items: ['DSaaP', 'Data Control Plane', 'YIALI'] },
+      { label: 'Livraison', items: ['Site produit', 'Responsive'] },
+    ],
+    gallery: [engeemImg, engeem1, engeem2],
+  },
+  {
+    id: 'engeem-docs',
+    title: 'ENGEEM Docs',
+    description:
+      'Documentation technique ENGEEM : Docusaurus, composants React et React Bits — guides DSaaP / YIALI.',
+    longDescription:
+      'Site de documentation d’ENGEEM pour concevoir, déployer et opérer des data products temps réel gouvernés. Guides, architecture, déploiement et références de la plateforme Data Streaming-as-a-Product (DSaaP / YIALI).',
+    overview: [
+      'ENGEEM Docs couvre le parcours complet : Get Started, Data Automation, DSaaP — YIALI, Data Centers, Data Products, Security & Governance, Cluster / SLA & Pricing, et References — bilingue English / Français.',
+      'La doc présente une plateforme Kafka-native de productisation de données : ingestion schema-bound, modeling déclaratif, gouvernance native (RBAC, contrats metadata), data products API/SQL/dashboards, et déploiements cloud, on-prem ou hybrid.',
+      'Construit avec Docusaurus, enrichi de composants React custom et React Bits pour une UX documentation moderne (recherche, navigation, pages marketing-doc hybrides). Prod : docs.engeem.com.',
+    ],
+    image: docEngeemImg,
+    technologies: ['Docusaurus', 'React', 'TypeScript', 'MDX', 'React Bits', 'i18n'],
+    featured: true,
+    year: '2025',
+    category: 'Docs · DSaaP',
+    role: 'Développeur Frontend',
+    accent: '#A78BFA',
+    caseStudy: true,
+    demo: 'https://docs.engeem.com/',
+    contributionTeaser: 'Docusaurus, React / MDX, React Bits & docs bilingues',
+    contributionNote:
+      'Mise en place et développement de la documentation ENGEEM avec Docusaurus, composants React / MDX et React Bits pour une expérience de lecture et d’exploration moderne.',
+    contributionHighlights: [
+      {
+        title: 'Site Docusaurus',
+        description:
+          'Structure doc : Get Started, Platform, YIALI / DSaaP, Security, Deploy et References.',
+      },
+      {
+        title: 'React & React Bits',
+        description:
+          'Composants React custom et React Bits pour enrichir les pages au-delà du Markdown classique.',
+      },
+    ],
+    contributions: [
+      {
+        area: 'frontend',
+        items: [
+          'Configuration et thématisation Docusaurus',
+          'Pages MDX et contenu technique (architecture, guides, références)',
+          'Composants React custom pour sections riches',
+          'Intégration React Bits et micro-interactions UI',
+          'i18n English / Français',
+        ],
+      },
+    ],
+    features: [
+      {
+        title: 'Get Started',
+        description: 'Vision plateforme, architecture et premier parcours data.',
+      },
+      {
+        title: 'DSaaP — YIALI',
+        description: 'Control plane programmable sur Kafka, schemas et contrats.',
+      },
+      {
+        title: 'Data Products',
+        description: 'Publier des data products gouvernés sans plumbing.',
+      },
+      {
+        title: 'Security & Governance',
+        description: 'Identité, RBAC, EDSM et accès centralisé.',
+      },
+      {
+        title: 'Deploy & Operate',
+        description: 'Docker, Kubernetes, Terraform, SLA et pricing.',
+      },
+      {
+        title: 'Bilingue EN / FR',
+        description: 'Documentation accessible en anglais et français.',
+      },
+    ],
+    architecture: [
+      {
+        title: 'Docusaurus',
+        description: 'Générateur de documentation (routing, search, versioning).',
+      },
+      {
+        title: 'MDX + React',
+        description: 'Contenu Markdown enrichi de composants React.',
+      },
+      {
+        title: 'React Bits',
+        description: 'Composants / effets UI pour une doc plus vivante.',
+      },
+      {
+        title: 'i18n',
+        description: 'Localisation English / Français.',
+      },
+      {
+        title: 'Prod',
+        description: 'docs.engeem.com',
+      },
+    ],
+    techStack: [
+      { label: 'Docs', items: ['Docusaurus', 'MDX'] },
+      { label: 'UI', items: ['React', 'TypeScript', 'React Bits'] },
+      { label: 'Produit', items: ['DSaaP', 'YIALI', 'Kafka-native'] },
+      { label: 'Livraison', items: ['i18n EN/FR', 'Search'] },
+    ],
+    gallery: [docEngeemImg, docEngeem1, docEngeem2, docEngeem3],
+  },
+  {
+    id: 'pimedia',
+    title: 'PIMÉDIA',
+    description:
+      'Média WordPress d’actualité politique nationale et internationale — rubriques, live et publication continue.',
+    longDescription:
+      'PIMÉDIA est un site d’actualité politique nationale et internationale en continu. Plateforme éditoriale WordPress structurée pour la une, le décryptage, les tribunes, les podcasts et le suivi en direct.',
+    overview: [
+      'PIMÉDIA couvre l’actualité politique africaine et internationale : décryptages diplomatiques, élections, institutions, crises et analyses. Rubriques dédiées (À la une, Décryptage, Tribunes, Podcasts, En Direct) et blocs thématiques (Gouvernement & Institutions, Assemblée Nationale, Justice, Économie, CEDEAO…).',
+      'Le site propose une expérience média classique : breaking news, articles récents / populaires, newsletter, pages rédaction (qui sommes-nous, contact, publicité, mentions légales) et présence réseaux sociaux.',
+      'Conçu et déployé sous WordPress pour une publication éditoriale fluide, avec personnalisation du thème et organisation des contenus pour un média politique africain. Prod : pimedia.africa.',
+    ],
+    image: pimediaImg,
+    technologies: ['WordPress', 'PHP', 'MySQL', 'CSS', 'JavaScript', 'SEO'],
+    featured: true,
+    year: '2026',
+    category: 'Média · Actualité',
+    role: 'Développeur WordPress',
+    accent: '#DC2626',
+    caseStudy: true,
+    demo: 'https://pimedia.africa/',
+    contributionTeaser: 'Site WordPress média — rubriques, une & publication éditoriale',
+    contributionNote:
+      'Conception et mise en place du site WordPress PIMÉDIA : structure éditoriale, rubriques politiques, personnalisation du thème et expérience de lecture pour un média d’actualité en continu.',
+    contributionHighlights: [
+      {
+        title: 'Site WordPress média',
+        description:
+          'Mise en place de la vitrine PIMÉDIA et de l’architecture de contenus pour la rédaction.',
+      },
+      {
+        title: 'Rubriques & parcours lecture',
+        description:
+          'Organisation À la une, Décryptage, Tribunes, Podcasts, En Direct et pages institutionnelles.',
+      },
+    ],
+    contributions: [
+      {
+        area: 'frontend',
+        items: [
+          'Personnalisation du thème WordPress média',
+          'Mise en page une, listes d’articles et blocs thématiques',
+          'Pages Qui sommes-nous, rédaction, contact, newsletter',
+        ],
+      },
+      {
+        area: 'backend',
+        items: [
+          'Configuration WordPress et taxonomies / catégories éditoriales',
+          'Organisation des contenus politiques et internationaux',
+          'Stack : WordPress, PHP, MySQL',
+        ],
+      },
+    ],
+    features: [
+      {
+        title: 'À la une & Breaking',
+        description: 'Fil d’actualité et mise en avant des sujets chauds.',
+      },
+      {
+        title: 'Décryptage & Tribunes',
+        description: 'Analyses politiques et prises de parole.',
+      },
+      {
+        title: 'En Direct',
+        description: 'Suivi live des événements marquants.',
+      },
+      {
+        title: 'Rubriques métier',
+        description: 'Institutions, élections, justice, économie, CEDEAO…',
+      },
+      {
+        title: 'Podcasts',
+        description: 'Formats audio pour approfondir l’actualité.',
+      },
+      {
+        title: 'Newsletter',
+        description: 'Abonnement aux principales actualités politiques.',
+      },
+    ],
+    architecture: [
+      {
+        title: 'WordPress',
+        description: 'CMS éditorial pour articles, catégories et médias.',
+      },
+      {
+        title: 'Thème média',
+        description: 'Mise en page presse (une, listes, sidebars).',
+      },
+      {
+        title: 'Rubriques',
+        description: 'Taxonomies pour politique nationale / internationale.',
+      },
+      {
+        title: 'MySQL',
+        description: 'Persistance des contenus et utilisateurs WP.',
+      },
+      {
+        title: 'Prod',
+        description: 'pimedia.africa',
+      },
+    ],
+    techStack: [
+      { label: 'CMS', items: ['WordPress', 'PHP'] },
+      { label: 'Front', items: ['HTML', 'CSS', 'JavaScript'] },
+      { label: 'Data', items: ['MySQL'] },
+      { label: 'Média', items: ['SEO', 'Newsletter', 'Social'] },
+    ],
+    gallery: [pimediaImg, pimedia1],
   },
 ]
