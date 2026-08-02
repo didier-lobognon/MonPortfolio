@@ -85,6 +85,16 @@ export interface TimelineItem {
   tags?: string[]
   /** Logo entreprise / établissement */
   logo?: string
+  /** Fond personnalisé derrière le logo (ex. couleur marque) */
+  logoBg?: string
+  /** Remplissage du cadre logo — cover pour logos carrés, contain pour les larges */
+  logoFit?: 'cover' | 'contain'
+  /** Couleur marque pour teinter l’intérieur de la carte */
+  brandColor?: string
+  /** Couleur de bordure (si différente de brandColor) */
+  brandBorder?: string
+  /** Carte claire (fond blanc) */
+  lightCard?: boolean
   /** Mise en avant (poste actuel, certif clé…) */
   highlight?: boolean
   /** En cours */

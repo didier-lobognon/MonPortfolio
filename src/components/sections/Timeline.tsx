@@ -96,6 +96,11 @@ function JourneyNode({
 }) {
   const meta = TYPE_META[item.type]
   const Icon = meta.icon
+  const brand = item.brandColor
+  const border = item.brandBorder ?? brand
+  const light = Boolean(item.lightCard)
+  const tinted = Boolean(brand) && !light
+  const accent = brand ?? meta.accent
   const start = Math.max(0, index * 0.09)
   const end = Math.min(1, start + 0.22)
   const nodeOpacity = useTransform(progress, [start, end], [0.35, 1])
@@ -103,9 +108,28 @@ function JourneyNode({
   const glow = useTransform(progress, [start, (start + end) / 2, end], [0, 1, 0.55])
   const nodeGlow = useTransform(
     glow,
-    (v) => `0 0 ${18 + v * 28}px ${meta.accent}${Math.round(v * 90).toString(16).padStart(2, '0')}`,
+    (v) =>
+      `0 0 ${18 + v * 28}px ${(border ?? accent)}${Math.round(v * 90).toString(16).padStart(2, '0')}`,
   )
   const side = index % 2 === 0 ? 'left' : 'right'
+
+  const cardStyle = light
+    ? {
+        background: '#ffffff',
+        borderColor: 'rgba(15,23,42,0.12)',
+        boxShadow: '0 20px 50px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.8)',
+      }
+    : tinted
+      ? {
+          background: `linear-gradient(145deg, ${brand}2e 0%, #101827 38%, #0a1220 100%)`,
+          borderColor: `${border}66`,
+          boxShadow: `0 0 0 1px ${border}40, 0 24px 60px rgba(0,0,0,0.45), 0 0 48px ${brand}18, inset 0 1px 0 ${brand}22`,
+        }
+      : {
+          background: '#0d1524',
+          borderColor: 'rgba(255,255,255,0.12)',
+          boxShadow: '0 16px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)',
+        }
 
   return (
     <motion.li
@@ -126,41 +150,65 @@ function JourneyNode({
       >
         <motion.article
           whileHover={{ y: -6, transition: { type: 'spring', stiffness: 380, damping: 28 } }}
-          className={cn(
-            'group relative overflow-hidden rounded-[1.4rem] border p-5 sm:p-6 text-left',
-            item.highlight
-              ? 'border-white/15 bg-[#121c30]'
-              : 'border-white/[0.1] bg-[#0d1524]/90',
-          )}
-          style={{
-            boxShadow: item.highlight
-              ? `0 0 0 1px ${meta.accent}33, 0 24px 60px rgba(0,0,0,0.45), 0 0 40px ${meta.accent}18`
-              : '0 16px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04)',
-          }}
+          className="group relative overflow-hidden rounded-[1.4rem] border p-5 text-left sm:p-6"
+          style={cardStyle}
         >
+          {tinted && (
+            <>
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -right-10 -top-16 h-44 w-44 rounded-full blur-3xl"
+                style={{ background: `${brand}28` }}
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -bottom-20 -left-10 h-40 w-40 rounded-full blur-3xl"
+                style={{ background: `${brand}14` }}
+              />
+            </>
+          )}
           <motion.div
             aria-hidden
             className="pointer-events-none absolute -inset-px rounded-[1.4rem] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
             style={{
-              background: `radial-gradient(500px circle at var(--x,50%) var(--y,0%), ${meta.accent}22, transparent 55%)`,
+              background: `radial-gradient(500px circle at var(--x,50%) var(--y,0%), ${accent}22, transparent 55%)`,
             }}
           />
 
           <div
             className={cn(
-              'relative flex flex-wrap items-center gap-2',
+              'relative flex flex-wrap items-center gap-3 sm:gap-4',
               side === 'left' && 'lg:flex-row-reverse lg:justify-start',
             )}
           >
             {item.logo && (
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/12 bg-white p-1.5 shadow-[0_8px_20px_rgba(0,0,0,0.25)]">
+              <motion.span
+                whileHover={{ scale: 1.06, y: -2 }}
+                transition={{ type: 'spring', stiffness: 380, damping: 22 }}
+                className={cn(
+                  'relative flex h-[4.25rem] w-[4.25rem] shrink-0 items-center justify-center overflow-hidden rounded-2xl border sm:h-[5.25rem] sm:w-[5.25rem]',
+                  item.logoFit === 'cover' ? 'p-0' : 'p-2 sm:p-2.5',
+                  light ? 'border-slate-200' : 'border-white/15',
+                )}
+                style={{
+                  background: item.logoBg ?? (light ? '#0b1220' : '#0b1220'),
+                  boxShadow: tinted
+                    ? `0 12px 32px rgba(0,0,0,0.35), 0 0 0 1px ${border ?? brand}33, 0 0 28px ${brand}22`
+                    : light
+                      ? '0 10px 28px rgba(15,23,42,0.12)'
+                      : '0 12px 32px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.12)',
+                }}
+              >
                 <img
                   src={item.logo}
-                  alt=""
-                  className="h-full w-full object-contain"
+                  alt={`Logo ${item.organization}`}
+                  className={cn(
+                    'h-full w-full',
+                    item.logoFit === 'cover' ? 'scale-[1.02] object-cover' : 'object-contain',
+                  )}
                   loading="lazy"
                 />
-              </span>
+              </motion.span>
             )}
             <div
               className={cn(
@@ -171,20 +219,34 @@ function JourneyNode({
               <span
                 className="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold tracking-wide uppercase"
                 style={{
-                  color: meta.accent,
-                  borderColor: `${meta.accent}55`,
-                  background: `${meta.accent}14`,
+                  color: light ? '#0f172a' : accent,
+                  borderColor: light ? 'rgba(15,23,42,0.15)' : `${accent}66`,
+                  background: light ? 'rgba(15,23,42,0.05)' : `${accent}22`,
                 }}
               >
                 <Icon className="h-3 w-3" />
                 {fr ? meta.labelFr : meta.labelEn}
               </span>
-              <span className="font-mono text-[11px] text-slate-500">{item.period}</span>
+              <span
+                className={cn(
+                  'font-mono text-[11px]',
+                  light ? 'text-slate-500' : 'text-slate-500',
+                )}
+              >
+                {item.period}
+              </span>
               {item.current && (
-                <span className="inline-flex items-center gap-1 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2 py-0.5 text-[10px] font-medium text-emerald-300">
+                <span
+                  className={cn(
+                    'inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-medium',
+                    light
+                      ? 'border-emerald-600/25 bg-emerald-50 text-emerald-700'
+                      : 'border-emerald-400/30 bg-emerald-400/10 text-emerald-300',
+                  )}
+                >
                   <span className="relative flex h-1.5 w-1.5">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
                   </span>
                   {currentLabel}
                 </span>
@@ -194,7 +256,8 @@ function JourneyNode({
 
           <h3
             className={cn(
-              'relative mt-3 font-display text-xl font-bold tracking-tight text-white sm:text-2xl',
+              'relative mt-3 font-display text-xl font-bold tracking-tight sm:text-2xl',
+              light ? 'text-slate-900' : 'text-white',
               side === 'left' && 'lg:text-right',
             )}
           >
@@ -205,13 +268,14 @@ function JourneyNode({
               'relative mt-1.5 text-sm font-medium',
               side === 'left' && 'lg:text-right',
             )}
-            style={{ color: meta.accent }}
+            style={{ color: light ? '#0f172a' : accent }}
           >
             {item.organization}
           </p>
           <p
             className={cn(
-              'relative mt-1 inline-flex items-center gap-1 text-xs text-slate-500',
+              'relative mt-1 inline-flex items-center gap-1 text-xs',
+              light ? 'text-slate-500' : 'text-slate-500',
               side === 'left' && 'lg:w-full lg:justify-end',
             )}
           >
@@ -220,7 +284,8 @@ function JourneyNode({
           </p>
           <p
             className={cn(
-              'relative mt-3 text-sm leading-relaxed text-slate-300',
+              'relative mt-3 text-sm leading-relaxed',
+              light ? 'text-slate-600' : 'text-slate-300',
               side === 'left' && 'lg:text-right',
             )}
           >
@@ -237,7 +302,12 @@ function JourneyNode({
               {item.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-md border border-white/10 bg-white/[0.03] px-2 py-0.5 text-[10px] text-slate-400"
+                  className={cn(
+                    'rounded-md border px-2 py-0.5 text-[10px]',
+                    light
+                      ? 'border-slate-200 bg-slate-50 text-slate-600'
+                      : 'border-white/10 bg-white/[0.03] text-slate-400',
+                  )}
                 >
                   {tag}
                 </span>
@@ -247,25 +317,31 @@ function JourneyNode({
         </motion.article>
       </div>
 
-      {/* Nœud central */}
-      <div className="relative z-10 hidden items-start justify-center lg:flex lg:col-start-2 lg:row-start-1 lg:px-3">
-        <motion.div
-          style={{ boxShadow: nodeGlow }}
-          className="relative mt-8 flex h-12 w-12 items-center justify-center rounded-full bg-[#0a1220]"
-        >
+      {/* Nœud central — masque opaque pour que la barre ne traverse pas l’icône */}
+      <div className="relative z-20 hidden items-start justify-center lg:flex lg:col-start-2 lg:row-start-1 lg:px-3">
+        <div className="relative mt-7 flex items-center justify-center">
           <span
-            className="absolute inset-0 rounded-full"
-            style={{ border: `2px solid ${meta.accent}`, opacity: 0.85 }}
-          />
-          <Icon className="relative h-5 w-5" style={{ color: meta.accent }} />
-          <motion.span
             aria-hidden
-            className="absolute inset-[-6px] rounded-full border"
-            style={{ borderColor: `${meta.accent}40` }}
-            animate={{ scale: [1, 1.25, 1], opacity: [0.5, 0, 0.5] }}
-            transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut', delay: index * 0.15 }}
+            className="absolute h-[4.5rem] w-[4.5rem] rounded-full bg-[#050816]"
           />
-        </motion.div>
+          <motion.div
+            style={{ boxShadow: nodeGlow }}
+            className="relative flex h-16 w-16 items-center justify-center rounded-full bg-[#0b1220]"
+          >
+            <span
+              className="absolute inset-0 rounded-full"
+              style={{ border: `2.5px solid ${border ?? accent}` }}
+            />
+            <Icon className="relative h-7 w-7" style={{ color: border ?? accent }} strokeWidth={2.25} />
+            <motion.span
+              aria-hidden
+              className="absolute inset-[-8px] rounded-full border"
+              style={{ borderColor: `${border ?? accent}40` }}
+              animate={{ scale: [1, 1.22, 1], opacity: [0.55, 0, 0.55] }}
+              transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut', delay: index * 0.15 }}
+            />
+          </motion.div>
+        </div>
       </div>
 
       {/* Colonne vide pour l’alternance */}
@@ -388,9 +464,9 @@ export function Timeline() {
         </motion.div>
 
         <div className="relative mx-auto max-w-5xl">
-          {/* Rail */}
+          {/* Rail — sous les icônes (z-0) */}
           <div
-            className="pointer-events-none absolute top-0 bottom-0 left-6 w-px bg-white/10 sm:left-1/2 sm:-translate-x-1/2 lg:left-1/2"
+            className="pointer-events-none absolute top-0 bottom-0 left-6 z-0 w-px -translate-x-1/2 bg-white/10 sm:left-1/2 lg:left-1/2"
             aria-hidden
           >
             <motion.div
@@ -411,29 +487,49 @@ export function Timeline() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.35 }}
-              className="relative space-y-10 sm:space-y-14 lg:space-y-16"
+              className="relative z-10 space-y-10 sm:space-y-14 lg:space-y-16"
             >
-              {visible.map((item, i) => (
-                <div key={item.id} className="relative">
-                  {/* Point mobile */}
-                  <span
-                    className="absolute top-7 left-6 z-10 flex h-3 w-3 -translate-x-1/2 rounded-full lg:hidden"
-                    style={{
-                      background: TYPE_META[item.type].accent,
-                      boxShadow: `0 0 16px ${TYPE_META[item.type].accent}`,
-                    }}
-                  />
-                  <div className="pl-12 lg:pl-0">
-                    <JourneyNode
-                      item={item}
-                      index={i}
-                      progress={pathProgress}
-                      fr={fr}
-                      currentLabel={t.journey.current}
-                    />
+              {visible.map((item, i) => {
+                const nodeColor =
+                  item.brandBorder ?? item.brandColor ?? TYPE_META[item.type].accent
+                return (
+                  <div key={item.id} className="relative">
+                    {/* Point mobile — disque opaque + icône plus grande */}
+                    <span className="absolute top-6 left-6 z-20 flex -translate-x-1/2 items-center justify-center lg:hidden">
+                      <span
+                        aria-hidden
+                        className="absolute h-11 w-11 rounded-full bg-[#050816]"
+                      />
+                      <span
+                        className="relative flex h-9 w-9 items-center justify-center rounded-full bg-[#0b1220]"
+                        style={{
+                          boxShadow: `0 0 0 2px ${nodeColor}, 0 0 18px ${nodeColor}55`,
+                        }}
+                      >
+                        {(() => {
+                          const MobileIcon = TYPE_META[item.type].icon
+                          return (
+                            <MobileIcon
+                              className="h-4 w-4"
+                              style={{ color: nodeColor }}
+                              strokeWidth={2.4}
+                            />
+                          )
+                        })()}
+                      </span>
+                    </span>
+                    <div className="pl-14 lg:pl-0">
+                      <JourneyNode
+                        item={item}
+                        index={i}
+                        progress={pathProgress}
+                        fr={fr}
+                        currentLabel={t.journey.current}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
+                )
+              })}
             </motion.ol>
           </AnimatePresence>
         </div>
