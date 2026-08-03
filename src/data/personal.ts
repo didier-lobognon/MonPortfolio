@@ -7,7 +7,7 @@ export const personalInfo: PersonalInfo = {
   title: 'Développeur Full Stack',
   subtitle:
     'Je conçois et développe des applications web complètes — du front à l’API — avec une exigence forte sur la performance, la qualité du code et l’expérience utilisateur. Mon objectif : transformer un brief en produit fiable, élégant et prêt pour la production.',
-  email: 'didier.lobognon@email.com',
+  email: 'didierlobognon56@gmail.com',
   phone: '+33 6 00 00 00 00',
   location: 'Abidjan, Côte d\'Ivoire',
   availability: 'Disponible — nouvelles opportunités',
@@ -40,7 +40,7 @@ export const personalInfo: PersonalInfo = {
     {
       id: 'email',
       label: 'Email',
-      href: 'mailto:didier.lobognon@email.com',
+      href: 'mailto:didierlobognon56@gmail.com',
       icon: 'mail',
     },
   ],

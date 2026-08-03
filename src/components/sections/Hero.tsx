@@ -10,6 +10,7 @@ import { GradientMesh } from '@/components/shared/GradientMesh'
 import { SkillIcon } from '@/components/shared/SkillIcon'
 import { scrollToSection } from '@/lib/utils'
 import { useLanguage } from '@/i18n/LanguageProvider'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 
 type Token = { t: string; c: string }
 type CodeLine = { tokens: Token[] }
@@ -234,7 +235,7 @@ function CodePane({
   done: boolean
 }) {
   return (
-    <div className="grid grid-cols-[auto_1fr] gap-x-3 px-4 py-3.5 font-mono text-[12px] leading-7 sm:px-5 sm:py-4 sm:text-[13px] sm:leading-[1.75]">
+    <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 px-3 py-3.5 font-mono text-[10px] leading-6 sm:gap-x-3 sm:px-5 sm:py-4 sm:text-[13px] sm:leading-[1.75]">
       <div className="select-none text-right text-slate-600 tabular-nums" aria-hidden>
         {lines.map((_, i) => (
           <div key={i} className={i < visible ? 'text-slate-500' : ''}>
@@ -242,11 +243,11 @@ function CodePane({
           </div>
         ))}
       </div>
-      <div className="min-w-0 overflow-x-auto overflow-y-hidden">
+      <div className="min-w-0 overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch]">
         {lines.map((line, i) => (
           <div
             key={i}
-            className="whitespace-pre"
+            className="whitespace-pre pr-2"
             style={{
               opacity: i < visible ? 1 : 0.1,
               transition: 'opacity 0.18s ease',
@@ -281,6 +282,7 @@ function HeroVisual() {
   const userLocked = useRef(false)
   const file = FILES[tab]
   const { visible, done } = useTypedLines(ready, file.lines.length, tab)
+  const canTilt = useMediaQuery('(pointer: fine) and (min-width: 1024px)')
 
   const mx = useMotionValue(0)
   const my = useMotionValue(0)
@@ -312,6 +314,7 @@ function HeroVisual() {
   }
 
   const onMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (!canTilt) return
     const rect = e.currentTarget.getBoundingClientRect()
     const px = (e.clientX - rect.left) / rect.width - 0.5
     const py = (e.clientY - rect.top) / rect.height - 0.5
@@ -326,12 +329,12 @@ function HeroVisual() {
 
   return (
     <div
-      className="relative mx-auto w-full max-w-[620px] lg:max-w-none"
+      className="relative mx-auto w-full min-w-0 max-w-full overflow-hidden sm:max-w-[620px] lg:max-w-none"
       onMouseMove={onMove}
       onMouseLeave={onLeave}
     >
       <div
-        className="pointer-events-none absolute -inset-8 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.2),transparent_65%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.2),transparent_65%)] sm:-inset-8"
         aria-hidden
       />
 
@@ -345,8 +348,8 @@ function HeroVisual() {
       />
 
       <motion.div
-        className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#070b16]/96 shadow-[0_36px_90px_rgba(0,0,0,0.5)]"
-        style={{ transform }}
+        className="relative max-w-full overflow-hidden rounded-2xl border border-white/10 bg-[#070b16]/96 shadow-[0_36px_90px_rgba(0,0,0,0.5)]"
+        style={canTilt ? { transform } : undefined}
         initial={{ opacity: 0, y: 28 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
@@ -423,20 +426,20 @@ function HeroVisual() {
         </div>
 
         <div className="border-t border-white/[0.07] bg-[#0b1220]">
-          <div className="flex items-center justify-between gap-4 px-4 py-1.5 sm:px-5">
-            <div className="flex items-center gap-2 font-mono text-[10px] text-slate-500 sm:text-[11px]">
-              <span className="rounded bg-accent/15 px-1.5 py-0.5 text-accent">TS</span>
-              <span>UTF-8</span>
-              <span className="text-slate-600">|</span>
-              <span>
+          <div className="flex max-w-full items-center justify-between gap-2 overflow-hidden px-3 py-1.5 sm:gap-4 sm:px-5">
+            <div className="flex min-w-0 items-center gap-2 overflow-hidden font-mono text-[10px] text-slate-500 sm:text-[11px]">
+              <span className="shrink-0 rounded bg-accent/15 px-1.5 py-0.5 text-accent">TS</span>
+              <span className="shrink-0">UTF-8</span>
+              <span className="hidden text-slate-600 sm:inline">|</span>
+              <span className="truncate">
                 {file.label} · Ln {Math.min(Math.max(visible, 1), file.lines.length)}
               </span>
             </div>
-            <span className="font-mono text-[10px] text-slate-500 sm:text-[11px]">
+            <span className="hidden shrink-0 font-mono text-[10px] text-slate-500 sm:inline sm:text-[11px]">
               Spaces: 2
             </span>
           </div>
-          <div className="flex items-center gap-1 overflow-x-auto border-t border-white/[0.05] px-3 py-2 sm:px-4">
+          <div className="flex max-w-full items-center gap-1 overflow-x-auto overscroll-x-contain border-t border-white/[0.05] px-3 py-2 [-webkit-overflow-scrolling:touch] sm:px-4">
             {STACK.map((tech) => (
               <span
                 key={tech.id}
@@ -461,28 +464,28 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen items-center overflow-x-hidden pt-32 pb-16"
+      className="relative flex min-h-screen items-center overflow-x-clip pt-28 pb-16 sm:pt-32"
     >
       <GradientMesh />
       <ParticleBackground />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)] lg:gap-12 xl:gap-16">
-        <div className="flex max-w-xl flex-col lg:max-w-none">
+      <div className="relative z-10 mx-auto grid w-full min-w-0 max-w-7xl items-center gap-10 px-4 sm:gap-12 sm:px-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)] lg:gap-12 xl:gap-16">
+        <div className="flex min-w-0 max-w-full flex-col lg:max-w-none">
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
-            className="mb-7"
+            className="mb-6 sm:mb-7"
           >
             <div
-              className="inline-flex items-center gap-2.5 rounded-full border border-emerald-400/40 bg-emerald-400/10 px-4 py-2 text-sm font-medium text-emerald-300 shadow-[0_0_28px_rgba(52,211,153,0.22)] backdrop-blur-sm"
+              className="inline-flex max-w-full items-center gap-2 rounded-full border border-emerald-400/40 bg-emerald-400/10 px-3 py-1.5 text-xs font-medium text-emerald-300 shadow-[0_0_28px_rgba(52,211,153,0.22)] backdrop-blur-sm sm:gap-2.5 sm:px-4 sm:py-2 sm:text-sm"
               role="status"
             >
               <span className="relative flex h-2.5 w-2.5 shrink-0">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
               </span>
-              <span className="tracking-wide">{t.hero.availability}</span>
+              <span className="min-w-0 truncate tracking-wide">{t.hero.availability}</span>
             </div>
           </motion.div>
 
@@ -491,7 +494,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className="font-name text-[3rem] font-semibold leading-[1.2] tracking-[-0.02em] text-text whitespace-nowrap">
+            <h1 className="font-name max-w-full text-[1.5rem] font-semibold leading-[1.12] tracking-[-0.02em] text-text whitespace-nowrap sm:text-[2.75rem] md:text-[3rem]">
               {personalInfo.name}
             </h1>
           </motion.div>
@@ -500,7 +503,7 @@ export function Hero() {
             key={`title-${locale}`}
             text={t.hero.title}
             as="p"
-            className="mt-3 font-display text-xl font-semibold tracking-tight text-accent sm:text-2xl"
+            className="mt-2.5 font-display text-base font-semibold tracking-tight text-accent sm:mt-3 sm:text-xl md:text-2xl"
             delay={0.15}
           />
 
@@ -509,7 +512,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.45 }}
-            className="mt-5 max-w-lg text-[15px] leading-relaxed text-muted sm:text-base"
+            className="mt-4 max-w-lg text-sm leading-relaxed text-muted sm:mt-5 sm:text-base"
           >
             {t.hero.subtitle}
           </motion.p>
@@ -518,9 +521,9 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.35 }}
-            className="mt-4 inline-flex items-center gap-1.5 text-sm text-muted/80"
+            className="mt-3 inline-flex items-center gap-1.5 text-xs text-muted/80 sm:mt-4 sm:text-sm"
           >
-            <MapPin size={14} className="text-accent/70" aria-hidden />
+            <MapPin size={13} className="shrink-0 text-accent/70" aria-hidden />
             {personalInfo.location}
           </motion.p>
 
@@ -528,37 +531,37 @@ export function Hero() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.45 }}
-            className="mt-8 flex flex-wrap gap-3"
+            className="mt-6 flex w-full max-w-full flex-row flex-wrap gap-2.5 sm:mt-8 sm:gap-3"
           >
-            <MagneticButton>
+            <MagneticButton className="min-w-0 flex-1 sm:flex-none sm:w-auto">
               <Button
                 size="lg"
                 variant="gradient"
-                className="gap-2"
+                className="h-10 w-full justify-center gap-1.5 px-3 text-sm sm:h-12 sm:w-auto sm:gap-2 sm:px-8 sm:text-base"
                 data-cursor="projets"
                 onClick={() => scrollToSection('projects')}
               >
                 {t.hero.ctaProjects}
-                <ArrowRight size={18} />
+                <ArrowRight size={16} />
               </Button>
             </MagneticButton>
 
-            <MagneticButton>
+            <MagneticButton className="min-w-0 flex-1 sm:flex-none sm:w-auto">
               <Button
                 size="lg"
                 variant="secondary"
-                className="gap-2"
+                className="h-10 w-full justify-center gap-1.5 px-3 text-sm sm:h-12 sm:w-auto sm:gap-2 sm:px-8 sm:text-base"
                 data-cursor="contact"
                 onClick={() => scrollToSection('contact')}
               >
-                <Smartphone size={17} strokeWidth={2} />
+                <Smartphone size={15} strokeWidth={2} />
                 {t.hero.ctaContact}
               </Button>
             </MagneticButton>
           </motion.div>
         </div>
 
-        <div className="relative w-full">
+        <div className="relative w-full min-w-0 max-w-full">
           <HeroVisual />
         </div>
       </div>
@@ -566,7 +569,7 @@ export function Hero() {
       <motion.button
         type="button"
         onClick={() => scrollToSection('about')}
-        className="absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-muted transition-colors hover:text-text"
+        className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-muted transition-colors hover:text-text sm:flex"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.15 }}

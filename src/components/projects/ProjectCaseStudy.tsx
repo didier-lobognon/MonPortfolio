@@ -1,9 +1,11 @@
-import { useEffect, type ReactNode } from 'react'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
   ArrowUpRight,
   Boxes,
   CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
   Database,
   ImageIcon,
   LayoutDashboard,
@@ -11,10 +13,12 @@ import {
   Shield,
   Smartphone,
   X,
+  ZoomIn,
 } from 'lucide-react'
 import type { Project } from '@/types'
 import { getLenisInstance } from '@/lib/lenis'
 import { useLanguage } from '@/i18n/LanguageProvider'
+import { cn } from '@/lib/utils'
 
 const FEATURE_ICONS = [Smartphone, Smartphone, LayoutDashboard, LayoutDashboard, LayoutDashboard, Shield]
 
@@ -28,16 +32,52 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
   const { locale } = useLanguage()
   const fr = locale === 'fr'
   const accent = project?.accent ?? '#12B76A'
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+
+  const galleryImages = useMemo(() => {
+    if (!project) return [] as string[]
+    const list = project.gallery?.length ? [...project.gallery] : []
+    if (project.image && !list.includes(project.image)) {
+      list.unshift(project.image)
+    }
+    return list.length ? list : project.image ? [project.image] : []
+  }, [project])
+
+  const openLightbox = (src: string) => {
+    const idx = galleryImages.indexOf(src)
+    setLightboxIndex(idx >= 0 ? idx : 0)
+  }
+
+  const closeLightbox = () => setLightboxIndex(null)
 
   useEffect(() => {
-    if (!open) return
+    if (!open) {
+      setLightboxIndex(null)
+      return
+    }
     const prev = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     const lenis = getLenisInstance()
     lenis?.stop()
 
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape') {
+        if (lightboxIndex !== null) {
+          e.stopPropagation()
+          closeLightbox()
+          return
+        }
+        onClose()
+      }
+      if (lightboxIndex === null || galleryImages.length < 2) return
+      if (e.key === 'ArrowRight') {
+        setLightboxIndex((i) => (i === null ? 0 : (i + 1) % galleryImages.length))
+      }
+      if (e.key === 'ArrowLeft') {
+        setLightboxIndex((i) =>
+          i === null ? 0 : (i - 1 + galleryImages.length) % galleryImages.length,
+        )
+      }
     }
     window.addEventListener('keydown', onKey)
     return () => {
@@ -45,7 +85,7 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
       lenis?.start()
       window.removeEventListener('keydown', onKey)
     }
-  }, [open, onClose])
+  }, [open, onClose, lightboxIndex, galleryImages.length])
 
   return (
     <AnimatePresence>
@@ -120,16 +160,29 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
               className="min-h-0 flex-1 overflow-y-auto overscroll-contain bg-[#152033]"
               data-lenis-prevent
               onWheel={(e) => e.stopPropagation()}
-            >              {/* Hero */}
+            >
+              {/* Hero */}
               <section className="relative overflow-hidden">
-                <div className="relative aspect-[16/9] sm:aspect-[21/8]">
+                <button
+                  type="button"
+                  onClick={() => openLightbox(project.image)}
+                  data-cursor={fr ? 'Agrandir' : 'Zoom'}
+                  className="group relative block aspect-[16/9] w-full overflow-hidden sm:aspect-[21/8]"
+                >
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="h-full w-full object-cover object-top"
+                    className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#152033]" />
-                </div>
+                  <span
+                    className="absolute right-4 bottom-4 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/45 px-3 py-1.5 text-[11px] font-medium text-white opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100"
+                    style={{ boxShadow: `0 0 20px ${accent}33` }}
+                  >
+                    <ZoomIn className="h-3.5 w-3.5" style={{ color: accent }} />
+                    {fr ? 'Agrandir' : 'Zoom'}
+                  </span>
+                </button>
 
                 <div className="relative -mt-12 px-5 pb-2 sm:-mt-14 sm:px-8">
                   <motion.div
@@ -395,19 +448,29 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                   </h3>
                   <div className="mt-6 grid gap-3 sm:grid-cols-2">
                     {(project.gallery?.length ? project.gallery : [project.image]).map((src, i) => (
-                      <motion.div
+                      <motion.button
                         key={`${src}-${i}`}
+                        type="button"
                         initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="group relative overflow-hidden rounded-2xl border border-white/12"
+                        onClick={() => openLightbox(src)}
+                        data-cursor={fr ? 'Agrandir' : 'Zoom'}
+                        className="group relative overflow-hidden rounded-2xl border border-white/12 text-left"
                       >
                         <img
                           src={src}
                           alt={`${project.title} — ${i + 1}`}
-                          className="aspect-[16/10] w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
+                          className="aspect-[16/10] w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
                         />
-                      </motion.div>
+                        <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                        <span
+                          className="absolute right-3 bottom-3 inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-black/50 text-white opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 group-hover:scale-100 scale-90"
+                          style={{ boxShadow: `0 0 20px ${accent}44` }}
+                        >
+                          <ZoomIn className="h-4 w-4" style={{ color: accent }} />
+                        </span>
+                      </motion.button>
                     ))}
                     {(project.gallery?.length ?? 1) < 2 &&
                       [1, 2].map((n) => (
@@ -425,6 +488,191 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                 </section>
               </div>
             </div>
+          </motion.div>
+
+          <ImageLightbox
+            open={lightboxIndex !== null}
+            images={galleryImages}
+            index={lightboxIndex ?? 0}
+            title={project.title}
+            accent={accent}
+            fr={fr}
+            onClose={closeLightbox}
+            onPrev={() =>
+              setLightboxIndex((i) =>
+                i === null ? 0 : (i - 1 + galleryImages.length) % galleryImages.length,
+              )
+            }
+            onNext={() =>
+              setLightboxIndex((i) =>
+                i === null ? 0 : (i + 1) % galleryImages.length,
+              )
+            }
+            onSelect={setLightboxIndex}
+          />
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}
+
+function ImageLightbox({
+  open,
+  images,
+  index,
+  title,
+  accent,
+  fr,
+  onClose,
+  onPrev,
+  onNext,
+  onSelect,
+}: {
+  open: boolean
+  images: string[]
+  index: number
+  title: string
+  accent: string
+  fr: boolean
+  onClose: () => void
+  onPrev: () => void
+  onNext: () => void
+  onSelect: (i: number) => void
+}) {
+  const src = images[index]
+  const multi = images.length > 1
+
+  return (
+    <AnimatePresence>
+      {open && src && (
+        <motion.div
+          className="fixed inset-0 z-[90] flex items-center justify-center p-3 sm:p-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+        >
+          <motion.button
+            type="button"
+            aria-label={fr ? 'Fermer' : 'Close'}
+            className="absolute inset-0 bg-[#03050f]/88 backdrop-blur-xl"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+          />
+
+          <motion.div
+            aria-hidden
+            className="pointer-events-none absolute top-1/2 left-1/2 h-[55vmin] w-[55vmin] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]"
+            style={{ background: accent }}
+            initial={{ opacity: 0, scale: 0.6 }}
+            animate={{ opacity: 0.22, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.45 }}
+          />
+
+          <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label={fr ? 'Aperçu image' : 'Image preview'}
+            className="relative z-10 flex w-full max-w-5xl flex-col"
+            initial={{ opacity: 0, scale: 0.88, y: 28, filter: 'blur(12px)' }}
+            animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, scale: 0.92, y: 16, filter: 'blur(8px)' }}
+            transition={{ type: 'spring', stiffness: 280, damping: 26 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="mb-3 flex items-center justify-between gap-3 px-1">
+              <div className="min-w-0">
+                <p className="truncate font-mono text-[10px] tracking-[0.18em] text-slate-400 uppercase">
+                  {title}
+                </p>
+                <p className="text-xs text-slate-500">
+                  {index + 1} / {images.length}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={onClose}
+                data-cursor={fr ? 'Fermer' : 'Close'}
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            <div
+              className="relative overflow-hidden rounded-2xl border border-white/15 bg-[#0b1220]/9 shadow-2xl sm:rounded-3xl"
+              style={{
+                boxShadow: `0 0 0 1px ${accent}33, 0 0 60px ${accent}22, 0 40px 100px rgba(0,0,0,0.55)`,
+              }}
+            >
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={src}
+                  src={src}
+                  alt={`${title} — ${index + 1}`}
+                  initial={{ opacity: 0, scale: 1.06, filter: 'blur(8px)' }}
+                  animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, scale: 0.96, filter: 'blur(6px)' }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  className="max-h-[72vh] w-full object-contain"
+                />
+              </AnimatePresence>
+
+              {multi && (
+                <>
+                  <button
+                    type="button"
+                    onClick={onPrev}
+                    aria-label={fr ? 'Précédente' : 'Previous'}
+                    data-cursor={fr ? 'Précédente' : 'Previous'}
+                    className="absolute top-1/2 left-2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/45 text-white backdrop-blur-md transition-colors hover:bg-black/65 sm:left-3 sm:h-11 sm:w-11"
+                  >
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={onNext}
+                    aria-label={fr ? 'Suivante' : 'Next'}
+                    data-cursor={fr ? 'Suivante' : 'Next'}
+                    className="absolute top-1/2 right-2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/45 text-white backdrop-blur-md transition-colors hover:bg-black/65 sm:right-3 sm:h-11 sm:w-11"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                </>
+              )}
+            </div>
+
+            {multi && (
+              <div className="mt-4 flex justify-center gap-2 overflow-x-auto px-1 pb-1">
+                {images.map((thumb, i) => (
+                  <button
+                    key={`${thumb}-${i}`}
+                    type="button"
+                    onClick={() => onSelect(i)}
+                    className={cn(
+                      'relative h-12 w-16 shrink-0 overflow-hidden rounded-lg border transition-all sm:h-14 sm:w-20',
+                      i === index
+                        ? 'border-transparent opacity-100 scale-105'
+                        : 'border-white/15 opacity-55 hover:opacity-90',
+                    )}
+                    style={
+                      i === index
+                        ? { boxShadow: `0 0 0 2px ${accent}, 0 0 18px ${accent}55` }
+                        : undefined
+                    }
+                  >
+                    <img
+                      src={thumb}
+                      alt=""
+                      className="h-full w-full object-cover object-top"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
           </motion.div>
         </motion.div>
       )}
