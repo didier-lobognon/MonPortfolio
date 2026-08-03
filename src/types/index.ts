@@ -133,10 +133,18 @@ export interface Stat {
 export interface Testimonial {
   id: string
   name: string
-  role: string
+  roleFr: string
+  roleEn: string
   company: string
-  content: string
-  avatar: string
+  contentFr: string
+  contentEn: string
+  /** Photo du témoin */
+  photo: string
+  /** Logo entreprise */
+  companyLogo: string
+  companyLogoBg?: string
+  companyLogoFit?: 'contain' | 'cover'
+  accent: string
   rating: number
 }
 
