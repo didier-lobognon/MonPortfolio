@@ -125,15 +125,17 @@ function ProjectCard({
   onOpen: (project: Project) => void
 }) {
   const theme = themeOf(project.id, project)
-  const { locale } = useLanguage()
+  const { locale, t } = useLanguage()
   const fr = locale === 'fr'
   const [hovered, setHovered] = useState(false)
+  const [expanded, setExpanded] = useState(false)
   const ctaCase = fr ? 'Voir détail' : 'View details'
   const ctaSite = fr ? 'Voir le site' : 'Visit site'
 
   const isHero = size === 'heroL' || size === 'heroR'
   const isSide = size === 'side'
   const mirror = size === 'heroR'
+  const needsMore = project.description.length > (isHero ? 140 : 100)
 
   return (
     <motion.div
@@ -252,11 +254,23 @@ function ProjectCard({
             <p
               className={cn(
                 'mt-2 leading-relaxed text-muted',
-                isHero ? 'line-clamp-3 text-sm sm:text-base' : 'line-clamp-2 text-sm',
+                isHero ? 'text-sm sm:text-base' : 'text-sm',
+                !expanded && (isHero ? 'line-clamp-3' : 'line-clamp-2'),
               )}
             >
               {project.description}
             </p>
+            {needsMore && (
+              <button
+                type="button"
+                onClick={() => setExpanded((v) => !v)}
+                className="mt-1.5 text-xs font-medium transition-colors hover:opacity-90"
+                style={{ color: theme.accent }}
+                data-cursor={expanded ? t.projects.readLess : t.projects.readMore}
+              >
+                {expanded ? t.projects.readLess : t.projects.readMore}
+              </button>
+            )}
           </div>
 
           {project.contributionTeaser && (
@@ -342,19 +356,29 @@ function ProjectCard({
   )
 }
 
+const INITIAL_PROJECTS = 5
+
 export function Projects() {
   const { t, locale } = useLanguage()
   const [filter, setFilter] = useState<FilterKey>('all')
   const [active, setActive] = useState<Project | null>(null)
+  const [showAll, setShowAll] = useState(false)
 
   const featured = useMemo(() => projects.filter((p) => p.featured), [])
   const secondary = useMemo(() => projects.filter((p) => !p.featured), [])
-  const visible = filter === 'featured' ? featured : projects
+  const pool = filter === 'featured' ? featured : projects
+  const visible = showAll ? pool : pool.slice(0, INITIAL_PROJECTS)
+  const hasMore = pool.length > INITIAL_PROJECTS
 
   const filters = [
     { key: 'all' as const, label: locale === 'fr' ? 'Tous' : 'All' },
     { key: 'featured' as const, label: locale === 'fr' ? 'Vedettes' : 'Featured' },
   ]
+
+  const setFilterAndReset = (key: FilterKey) => {
+    setFilter(key)
+    setShowAll(false)
+  }
 
   return (
     <section id="projects" className="relative overflow-x-hidden py-24 sm:py-32">
@@ -401,7 +425,7 @@ export function Projects() {
                   role="tab"
                   aria-selected={activeFilter}
                   data-cursor={f.label}
-                  onClick={() => setFilter(f.key)}
+                  onClick={() => setFilterAndReset(f.key)}
                   className={cn(
                     'relative rounded-full px-4 py-2 text-sm font-medium transition-colors',
                     activeFilter ? 'text-text' : 'text-muted hover:text-text/85',
@@ -442,8 +466,29 @@ export function Projects() {
           </motion.div>
         </AnimatePresence>
 
+        {hasMore && (
+          <div className="mt-10 flex justify-center">
+            <motion.button
+              type="button"
+              onClick={() => setShowAll((v) => !v)}
+              data-cursor={showAll ? t.projects.showLess : t.projects.showMore}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="inline-flex items-center gap-2 rounded-full border border-accent-cyan/35 bg-accent-cyan/10 px-6 py-3 text-sm font-medium text-text transition-colors hover:bg-accent-cyan/20"
+            >
+              {showAll ? t.projects.showLess : t.projects.showMore}
+              <span className="font-mono text-[11px] text-accent-cyan">
+                {showAll
+                  ? `−${pool.length - INITIAL_PROJECTS}`
+                  : `+${pool.length - INITIAL_PROJECTS}`}
+              </span>
+            </motion.button>
+          </div>
+        )}
+
         <p className="mt-8 text-center font-mono text-[11px] tracking-wide text-slate-500">
-          {visible.length}{' '}
+          {visible.length}
+          {hasMore && !showAll ? ` / ${pool.length}` : ''}{' '}
           {locale === 'fr' ? 'projets sélectionnés' : 'selected projects'}
           {filter === 'all' && secondary.length > 0
             ? ` · ${featured.length} featured`

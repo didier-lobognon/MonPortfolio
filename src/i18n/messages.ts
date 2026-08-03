@@ -67,6 +67,10 @@ export const messages = {
       title: 'Des produits qui marquent',
       description:
         'Du dashboard au e-commerce, des apps livrées avec du caractère — perf, UX et détails qui se ressentent.',
+      readMore: 'Voir plus',
+      readLess: 'Voir moins',
+      showMore: 'Afficher plus de projets',
+      showLess: 'Afficher moins',
     },
     journey: {
       eyebrow: 'Parcours',
@@ -148,6 +152,10 @@ export const messages = {
         '« Le détail fait la différence entre un produit correct et une expérience mémorable. »',
       rights: 'Tous droits réservés.',
       crafted: 'Conçu avec React, Framer Motion & GSAP.',
+      cta: 'Discutons de votre projet',
+      navLabel: 'Navigation',
+      socialLabel: 'Réseaux',
+      backTop: 'Haut de page',
     },
   },
   en: {
@@ -216,6 +224,10 @@ export const messages = {
       title: 'Work that leaves a mark',
       description:
         'From dashboards to e-commerce — shipped apps with character: performance, UX, and details you can feel.',
+      readMore: 'Read more',
+      readLess: 'Show less',
+      showMore: 'Show more projects',
+      showLess: 'Show less',
     },
     journey: {
       eyebrow: 'Journey',
@@ -297,6 +309,10 @@ export const messages = {
         '“Detail is what separates a decent product from a memorable experience.”',
       rights: 'All rights reserved.',
       crafted: 'Built with React, Framer Motion & GSAP.',
+      cta: "Let's talk about your project",
+      navLabel: 'Navigate',
+      socialLabel: 'Social',
+      backTop: 'Back to top',
     },
   },
 } as const
