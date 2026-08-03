@@ -1,37 +1,55 @@
 import type { Project } from '@/types'
-import masaFinanceImg from '@/assets/masafinance.png'
-import couvoirBafImg from '@/assets/couvoirbaf.png'
-import dynexc1 from '@/assets/dynexc1.png'
-import dynexc2 from '@/assets/dynexc2.png'
-import dynexc3 from '@/assets/dynexc3.png'
-import dynexcDashboard from '@/assets/dynexc-dasbaord.png'
-import gpImg from '@/assets/gp.png'
-import gp1 from '@/assets/gp1.png'
-import gp2 from '@/assets/gp2.png'
-import gp3 from '@/assets/gp3.png'
-import kanieImg from '@/assets/kanie.png'
-import kanie1 from '@/assets/kanie1.png'
-import kanie2 from '@/assets/kanie2.png'
-import kanie3 from '@/assets/kanie3.png'
-import cnrImg from '@/assets/cnr.png'
-import cnr1 from '@/assets/cnr1.png'
-import cnr2 from '@/assets/cnr2.png'
-import classstemImg from '@/assets/classstem.png'
-import classstem1 from '@/assets/classstem1.png'
-import classstem2 from '@/assets/classstem2.png'
-import classstem3 from '@/assets/classstem3.png'
-import engeemImg from '@/assets/engeem.png'
-import engeem1 from '@/assets/engeem1.png'
-import engeem2 from '@/assets/engeem2.png'
-import docEngeemImg from '@/assets/doc-engeem.png'
-import docEngeem1 from '@/assets/doc-engeem1.png'
-import docEngeem2 from '@/assets/doc-engeem2.png'
-import docEngeem3 from '@/assets/doc-engeem3.png'
-import pimediaImg from '@/assets/pimedia.png'
-import pimedia1 from '@/assets/pimedia1.png'
-import wamImg from '@/assets/wam.png'
-import wam1 from '@/assets/wam1.png'
-import wam2 from '@/assets/wam2.png'
+import masaFinanceImg from '@/assets/projects/masafinance/masafinance.png'
+import couvoirBafImg from '@/assets/projects/couvoir-baf/couvoirbaf.png'
+import dynexc1 from '@/assets/projects/dynexcafrica/dynexc1.png'
+import dynexc2 from '@/assets/projects/dynexcafrica/dynexc2.png'
+import dynexc3 from '@/assets/projects/dynexcafrica/dynexc3.png'
+import dynexcDashboard from '@/assets/projects/dynexcafrica/dynexc-dasbaord.png'
+import gpImg from '@/assets/projects/dynexc-gp/gp.png'
+import gp1 from '@/assets/projects/dynexc-gp/gp1.png'
+import gp2 from '@/assets/projects/dynexc-gp/gp2.png'
+import gp3 from '@/assets/projects/dynexc-gp/gp3.png'
+import kanieImg from '@/assets/projects/kanie/kanie.png'
+import kanie1 from '@/assets/projects/kanie/kanie1.png'
+import kanie2 from '@/assets/projects/kanie/kanie2.png'
+import kanie3 from '@/assets/projects/kanie/kanie3.png'
+import cnrImg from '@/assets/projects/cnr/cnr.png'
+import cnr1 from '@/assets/projects/cnr/cnr1.png'
+import cnr2 from '@/assets/projects/cnr/cnr2.png'
+import ccnrClassementImg from '@/assets/projects/ccnr-classement/classmeent-cnr.png'
+import ccnrClassement1 from '@/assets/projects/ccnr-classement/classmeent-cnr1.png'
+import ccnrClassement2 from '@/assets/projects/ccnr-classement/classmeent-cnr2.png'
+import ccnrClassement3 from '@/assets/projects/ccnr-classement/classmeent-cnr3.png'
+import ccnrClassement4 from '@/assets/projects/ccnr-classement/classmeent-cnr4.png'
+import ccnrClassement5 from '@/assets/projects/ccnr-classement/classmeent-cnr5.png'
+import ccnrClassement6 from '@/assets/projects/ccnr-classement/classement-cnr6.png'
+import ccnrClassement7 from '@/assets/projects/ccnr-classement/classement-cnr7.png'
+import ccnrClassement8 from '@/assets/projects/ccnr-classement/classement-cnr8.png'
+import ccnrClassement9 from '@/assets/projects/ccnr-classement/classement-cnr9.png'
+import mecagirlsImg from '@/assets/projects/mecagirls/mecagirls.png'
+import mecagirls1 from '@/assets/projects/mecagirls/mecagirls1.png'
+import mecagirls2 from '@/assets/projects/mecagirls/mecagirls2.png'
+import mecagirls3 from '@/assets/projects/mecagirls/mecagirls3.png'
+import mecagirls4 from '@/assets/projects/mecagirls/mecagirls4.png'
+import mecagirls5 from '@/assets/projects/mecagirls/mecagirls5.png'
+import mecagirls6 from '@/assets/projects/mecagirls/mecagirls6.png'
+import mecagirls7 from '@/assets/projects/mecagirls/mecagirls7.png'
+import classstemImg from '@/assets/projects/classstem/classstem.png'
+import classstem1 from '@/assets/projects/classstem/classstem1.png'
+import classstem2 from '@/assets/projects/classstem/classstem2.png'
+import classstem3 from '@/assets/projects/classstem/classstem3.png'
+import engeemImg from '@/assets/projects/engeem/engeem.png'
+import engeem1 from '@/assets/projects/engeem/engeem1.png'
+import engeem2 from '@/assets/projects/engeem/engeem2.png'
+import docEngeemImg from '@/assets/projects/engeem-docs/doc-engeem.png'
+import docEngeem1 from '@/assets/projects/engeem-docs/doc-engeem1.png'
+import docEngeem2 from '@/assets/projects/engeem-docs/doc-engeem2.png'
+import docEngeem3 from '@/assets/projects/engeem-docs/doc-engeem3.png'
+import pimediaImg from '@/assets/projects/pimedia/pimedia.png'
+import pimedia1 from '@/assets/projects/pimedia/pimedia1.png'
+import wamImg from '@/assets/projects/wam/wam.png'
+import wam1 from '@/assets/projects/wam/wam1.png'
+import wam2 from '@/assets/projects/wam/wam2.png'
 
 /**
  * Projets du portfolio.
@@ -415,8 +433,6 @@ export const projects: Project[] = [
     role: 'Développeur Full Stack',
     accent: '#F8FAFC',
     caseStudy: true,
-    demo: 'https://gp.dynexcafrica.org',
-    github: 'https://github.com/IT-DYNEXCAFRICA/Plateforme-de-Gestion-DynExcAfrica',
     contributionTeaser: 'RH, pointages, timesheets, événements, mails & CI/CD Docker',
     contributionNote:
       'Développement full-stack de la plateforme de gestion : frontend React (rôles Standard / Gestionnaire / Super Admin) et backend Express (API, cron, emails, rapports), déployée en Docker derrière Traefik avec CI/CD GitHub Actions.',
@@ -542,6 +558,7 @@ export const projects: Project[] = [
     role: 'Développeur Full Stack',
     accent: '#7C3AED',
     caseStudy: true,
+    demo: 'https://kanie.ci/',
     contributionTeaser: 'Catalogue, panier, admin, JWT, Mobile Money & notifications',
     contributionNote:
       'En équipe de deux, j’ai contribué full stack : frontend React et backend NestJS — fonctionnalités métier, interfaces modernes et API REST sécurisées (API-first).',
@@ -749,6 +766,236 @@ export const projects: Project[] = [
       { label: 'Front', items: ['HTML', 'CSS', 'JavaScript'] },
     ],
     gallery: [cnrImg, cnr1, cnr2],
+  },
+  {
+    id: 'ccnr-classement',
+    title: 'CNR – Classement live',
+    description:
+      'Plateforme de classement en temps réel du Championnat National de Robotique : podium, barèmes, vainqueurs, quiz, partenaires, moniteur et dashboard de gestion.',
+    longDescription:
+      'Application web dédiée au suivi live du Championnat National de Robotique (CNR-CI) : affichage public du classement, des barèmes et des vainqueurs de manches, jeux quiz, espace partenaires, vue moniteur scène, et dashboard d’administration pour piloter l’ensemble.',
+    overview: [
+      'Pendant le show et les manches, le public et les équipes suivent un classement temps réel (podium top 3, tableau des scores, meilleur passage) synchronisé avec les résultats saisis côté organisation.',
+      'La plateforme couvre aussi les barèmes de notation, l’annonce des vainqueurs de manche / grand vainqueur, des quiz interactifs, la mise en avant des partenaires et une vue moniteur adaptée aux écrans de salle.',
+      'Un dashboard de gestion permet d’administrer équipes, scores, manches, contenus quiz et partenaires. Prod publique : ccnr.dynexcafrica.org/ranking.',
+    ],
+    image: ccnrClassement1,
+    technologies: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Temps réel', 'Dashboard'],
+    featured: true,
+    year: '2026',
+    category: 'Événementiel · Temps réel',
+    role: 'Développeur Full-Stack',
+    accent: '#F97316',
+    caseStudy: true,
+    demo: 'https://ccnr.dynexcafrica.org/ranking',
+    contributionTeaser: 'Classement live, moniteur scène & dashboard d’administration',
+    contributionNote:
+      'Conception et développement de la plateforme de classement temps réel du CNR : vues publiques (classement, barèmes, vainqueurs, quiz, partenaires, moniteur) et dashboard de gestion pour piloter scores, manches et contenus live.',
+    contributionHighlights: [
+      {
+        title: 'Vues publiques live',
+        description:
+          'Classement / podium, barèmes, vainqueurs de manche, quiz et partenaires pour le public et les écrans de salle.',
+      },
+      {
+        title: 'Dashboard de gestion',
+        description:
+          'Back-office pour administrer équipes, scores, manches, quiz et partenaires en conditions événementielles.',
+      },
+    ],
+    contributions: [
+      {
+        area: 'frontend',
+        items: [
+          'UI live : podium, tableau de classement, annonces vainqueurs et barèmes',
+          'Vues quiz, partenaires et moniteur adaptées aux grands écrans',
+          'Dashboard d’administration (gestion des données live)',
+          'Stack UI : React, TypeScript, Vite, Tailwind CSS',
+        ],
+      },
+      {
+        area: 'backend',
+        items: [
+          'APIs et logique métier scores / manches / équipes',
+          'Synchronisation temps réel des affichages publics',
+          'Pilotage des contenus quiz et partenaires depuis le dashboard',
+        ],
+      },
+    ],
+    features: [
+      {
+        title: 'Classement temps réel',
+        description: 'Podium top 3 et tableau des scores synchronisés pendant les manches.',
+      },
+      {
+        title: 'Barèmes',
+        description: 'Affichage des barèmes et règles de notation du championnat.',
+      },
+      {
+        title: 'Vainqueurs de manche',
+        description: 'Annonces live des vainqueurs et du grand vainqueur (confetti, score final).',
+      },
+      {
+        title: 'Jeux quiz',
+        description: 'Quiz interactifs pour animer le public pendant l’événement.',
+      },
+      {
+        title: 'Partenaires & moniteur',
+        description: 'Mise en avant partenaires et vue moniteur pour les écrans de salle.',
+      },
+      {
+        title: 'Dashboard de gestion',
+        description: 'Administration centralisée des scores, manches, quiz et contenus live.',
+      },
+    ],
+    architecture: [
+      {
+        title: 'SPA publique',
+        description: 'Vues classement, barèmes, vainqueurs, quiz, partenaires et moniteur.',
+      },
+      {
+        title: 'Temps réel',
+        description: 'Mise à jour live des scores et annonces pendant les manches.',
+      },
+      {
+        title: 'Dashboard admin',
+        description: 'Back-office de pilotage équipes, scores, manches et contenus.',
+      },
+      {
+        title: 'Identité CNR',
+        description: 'Charte orange / vert / dark pour écrans scène et public.',
+      },
+      {
+        title: 'Prod',
+        description: 'ccnr.dynexcafrica.org/ranking',
+      },
+    ],
+    techStack: [
+      { label: 'Frontend', items: ['React', 'TypeScript', 'Vite', 'Tailwind CSS'] },
+      { label: 'Live', items: ['Classement temps réel', 'Moniteur scène', 'Quiz'] },
+      { label: 'Admin', items: ['Dashboard', 'Scores & manches', 'Partenaires'] },
+      { label: 'Produit', items: ['CNR-CI', 'Événementiel STEM'] },
+    ],
+    gallery: [
+      ccnrClassement1,
+      ccnrClassementImg,
+      ccnrClassement2,
+      ccnrClassement3,
+      ccnrClassement4,
+      ccnrClassement5,
+      ccnrClassement6,
+      ccnrClassement7,
+      ccnrClassement8,
+      ccnrClassement9,
+    ],
+  },
+  {
+    id: 'mecagirls',
+    title: '500 MecaGirls',
+    description:
+      'Site du programme 500 MecaGirls : orientation métier, parcours personnalisé, catalogue de métiers et témoignages pour les jeunes filles en mécanique et industrie.',
+    longDescription:
+      '500 MecaGirls (by DynExcAfrica) promeut l’égalité des genres dans les métiers industriels et mécaniques. Le site accompagne les jeunes filles et les femmes vers des carrières techniques : découverte des métiers, définition de parcours, témoignages vidéo et inscription aux journées d’orientation.',
+    overview: [
+      'Le programme vise à inspirer et former les jeunes filles et femmes en mécanique et dans l’industrie, en partenariat avec DynExcAfrica et la coopération allemande.',
+      'Le site propose un parcours guidé « Définir mon parcours » (centres d’intérêt, métiers industriels), un catalogue de 40+ métiers avec recherche / filtres et export PDF, des témoignages vidéo par cohorte, et des CTA pour participer aux journées d’orientation.',
+      'Vitrine et outil d’orientation STEM pour élargir l’accès des filles aux filières techniques. Prod : mecagirls.dynexcafrica.org.',
+    ],
+    image: mecagirlsImg,
+    technologies: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'UX parcours'],
+    featured: true,
+    year: '2025',
+    category: 'Éducation · Orientation STEM',
+    role: 'Développeur Frontend',
+    accent: '#FF6A00',
+    caseStudy: true,
+    demo: 'https://mecagirls.dynexcafrica.org/',
+    contributionTeaser: 'Vitrine, parcours d’orientation & catalogue de métiers',
+    contributionNote:
+      'Conception et développement du site 500 MecaGirls : landing, parcours multi-étapes « Définir mon parcours », liste des métiers (recherche, filtres, PDF) et sections témoignages / orientation.',
+    contributionHighlights: [
+      {
+        title: 'Parcours d’orientation',
+        description:
+          'Tunnel multi-étapes pour cibler centres d’intérêt et métiers industriels / mécaniques.',
+      },
+      {
+        title: 'Catalogue de métiers',
+        description:
+          'Liste searchable / filtrable (+40 métiers) avec export PDF pour l’orientation.',
+      },
+    ],
+    contributions: [
+      {
+        area: 'frontend',
+        items: [
+          'Landing et identité visuelle MecaGirls (orange / bleu DynExcAfrica)',
+          'Wizard « Définir mon parcours » (étapes, intérêts, métiers)',
+          'Modal catalogue métiers : recherche, catégories, téléchargement PDF',
+          'Sections témoignages vidéo et CTA journées d’orientation',
+          'Stack : React, TypeScript, Vite, Tailwind CSS',
+        ],
+      },
+    ],
+    features: [
+      {
+        title: 'Vitrine programme',
+        description: 'Présentation 500 MecaGirls et mission égalité des genres en mécanique.',
+      },
+      {
+        title: 'Définir mon parcours',
+        description: 'Parcours guidé multi-étapes pour orienter vers des métiers techniques.',
+      },
+      {
+        title: 'Liste des métiers',
+        description: 'Catalogue filtrable (automobile, maintenance, soudure…) + export PDF.',
+      },
+      {
+        title: 'Témoignages',
+        description: 'Vidéos inspirantes des cohortes : de l’école à l’atelier.',
+      },
+      {
+        title: 'Journées d’orientation',
+        description: 'CTA pour s’inscrire et participer aux événements du programme.',
+      },
+      {
+        title: 'Partenaires',
+        description: 'Mise en avant DynExcAfrica et coopération allemande.',
+      },
+    ],
+    architecture: [
+      {
+        title: 'SPA React',
+        description: 'Frontend Vite pour la vitrine et les parcours interactifs.',
+      },
+      {
+        title: 'UX orientation',
+        description: 'Wizard multi-étapes et modales métiers / PDF.',
+      },
+      {
+        title: 'Contenus média',
+        description: 'Témoignages vidéo et pages programme.',
+      },
+      {
+        title: 'Prod',
+        description: 'mecagirls.dynexcafrica.org',
+      },
+    ],
+    techStack: [
+      { label: 'Frontend', items: ['React', 'TypeScript', 'Vite', 'Tailwind CSS'] },
+      { label: 'Produit', items: ['Orientation', 'Catalogue métiers', 'Témoignages'] },
+      { label: 'Programme', items: ['500 MecaGirls', 'DynExcAfrica', 'STEM'] },
+    ],
+    gallery: [
+      mecagirlsImg,
+      mecagirls1,
+      mecagirls2,
+      mecagirls3,
+      mecagirls4,
+      mecagirls5,
+      mecagirls6,
+      mecagirls7,
+    ],
   },
   {
     id: 'classstem',

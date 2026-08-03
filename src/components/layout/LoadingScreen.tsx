@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
-import logo from '@/assets/logo-ld-didier.png'
+import logo from '@/assets/brand/logo-ld-didier.png'
 
 interface LoadingScreenProps {
   onComplete: () => void

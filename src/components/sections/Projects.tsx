@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowUpRight, ExternalLink, Sparkles } from 'lucide-react'
-import { FaGithub } from 'react-icons/fa'
 import { projects } from '@/data/projects'
 import { ProjectCaseStudy } from '@/components/projects/ProjectCaseStudy'
 import { viewportOnce } from '@/lib/animations'
@@ -20,6 +19,8 @@ const THEME: Record<string, { accent: string; soft: string; label: string }> = {
   'dynexc-gp': { accent: '#F8FAFC', soft: 'rgba(248,250,252,0.18)', label: 'RH' },
   kanie: { accent: '#7C3AED', soft: 'rgba(124,58,237,0.22)', label: 'E-commerce' },
   'cnr-ci': { accent: '#14B8A6', soft: 'rgba(20,184,166,0.22)', label: 'Robotique' },
+  'ccnr-classement': { accent: '#F97316', soft: 'rgba(249,115,22,0.22)', label: 'Live CNR' },
+  mecagirls: { accent: '#FF6A00', soft: 'rgba(255,106,0,0.22)', label: 'STEM' },
   classstem: { accent: '#F59E0B', soft: 'rgba(245,158,11,0.22)', label: 'LMS' },
   engeem: { accent: '#22D3EE', soft: 'rgba(34,211,238,0.22)', label: 'Data' },
   'engeem-docs': { accent: '#A78BFA', soft: 'rgba(167,139,250,0.22)', label: 'Docs' },
@@ -127,13 +128,8 @@ function ProjectCard({
   const { locale } = useLanguage()
   const fr = locale === 'fr'
   const [hovered, setHovered] = useState(false)
-  const cta = project.caseStudy
-    ? fr
-      ? 'Case study'
-      : 'Case study'
-    : fr
-      ? 'Voir le projet'
-      : 'View project'
+  const ctaCase = fr ? 'Voir détail' : 'View details'
+  const ctaSite = fr ? 'Voir le site' : 'Visit site'
 
   const isHero = size === 'heroL' || size === 'heroR'
   const isSide = size === 'side'
@@ -176,7 +172,7 @@ function ProjectCard({
         <button
           type="button"
           onClick={() => onOpen(project)}
-          data-cursor={cta}
+          data-cursor={project.caseStudy ? ctaCase : project.demo ? ctaSite : ctaCase}
           className={cn(
             'relative z-10 shrink-0 overflow-hidden text-left',
             isHero
@@ -289,52 +285,51 @@ function ProjectCard({
             )}
           </div>
 
-          <div className="mt-auto flex items-center gap-2 pt-2">
-            {(project.caseStudy || project.demo) && (
+          <div className="mt-auto flex flex-wrap items-center gap-2 pt-2">
+            {project.caseStudy && (
               <button
                 type="button"
-                onClick={() => {
-                  if (project.caseStudy) onOpen(project)
-                  else if (project.demo) window.open(project.demo, '_blank', 'noreferrer')
-                }}
-                data-cursor={cta}
+                onClick={() => onOpen(project)}
+                data-cursor={ctaCase}
                 className={cn(
                   'inline-flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-semibold text-[#050816] transition-transform hover:scale-[1.02]',
-                  isHero ? 'px-5' : 'flex-1',
+                  isHero || project.demo ? 'px-4' : 'flex-1',
                 )}
                 style={{
                   background: theme.accent,
                   boxShadow: `0 8px 24px ${theme.accent}33`,
                 }}
               >
-                {cta}
+                {ctaCase}
                 <ArrowUpRight className="h-3.5 w-3.5" />
               </button>
             )}
-            {!project.caseStudy && !project.demo && project.github && (
+            {project.demo && (
               <a
-                href={project.github}
+                href={project.demo}
                 target="_blank"
                 rel="noreferrer"
-                data-cursor="GitHub"
-                className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-white/12 bg-white/[0.04] py-2.5 text-xs font-semibold text-text hover:bg-white/[0.08]"
+                data-cursor={ctaSite}
+                className={cn(
+                  'inline-flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-semibold transition-colors',
+                  project.caseStudy
+                    ? 'border border-white/15 bg-white/[0.05] px-4 text-text hover:bg-white/[0.1]'
+                    : 'flex-1 text-[#050816] hover:scale-[1.02]',
+                )}
+                style={
+                  !project.caseStudy
+                    ? {
+                        background: theme.accent,
+                        boxShadow: `0 8px 24px ${theme.accent}33`,
+                      }
+                    : undefined
+                }
               >
-                Code <FaGithub size={13} />
+                {ctaSite}
+                <ExternalLink className="h-3.5 w-3.5" />
               </a>
             )}
-            {project.github && (project.caseStudy || project.demo) && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noreferrer"
-                data-cursor="GitHub"
-                className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/12 bg-white/[0.04] text-text hover:bg-white/[0.08]"
-                aria-label={`GitHub — ${project.title}`}
-              >
-                <FaGithub size={14} />
-              </a>
-            )}
-            {!project.github && !project.demo && !project.caseStudy && (
+            {!project.demo && !project.caseStudy && (
               <span className="inline-flex items-center gap-1.5 text-xs text-muted">
                 <ExternalLink className="h-3.5 w-3.5" />
                 {fr ? 'Détails' : 'Details'}

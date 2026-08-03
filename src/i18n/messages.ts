@@ -70,18 +70,35 @@ export const messages = {
     },
     journey: {
       eyebrow: 'Parcours',
-      title: 'Timeline',
-      description: 'Formations, expériences et étapes clés.',
+      title: 'Une trajectoire en mouvement',
+      description:
+        'Formations, certifications et expériences — un fil qui se dévoile étape après étape.',
+      filters: {
+        all: 'Tout',
+        experience: 'Expériences',
+        formation: 'Formations',
+        certificat: 'Certificats',
+      },
+      current: 'En cours',
+      nextHint: 'Faites défiler pour la suite',
+      linkedin: 'Voir sur LinkedIn',
     },
     services: {
       eyebrow: 'Services',
-      title: 'Ce que je peux faire pour vous',
-      description: 'Un accompagnement full stack, du concept au déploiement.',
+      title: 'Ce que je livre vraiment',
+      description:
+        'Pas une liste générique : des offres calées sur ce que je construis déjà — apps métier, APIs, e-commerce et mise en production.',
+      reassurance:
+        'Brief clair → architecture → livrable en prod. Vous gardez la main, je porte la technique.',
+      cta: 'Parler de votre besoin',
     },
     stats: {
       eyebrow: 'Impact',
-      title: 'Quelques chiffres',
-      description: 'Des indicateurs qui reflètent mon engagement.',
+      title: 'Des preuves, pas des promesses',
+      description:
+        'Des indicateurs tirés de mes vrais livrables — y compris missions entreprise et clients confidentiels non exposés ici.',
+      proofsLabel: 'Repères concrets',
+      domainsLabel: 'Terrains couverts',
     },
     testimonials: {
       eyebrow: 'Témoignages',
@@ -169,18 +186,35 @@ export const messages = {
     },
     journey: {
       eyebrow: 'Journey',
-      title: 'Timeline',
-      description: 'Education, experience, and key milestones.',
+      title: 'A path still unfolding',
+      description:
+        'Education, certifications, and experience — a story that reveals itself step by step.',
+      filters: {
+        all: 'All',
+        experience: 'Experience',
+        formation: 'Education',
+        certificat: 'Certificates',
+      },
+      current: 'Current',
+      nextHint: 'Scroll to keep going',
+      linkedin: 'View on LinkedIn',
     },
     services: {
       eyebrow: 'Services',
-      title: 'What I can do for you',
-      description: 'Full-stack support from concept to deployment.',
+      title: 'What I actually ship',
+      description:
+        'Not a generic menu: offers grounded in what I already build — business apps, APIs, e-commerce, and production deploy.',
+      reassurance:
+        'Clear brief → architecture → production-ready delivery. You stay in control; I own the tech.',
+      cta: 'Talk about your need',
     },
     stats: {
       eyebrow: 'Impact',
-      title: 'A few numbers',
-      description: 'Indicators that reflect my commitment.',
+      title: 'Proof, not promises',
+      description:
+        'Metrics grounded in real deliverables — including confidential company and client work not shown here.',
+      proofsLabel: 'Concrete markers',
+      domainsLabel: 'Domains covered',
     },
     testimonials: {
       eyebrow: 'Testimonials',

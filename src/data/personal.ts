@@ -28,7 +28,7 @@ export const personalInfo: PersonalInfo = {
     {
       id: 'linkedin',
       label: 'LinkedIn',
-      href: 'https://linkedin.com/in/didier-lobognon',
+      href: 'https://www.linkedin.com/in/ld-didier/',
       icon: 'linkedin',
     },
     {

@@ -66,30 +66,68 @@ export interface Project {
 }
 
 
+export type TimelineType =
+  | 'formation'
+  | 'experience'
+  | 'stage'
+  | 'freelance'
+  | 'certificat'
+  | 'milestone'
+
 export interface TimelineItem {
   id: string
-  type: 'formation' | 'experience' | 'stage' | 'freelance'
+  type: TimelineType
   title: string
   organization: string
   location: string
   period: string
   description: string
   tags?: string[]
+  /** Logo entreprise / établissement */
+  logo?: string
+  /** Fond personnalisé derrière le logo (ex. couleur marque) */
+  logoBg?: string
+  /** Remplissage du cadre logo — cover pour logos carrés, contain pour les larges */
+  logoFit?: 'cover' | 'contain'
+  /** Couleur marque pour teinter l’intérieur de la carte */
+  brandColor?: string
+  /** Couleur de bordure (si différente de brandColor) */
+  brandBorder?: string
+  /** Carte claire (fond blanc) */
+  lightCard?: boolean
+  /** Mise en avant (poste actuel, certif clé…) */
+  highlight?: boolean
+  /** En cours */
+  current?: boolean
 }
 
 export interface Service {
   id: string
-  title: string
-  description: string
+  titleFr: string
+  titleEn: string
+  descriptionFr: string
+  descriptionEn: string
+  /** Points concrets qui rassurent */
+  pointsFr: string[]
+  pointsEn: string[]
   icon: string
+  /** Couleur d’accent de la carte (icône + checks) */
+  accent: string
 }
 
 export interface Stat {
   id: string
-  label: string
   value: number
+  labelFr: string
+  labelEn: string
+  hintFr?: string
+  hintEn?: string
   suffix?: string
   prefix?: string
+  icon: string
+  accent: string
+  /** Point pulsant (ex. en production) */
+  pulse?: boolean
 }
 
 export interface Testimonial {
