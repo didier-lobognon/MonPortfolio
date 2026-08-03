@@ -34,11 +34,11 @@ export function SectionHeading({
           {eyebrow}
         </span>
       )}
-      <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-text">
+      <h2 className="font-display text-[1.75rem] font-bold tracking-tight text-text text-balance sm:text-4xl md:text-5xl">
         {title}
       </h2>
       {description && (
-        <p className="mt-4 text-muted text-base sm:text-lg leading-relaxed">{description}</p>
+        <p className="mt-4 text-muted text-[15px] sm:text-lg leading-relaxed text-pretty">{description}</p>
       )}
     </motion.div>
   )
