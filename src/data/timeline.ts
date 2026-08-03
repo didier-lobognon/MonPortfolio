@@ -17,6 +17,8 @@ const BRAND = {
   epitech: '#009EE2',
   wecode: '#6366F1',
   engeem: '#109BBB',
+  /** Orange Côte d’Ivoire / DynExc */
+  dynexc: '#F97316',
   yako: '#166534',
   /** Or — mise en lumière des hackathons */
   gold: '#D4A017',
@@ -24,7 +26,8 @@ const BRAND = {
 } as const
 
 /**
- * Parcours LinkedIn — ordre chronologique (passé → présent).
+ * Parcours LinkedIn — stocké du plus ancien au plus récent.
+ * L’UI affiche l’inverse (présent → passé).
  * https://www.linkedin.com/in/ld-didier/
  */
 export const timeline: TimelineItem[] = [
@@ -115,6 +118,8 @@ export const timeline: TimelineItem[] = [
       'Une année de stage (deux périodes de 6 mois) au cœur de l’écosystème DynExcAfrica : sites institutionnels, plateformes RH, LMS, classement live CNR, MecaGirls et outils événementiels STEM.',
     tags: ['Stage', '1 an', 'React', 'NestJS', 'STEM'],
     logo: logoDynexc,
+    logoBg: '#000000',
+    brandColor: BRAND.dynexc,
     lightCard: true,
     highlight: true,
   },
@@ -146,7 +151,7 @@ export const timeline: TimelineItem[] = [
       'Sept mois de stage produit autour de la Data Control Plane ENGEEM : site Angular, documentation Docusaurus et expérience UI data — avant le passage en CDI.',
     tags: ['Stage', '7 mois', 'Angular', 'Docusaurus', 'Data'],
     logo: logoEngeem,
-    logoBg: 'linear-gradient(160deg, #14C4C7 0%, #109BBB 45%, #0A6E72 100%)',
+    logoBg: BRAND.engeem,
     logoFit: 'cover',
     brandColor: BRAND.engeem,
     highlight: true,
@@ -178,6 +183,8 @@ export const timeline: TimelineItem[] = [
       'Après l’année de stage : mission de consultance démarrée en juin 2026 (6 mois, en cours) pour poursuivre la livraison et le pilotage technique des produits DynExcAfrica.',
     tags: ['Consultance', '6 mois', 'Full Stack', 'En cours'],
     logo: logoDynexc,
+    logoBg: '#000000',
+    brandColor: BRAND.dynexc,
     lightCard: true,
     highlight: true,
     current: true,
@@ -193,7 +200,7 @@ export const timeline: TimelineItem[] = [
       'Passage en CDI dès août 2026 : poursuite du travail produit sur la plateforme data ENGEEM, après 7 mois de stage.',
     tags: ['CDI', 'Angular', 'Data', 'Produit'],
     logo: logoEngeem,
-    logoBg: 'linear-gradient(160deg, #14C4C7 0%, #109BBB 45%, #0A6E72 100%)',
+    logoBg: BRAND.engeem,
     logoFit: 'cover',
     brandColor: BRAND.engeem,
     highlight: true,

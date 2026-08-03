@@ -72,7 +72,7 @@ export const messages = {
       eyebrow: 'Parcours',
       title: 'Une trajectoire en mouvement',
       description:
-        'Formations, certifications et expériences — un fil qui se dévoile étape après étape.',
+        'Du présent au passé : expériences, formations et certifications — le fil le plus récent en premier.',
       filters: {
         all: 'Tout',
         experience: 'Expériences',
@@ -80,7 +80,7 @@ export const messages = {
         certificat: 'Certificats',
       },
       current: 'En cours',
-      nextHint: 'Faites défiler pour la suite',
+      nextHint: 'Faites défiler pour remonter dans le temps',
       linkedin: 'Voir sur LinkedIn',
     },
     services: {
@@ -188,7 +188,7 @@ export const messages = {
       eyebrow: 'Journey',
       title: 'A path still unfolding',
       description:
-        'Education, certifications, and experience — a story that reveals itself step by step.',
+        'From present to past: experience, education, and certifications — newest first.',
       filters: {
         all: 'All',
         experience: 'Experience',
@@ -196,7 +196,7 @@ export const messages = {
         certificat: 'Certificates',
       },
       current: 'Current',
-      nextHint: 'Scroll to keep going',
+      nextHint: 'Scroll to go further back',
       linkedin: 'View on LinkedIn',
     },
     services: {

@@ -191,7 +191,7 @@ function JourneyNode({
                   light ? 'border-slate-200' : 'border-white/15',
                 )}
                 style={{
-                  background: item.logoBg ?? (light ? '#0b1220' : '#0b1220'),
+                  background: item.logoBg ?? brand ?? '#ffffff',
                   boxShadow: tinted
                     ? `0 12px 32px rgba(0,0,0,0.35), 0 0 0 1px ${border ?? brand}33, 0 0 28px ${brand}22`
                     : light
@@ -317,7 +317,7 @@ function JourneyNode({
         </motion.article>
       </div>
 
-      {/* Nœud central — masque opaque pour que la barre ne traverse pas l’icône */}
+      {/* Nœud central — fond plein couleur marque / type */}
       <div className="relative z-20 hidden items-start justify-center lg:flex lg:col-start-2 lg:row-start-1 lg:px-3">
         <div className="relative mt-7 flex items-center justify-center">
           <span
@@ -325,18 +325,17 @@ function JourneyNode({
             className="absolute h-[4.5rem] w-[4.5rem] rounded-full bg-[#050816]"
           />
           <motion.div
-            style={{ boxShadow: nodeGlow }}
-            className="relative flex h-16 w-16 items-center justify-center rounded-full bg-[#0b1220]"
+            style={{
+              boxShadow: nodeGlow,
+              background: border ?? accent,
+            }}
+            className="relative flex h-16 w-16 items-center justify-center rounded-full"
           >
-            <span
-              className="absolute inset-0 rounded-full"
-              style={{ border: `2.5px solid ${border ?? accent}` }}
-            />
-            <Icon className="relative h-7 w-7" style={{ color: border ?? accent }} strokeWidth={2.25} />
+            <Icon className="relative h-7 w-7 text-white" strokeWidth={2.25} />
             <motion.span
               aria-hidden
               className="absolute inset-[-8px] rounded-full border"
-              style={{ borderColor: `${border ?? accent}40` }}
+              style={{ borderColor: `${border ?? accent}55` }}
               animate={{ scale: [1, 1.22, 1], opacity: [0.55, 0, 0.55] }}
               transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut', delay: index * 0.15 }}
             />
@@ -363,7 +362,7 @@ export function Timeline() {
   const sectionRef = useRef<HTMLElement>(null)
 
   const visible = useMemo(
-    () => timeline.filter((item) => matchesFilter(item, filter)),
+    () => [...timeline].filter((item) => matchesFilter(item, filter)).reverse(),
     [filter],
   )
 
@@ -494,24 +493,24 @@ export function Timeline() {
                   item.brandBorder ?? item.brandColor ?? TYPE_META[item.type].accent
                 return (
                   <div key={item.id} className="relative">
-                    {/* Point mobile — disque opaque + icône plus grande */}
+                    {/* Point mobile — fond plein */}
                     <span className="absolute top-6 left-6 z-20 flex -translate-x-1/2 items-center justify-center lg:hidden">
                       <span
                         aria-hidden
                         className="absolute h-11 w-11 rounded-full bg-[#050816]"
                       />
                       <span
-                        className="relative flex h-9 w-9 items-center justify-center rounded-full bg-[#0b1220]"
+                        className="relative flex h-9 w-9 items-center justify-center rounded-full"
                         style={{
-                          boxShadow: `0 0 0 2px ${nodeColor}, 0 0 18px ${nodeColor}55`,
+                          background: nodeColor,
+                          boxShadow: `0 0 18px ${nodeColor}55`,
                         }}
                       >
                         {(() => {
                           const MobileIcon = TYPE_META[item.type].icon
                           return (
                             <MobileIcon
-                              className="h-4 w-4"
-                              style={{ color: nodeColor }}
+                              className="h-4 w-4 text-white"
                               strokeWidth={2.4}
                             />
                           )
