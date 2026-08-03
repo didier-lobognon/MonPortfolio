@@ -85,13 +85,20 @@ export const messages = {
     },
     services: {
       eyebrow: 'Services',
-      title: 'Ce que je peux faire pour vous',
-      description: 'Un accompagnement full stack, du concept au déploiement.',
+      title: 'Ce que je livre vraiment',
+      description:
+        'Pas une liste générique : des offres calées sur ce que je construis déjà — apps métier, APIs, e-commerce et mise en production.',
+      reassurance:
+        'Brief clair → architecture → livrable en prod. Vous gardez la main, je porte la technique.',
+      cta: 'Parler de votre besoin',
     },
     stats: {
       eyebrow: 'Impact',
-      title: 'Quelques chiffres',
-      description: 'Des indicateurs qui reflètent mon engagement.',
+      title: 'Des preuves, pas des promesses',
+      description:
+        'Des indicateurs tirés de mes vrais livrables — y compris missions entreprise et clients confidentiels non exposés ici.',
+      proofsLabel: 'Repères concrets',
+      domainsLabel: 'Terrains couverts',
     },
     testimonials: {
       eyebrow: 'Témoignages',
@@ -194,13 +201,20 @@ export const messages = {
     },
     services: {
       eyebrow: 'Services',
-      title: 'What I can do for you',
-      description: 'Full-stack support from concept to deployment.',
+      title: 'What I actually ship',
+      description:
+        'Not a generic menu: offers grounded in what I already build — business apps, APIs, e-commerce, and production deploy.',
+      reassurance:
+        'Clear brief → architecture → production-ready delivery. You stay in control; I own the tech.',
+      cta: 'Talk about your need',
     },
     stats: {
       eyebrow: 'Impact',
-      title: 'A few numbers',
-      description: 'Indicators that reflect my commitment.',
+      title: 'Proof, not promises',
+      description:
+        'Metrics grounded in real deliverables — including confidential company and client work not shown here.',
+      proofsLabel: 'Concrete markers',
+      domainsLabel: 'Domains covered',
     },
     testimonials: {
       eyebrow: 'Testimonials',

@@ -103,17 +103,31 @@ export interface TimelineItem {
 
 export interface Service {
   id: string
-  title: string
-  description: string
+  titleFr: string
+  titleEn: string
+  descriptionFr: string
+  descriptionEn: string
+  /** Points concrets qui rassurent */
+  pointsFr: string[]
+  pointsEn: string[]
   icon: string
+  /** Couleur d’accent de la carte (icône + checks) */
+  accent: string
 }
 
 export interface Stat {
   id: string
-  label: string
   value: number
+  labelFr: string
+  labelEn: string
+  hintFr?: string
+  hintEn?: string
   suffix?: string
   prefix?: string
+  icon: string
+  accent: string
+  /** Point pulsant (ex. en production) */
+  pulse?: boolean
 }
 
 export interface Testimonial {
