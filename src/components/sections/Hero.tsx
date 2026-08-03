@@ -494,7 +494,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className="font-name max-w-full text-[2.15rem] font-semibold leading-[1.15] tracking-[-0.02em] text-text break-words hyphens-none sm:text-[2.75rem] md:text-[3rem]">
+            <h1 className="font-name max-w-full text-[1.5rem] font-semibold leading-[1.12] tracking-[-0.02em] text-text whitespace-nowrap sm:text-[2.75rem] md:text-[3rem]">
               {personalInfo.name}
             </h1>
           </motion.div>
@@ -503,7 +503,7 @@ export function Hero() {
             key={`title-${locale}`}
             text={t.hero.title}
             as="p"
-            className="mt-3 font-display text-lg font-semibold tracking-tight text-accent sm:text-xl md:text-2xl"
+            className="mt-2.5 font-display text-base font-semibold tracking-tight text-accent sm:mt-3 sm:text-xl md:text-2xl"
             delay={0.15}
           />
 
@@ -512,7 +512,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.45 }}
-            className="mt-5 max-w-lg text-[14px] leading-relaxed text-muted sm:text-[15px] md:text-base"
+            className="mt-4 max-w-lg text-sm leading-relaxed text-muted sm:mt-5 sm:text-base"
           >
             {t.hero.subtitle}
           </motion.p>
@@ -521,9 +521,9 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.35 }}
-            className="mt-4 inline-flex items-center gap-1.5 text-sm text-muted/80"
+            className="mt-3 inline-flex items-center gap-1.5 text-xs text-muted/80 sm:mt-4 sm:text-sm"
           >
-            <MapPin size={14} className="shrink-0 text-accent/70" aria-hidden />
+            <MapPin size={13} className="shrink-0 text-accent/70" aria-hidden />
             {personalInfo.location}
           </motion.p>
 
@@ -531,30 +531,30 @@ export function Hero() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.45 }}
-            className="mt-8 flex w-full max-w-full flex-col gap-3 sm:flex-row sm:flex-wrap"
+            className="mt-6 flex w-full max-w-full flex-row flex-wrap gap-2.5 sm:mt-8 sm:gap-3"
           >
-            <MagneticButton className="w-full sm:w-auto">
+            <MagneticButton className="min-w-0 flex-1 sm:flex-none sm:w-auto">
               <Button
                 size="lg"
                 variant="gradient"
-                className="h-11 w-full gap-2 px-5 text-sm sm:h-12 sm:w-auto sm:px-8 sm:text-base"
+                className="h-10 w-full justify-center gap-1.5 px-3 text-sm sm:h-12 sm:w-auto sm:gap-2 sm:px-8 sm:text-base"
                 data-cursor="projets"
                 onClick={() => scrollToSection('projects')}
               >
                 {t.hero.ctaProjects}
-                <ArrowRight size={18} />
+                <ArrowRight size={16} />
               </Button>
             </MagneticButton>
 
-            <MagneticButton className="w-full sm:w-auto">
+            <MagneticButton className="min-w-0 flex-1 sm:flex-none sm:w-auto">
               <Button
                 size="lg"
                 variant="secondary"
-                className="h-11 w-full gap-2 px-5 text-sm sm:h-12 sm:w-auto sm:px-8 sm:text-base"
+                className="h-10 w-full justify-center gap-1.5 px-3 text-sm sm:h-12 sm:w-auto sm:gap-2 sm:px-8 sm:text-base"
                 data-cursor="contact"
                 onClick={() => scrollToSection('contact')}
               >
-                <Smartphone size={17} strokeWidth={2} />
+                <Smartphone size={15} strokeWidth={2} />
                 {t.hero.ctaContact}
               </Button>
             </MagneticButton>
@@ -569,7 +569,7 @@ export function Hero() {
       <motion.button
         type="button"
         onClick={() => scrollToSection('about')}
-        className="absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-muted transition-colors hover:text-text"
+        className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-muted transition-colors hover:text-text sm:flex"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.15 }}
