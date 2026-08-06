@@ -6,11 +6,13 @@ import { Button } from '@/components/ui/button'
 import { AnimatedText } from '@/components/shared/AnimatedText'
 import { MagneticButton } from '@/components/shared/MagneticButton'
 import { ParticleBackground } from '@/components/shared/ParticleBackground'
+import ParticleText from '@/components/shared/ParticleText'
 import { GradientMesh } from '@/components/shared/GradientMesh'
 import { SkillIcon } from '@/components/shared/SkillIcon'
 import { scrollToSection } from '@/lib/utils'
 import { useLanguage } from '@/i18n/LanguageProvider'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
+import { HeroMobile } from '@/components/sections/HeroMobile'
 
 type Token = { t: string; c: string }
 type CodeLine = { tokens: Token[] }
@@ -462,127 +464,152 @@ export function Hero() {
   const { t, locale } = useLanguage()
 
   return (
-    <section
-      id="hero"
-      className="relative flex min-h-screen items-center overflow-x-clip pt-28 pb-16 sm:pt-32"
-    >
-      <GradientMesh />
-      <ParticleBackground />
-
-      <div className="relative z-10 mx-auto grid w-full min-w-0 max-w-7xl items-center gap-10 px-4 sm:gap-12 sm:px-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)] lg:gap-12 xl:gap-16">
-        <div className="flex min-w-0 max-w-full flex-col lg:max-w-none">
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 }}
-            className="mb-6 sm:mb-7"
-          >
-            <div
-              className="inline-flex max-w-full items-center gap-2 rounded-full border border-emerald-400/40 bg-emerald-400/10 px-3 py-1.5 text-xs font-medium text-emerald-300 shadow-[0_0_28px_rgba(52,211,153,0.22)] backdrop-blur-sm sm:gap-2.5 sm:px-4 sm:py-2 sm:text-sm"
-              role="status"
-            >
-              <span className="relative flex h-2.5 w-2.5 shrink-0">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
-              </span>
-              <span className="min-w-0 truncate tracking-wide">{t.hero.availability}</span>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.25, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <h1 className="font-name max-w-full text-[1.5rem] font-semibold leading-[1.12] tracking-[-0.02em] text-text whitespace-nowrap sm:text-[2.75rem] md:text-[3rem]">
-              {personalInfo.name}
-            </h1>
-          </motion.div>
-
-          <AnimatedText
-            key={`title-${locale}`}
-            text={t.hero.title}
-            as="p"
-            className="mt-2.5 font-display text-base font-semibold tracking-tight text-accent sm:mt-3 sm:text-xl md:text-2xl"
-            delay={0.15}
-          />
-
-          <motion.p
-            key={`sub-${locale}`}
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.25, duration: 0.45 }}
-            className="mt-4 max-w-lg text-sm leading-relaxed text-muted sm:mt-5 sm:text-base"
-          >
-            {t.hero.subtitle}
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.35 }}
-            className="mt-3 inline-flex items-center gap-1.5 text-xs text-muted/80 sm:mt-4 sm:text-sm"
-          >
-            <MapPin size={13} className="shrink-0 text-accent/70" aria-hidden />
-            {personalInfo.location}
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.45 }}
-            className="mt-6 flex w-full max-w-full flex-row flex-wrap gap-2.5 sm:mt-8 sm:gap-3"
-          >
-            <MagneticButton className="min-w-0 flex-1 sm:flex-none sm:w-auto">
-              <Button
-                size="lg"
-                variant="gradient"
-                className="h-10 w-full justify-center gap-1.5 px-3 text-sm sm:h-12 sm:w-auto sm:gap-2 sm:px-8 sm:text-base"
-                data-cursor="projets"
-                onClick={() => scrollToSection('projects')}
-              >
-                {t.hero.ctaProjects}
-                <ArrowRight size={16} />
-              </Button>
-            </MagneticButton>
-
-            <MagneticButton className="min-w-0 flex-1 sm:flex-none sm:w-auto">
-              <Button
-                size="lg"
-                variant="secondary"
-                className="h-10 w-full justify-center gap-1.5 px-3 text-sm sm:h-12 sm:w-auto sm:gap-2 sm:px-8 sm:text-base"
-                data-cursor="contact"
-                onClick={() => scrollToSection('contact')}
-              >
-                <Smartphone size={15} strokeWidth={2} />
-                {t.hero.ctaContact}
-              </Button>
-            </MagneticButton>
-          </motion.div>
-        </div>
-
-        <div className="relative w-full min-w-0 max-w-full">
-          <HeroVisual />
-        </div>
+    <section id="hero" className="relative w-full max-w-none overflow-x-clip bg-bg">
+      {/* ——— Mobile (composition dédiée) ——— */}
+      <div className="w-full bg-bg md:hidden">
+        <HeroMobile />
       </div>
 
-      <motion.button
-        type="button"
-        onClick={() => scrollToSection('about')}
-        className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-muted transition-colors hover:text-text sm:flex"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.15 }}
-        aria-label={t.nav.about}
-      >
-        <span className="text-[10px] tracking-[0.22em] uppercase">{t.hero.scroll}</span>
-        <motion.span
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.4, repeat: Infinity }}
+      {/* ——— Desktop / tablette (rendu validé) ——— */}
+      <div className="relative hidden min-h-screen w-full items-center bg-bg pt-28 pb-16 sm:pt-32 md:flex">
+        <GradientMesh />
+        <ParticleBackground />
+
+        <div className="relative z-10 mx-auto grid w-full min-w-0 max-w-7xl items-center gap-10 px-4 sm:gap-12 sm:px-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)] lg:gap-12 xl:gap-16">
+          <div className="flex min-w-0 max-w-full flex-col lg:max-w-none">
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="mb-6 sm:mb-7"
+            >
+              <div
+                className="inline-flex max-w-full items-center gap-2 rounded-full border border-emerald-400/40 bg-emerald-400/10 px-3 py-1.5 text-xs font-medium text-emerald-300 shadow-[0_0_28px_rgba(52,211,153,0.22)] backdrop-blur-sm sm:gap-2.5 sm:px-4 sm:py-2 sm:text-sm"
+                role="status"
+              >
+                <span className="relative flex h-2.5 w-2.5 shrink-0">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
+                </span>
+                <span className="min-w-0 truncate tracking-wide">{t.hero.availability}</span>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              className="h-[5rem] w-full max-w-2xl font-name sm:h-[5.75rem] md:h-[6.5rem]"
+            >
+              <ParticleText
+                key={`name-d-${locale}`}
+                text={personalInfo.name}
+                particleSize={2.2}
+                density={4}
+                color="#f8fafc"
+                highlightColor="#3b82f6"
+                scatter={190}
+                gatherDuration={1600}
+                stagger={420}
+                pointerRepel={42}
+                repelRadius={120}
+                idleDrift={0.8}
+                trigger="mount"
+                fontSize="clamp(2rem, 4.8vw, 3.4rem)"
+                fontWeight={600}
+                fontFamily='"Unbounded", ui-sans-serif, system-ui, sans-serif'
+                align="left"
+                glow
+                className="!min-h-0"
+                style={{ minHeight: '100%' }}
+              />
+            </motion.div>
+
+            <AnimatedText
+              key={`title-${locale}`}
+              text={t.hero.title}
+              as="p"
+              className="mt-2.5 font-display text-base font-semibold tracking-tight text-accent sm:mt-3 sm:text-xl md:text-2xl"
+              delay={0.15}
+            />
+
+            <motion.p
+              key={`sub-${locale}`}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25, duration: 0.45 }}
+              className="mt-4 max-w-lg text-sm leading-relaxed text-muted sm:mt-5 sm:text-base"
+            >
+              {t.hero.subtitle}
+            </motion.p>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.35 }}
+              className="mt-3 inline-flex items-center gap-1.5 text-xs text-muted/80 sm:mt-4 sm:text-sm"
+            >
+              <MapPin size={13} className="shrink-0 text-accent/70" aria-hidden />
+              {personalInfo.location}
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.45 }}
+              className="mt-6 flex w-full max-w-full flex-row flex-wrap gap-2.5 sm:mt-8 sm:gap-3"
+            >
+              <MagneticButton className="min-w-0 flex-1 sm:flex-none sm:w-auto">
+                <Button
+                  size="lg"
+                  variant="gradient"
+                  className="h-10 w-full justify-center gap-1.5 px-3 text-sm sm:h-12 sm:w-auto sm:gap-2 sm:px-8 sm:text-base"
+                  data-cursor="projets"
+                  onClick={() => scrollToSection('projects')}
+                >
+                  {t.hero.ctaProjects}
+                  <ArrowRight size={16} />
+                </Button>
+              </MagneticButton>
+
+              <MagneticButton className="min-w-0 flex-1 sm:flex-none sm:w-auto">
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  className="h-10 w-full justify-center gap-1.5 px-3 text-sm sm:h-12 sm:w-auto sm:gap-2 sm:px-8 sm:text-base"
+                  data-cursor="contact"
+                  onClick={() => scrollToSection('contact')}
+                >
+                  <Smartphone size={15} strokeWidth={2} />
+                  {t.hero.ctaContact}
+                </Button>
+              </MagneticButton>
+            </motion.div>
+          </div>
+
+          <div className="relative w-full min-w-0 max-w-full">
+            <HeroVisual />
+          </div>
+        </div>
+
+        <motion.button
+          type="button"
+          onClick={() => scrollToSection('about')}
+          className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-muted transition-colors hover:text-text"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.15 }}
+          aria-label={t.nav.about}
         >
-          <ArrowDown size={15} />
-        </motion.span>
-      </motion.button>
+          <span className="text-[10px] tracking-[0.22em] uppercase">{t.hero.scroll}</span>
+          <motion.span
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 1.4, repeat: Infinity }}
+          >
+            <ArrowDown size={15} />
+          </motion.span>
+        </motion.button>
+      </div>
     </section>
   )
 }

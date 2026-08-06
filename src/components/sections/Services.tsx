@@ -41,6 +41,8 @@ export function Services() {
           eyebrow={t.services.eyebrow}
           title={t.services.title}
           description={t.services.description}
+          className="max-w-none"
+          titleClassName="text-nowrap text-[clamp(1.2rem,5.4vw,1.75rem)] sm:text-4xl md:text-5xl"
         />
 
         <motion.div

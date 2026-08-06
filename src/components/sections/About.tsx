@@ -1,12 +1,17 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
-import { ArrowUpRight, MapPin } from 'lucide-react'
+import { ArrowUpRight, Code2, MapPin, Rocket, Sparkles } from 'lucide-react'
 import { personalInfo } from '@/data/personal'
 import portrait from '@/assets/brand/ld-didier.png'
-import { fadeInUp, slideInLeft, slideInRight, staggerContainer, viewportOnce } from '@/lib/animations'
+import iconPattern from '@/assets/brand/iconpattern.png'
+import { viewportOnce } from '@/lib/animations'
 import { useLanguage } from '@/i18n/LanguageProvider'
 import { scrollToSection } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+import ProfileCard from '@/components/shared/ProfileCard'
+
+const PILLAR_ICONS = [Code2, Rocket, Sparkles] as const
+const ease = [0.22, 1, 0.36, 1] as const
 
 export function About() {
   const { t } = useLanguage()
@@ -15,180 +20,169 @@ export function About() {
     target: sectionRef,
     offset: ['start end', 'end start'],
   })
-  const photoScale = useTransform(scrollYProgress, [0.1, 0.45], [0.92, 1])
-  const photoY = useTransform(scrollYProgress, [0.1, 0.5], [40, 0])
-  const contentOpacity = useTransform(scrollYProgress, [0.15, 0.4], [0.55, 1])
-
-  const interestsLine = personalInfo.interests.join('/')
+  const photoY = useTransform(scrollYProgress, [0.1, 0.5], [28, 0])
 
   return (
     <section
       id="about"
       ref={sectionRef}
-      className="relative overflow-x-hidden py-24 sm:py-32"
+      className="relative overflow-x-hidden pt-14 pb-24 sm:py-32"
     >
       <div
         className="pointer-events-none absolute inset-0"
         aria-hidden
         style={{
           background:
-            'radial-gradient(ellipse 55% 45% at 15% 40%, rgba(59,130,246,0.14), transparent 60%), radial-gradient(ellipse 40% 35% at 85% 70%, rgba(139,92,246,0.1), transparent 55%)',
+            'radial-gradient(ellipse 50% 42% at 12% 35%, rgba(59,130,246,0.16), transparent 58%), radial-gradient(ellipse 38% 32% at 88% 68%, rgba(34,211,238,0.08), transparent 55%)',
         }}
       />
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
-        <div className="grid items-center gap-14 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.1fr)] lg:gap-16 xl:gap-20">
-          {/* Portrait + zoom au scroll */}
+        {/* En-tête de section */}
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewportOnce}
+          transition={{ duration: 0.6, ease }}
+          className="mb-12 max-w-2xl sm:mb-16"
+        >
+          <p className="mb-3 font-medium text-sm tracking-[0.22em] uppercase text-accent">
+            {t.about.eyebrow}
+          </p>
+          <h2 className="font-display text-3xl font-bold tracking-tight text-text sm:text-4xl md:text-5xl">
+            {t.about.title}
+          </h2>
+          <div className="mt-5 h-px w-16 bg-gradient-to-r from-accent via-accent-violet to-transparent" />
+        </motion.div>
+
+        <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.15fr)] lg:gap-16 xl:gap-20">
+          {/* Portrait */}
           <motion.div
-            style={{ scale: photoScale, y: photoY }}
-            className="relative mx-auto w-full max-w-[420px] lg:mx-0 lg:max-w-none"
+            style={{ y: photoY }}
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={viewportOnce}
+            transition={{ duration: 0.7, ease }}
+            className="relative mx-auto w-full max-w-[380px] lg:mx-0 lg:sticky lg:top-28 lg:max-w-none"
           >
-            <motion.div
-              variants={slideInLeft}
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewportOnce}
-              className="relative"
-            >
-              <div
-                className="absolute -inset-3 rounded-[2rem] border border-accent/20 sm:-inset-4"
-                aria-hidden
-              />
-              <div
-                className="absolute -right-3 -bottom-3 h-full w-full rounded-[1.75rem] bg-gradient-to-br from-accent/25 via-accent-violet/15 to-transparent sm:-right-4 sm:-bottom-4"
-                aria-hidden
-              />
+            <ProfileCard
+              name={personalInfo.name}
+              title={t.hero.title}
+              handle="didier-lobognon"
+              status={t.hero.availability}
+              contactText={t.hero.ctaContact}
+              avatarUrl={portrait}
+              iconUrl={iconPattern}
+              showUserInfo={false}
+              enableTilt
+              enableMobileTilt={false}
+              behindGlowEnabled
+              behindGlowColor="rgba(125, 190, 255, 0.55)"
+              behindGlowSize="55%"
+              innerGradient="linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)"
+              onContactClick={() => scrollToSection('contact')}
+            />
 
-              <div className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#070b16] shadow-[0_40px_100px_rgba(0,0,0,0.55)]">
-                <img
-                  src={portrait}
-                  alt={personalInfo.name}
-                  className="aspect-[4/5] w-full object-cover object-[center_12%]"
-                  width={640}
-                  height={800}
-                  loading="lazy"
-                  decoding="async"
-                />
-                <div
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050816] via-transparent to-transparent opacity-80"
-                  aria-hidden
-                />
-                <div
-                  className="pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,transparent_40%,rgba(59,130,246,0.12)_50%,transparent_60%)]"
-                  aria-hidden
-                />
-
-                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
-                  <p className="font-name text-xl font-semibold tracking-tight text-text sm:text-2xl">
-                    {personalInfo.name}
-                  </p>
-                  <p className="mt-1 font-mono text-xs tracking-[0.18em] text-accent-cyan uppercase">
-                    {t.hero.title}
-                  </p>
-                  <p className="mt-3 inline-flex items-center gap-1.5 text-sm text-muted">
-                    <MapPin size={14} className="text-accent/80" aria-hidden />
-                    {personalInfo.location}
-                  </p>
-                </div>
-              </div>
-
-              <motion.div
-                className="absolute -top-3 right-4 hidden rounded-full border border-emerald-400/35 bg-emerald-400/10 px-3 py-1.5 text-[11px] font-medium tracking-wide text-emerald-300 backdrop-blur-md sm:block"
-                initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={viewportOnce}
-                transition={{ delay: 0.35 }}
-              >
-                <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
-                {t.hero.availability}
-              </motion.div>
-            </motion.div>
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 lg:justify-start">
+              <p className="inline-flex items-center gap-1.5 text-xs text-muted">
+                <MapPin size={13} className="text-accent-cyan/80" aria-hidden />
+                {personalInfo.location}
+              </p>
+              <span className="hidden h-1 w-1 rounded-full bg-white/20 sm:inline-block" aria-hidden />
+              <p className="text-xs text-emerald-300/90">{t.hero.availability}</p>
+            </div>
           </motion.div>
 
           {/* Contenu */}
-          <motion.div
-            style={{ opacity: contentOpacity }}
-            variants={slideInRight}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
-            className="min-w-0"
-          >
-            <p className="mb-4 font-medium text-sm tracking-[0.22em] uppercase text-accent">
-              {t.about.eyebrow}
-            </p>
-            <h2 className="font-display text-3xl font-bold tracking-tight text-text sm:text-4xl md:text-[2.75rem] md:leading-[1.15]">
-              {t.about.title}
-            </h2>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-text/90 sm:text-xl">
-              {t.about.lead}
-            </p>
-
-            <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
+          <div className="min-w-0">
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={viewportOnce}
-              className="mt-8 space-y-4 max-w-xl text-[15px] leading-relaxed text-muted sm:text-base"
+              transition={{ duration: 0.55, ease }}
+              className="relative max-w-xl border-l-2 border-accent/50 pl-5 text-lg leading-relaxed text-text/95 sm:pl-6 sm:text-xl sm:leading-relaxed"
             >
-              {t.about.bio.map((paragraph) => (
-                <motion.p key={paragraph.slice(0, 32)} variants={fadeInUp}>
-                  {paragraph}
-                </motion.p>
+              {t.about.lead}
+            </motion.p>
+
+            <div className="mt-10 max-w-xl space-y-6">
+              {t.about.bio.map((paragraph, i) => (
+                <motion.div
+                  key={paragraph.slice(0, 28)}
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={viewportOnce}
+                  transition={{ delay: 0.06 * i, duration: 0.5, ease }}
+                  className="flex gap-4"
+                >
+                  <span
+                    className="mt-1.5 font-mono text-[11px] tabular-nums tracking-wider text-accent/70"
+                    aria-hidden
+                  >
+                    0{i + 1}
+                  </span>
+                  <p className="text-[15px] leading-relaxed text-muted sm:text-base">
+                    {paragraph}
+                  </p>
+                </motion.div>
               ))}
-            </motion.div>
+            </div>
 
-            <p className="mt-8 font-name text-base font-medium tracking-tight text-accent-cyan sm:text-lg">
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={viewportOnce}
+              transition={{ delay: 0.15, duration: 0.5 }}
+              className="mt-9 font-name text-base font-medium tracking-tight text-accent-cyan sm:text-lg"
+            >
               {t.about.signature}
-            </p>
+            </motion.p>
 
-            <div className="mt-10 border-t border-white/10 pt-8">
+            {/* Axes */}
+            <div className="mt-12">
               <p className="mb-5 font-mono text-[11px] tracking-[0.2em] text-slate-500 uppercase">
                 {t.about.focusLabel}
               </p>
-              <ul className="grid gap-5 sm:grid-cols-3">
-                {t.about.pillars.map((pillar, i) => (
-                  <motion.li
-                    key={pillar.title}
-                    initial={{ opacity: 0, y: 16, scale: 0.96 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                    viewport={viewportOnce}
-                    transition={{ delay: 0.08 * i, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="relative pl-4"
-                  >
-                    <span
-                      className="absolute top-1 left-0 h-8 w-px bg-gradient-to-b from-accent to-accent-violet"
-                      aria-hidden
-                    />
-                    <p className="font-display text-sm font-semibold tracking-wide text-text">
-                      {pillar.title}
-                    </p>
-                    <p className="mt-1.5 text-sm leading-relaxed text-muted">
-                      {pillar.text}
-                    </p>
-                  </motion.li>
-                ))}
+              <ul className="grid gap-3 sm:grid-cols-3 sm:gap-4">
+                {t.about.pillars.map((pillar, i) => {
+                  const Icon = PILLAR_ICONS[i] ?? Sparkles
+                  return (
+                    <motion.li
+                      key={pillar.title}
+                      initial={{ opacity: 0, y: 16 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={viewportOnce}
+                      transition={{ delay: 0.08 * i, duration: 0.5, ease }}
+                      className="group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] px-4 py-5 transition-colors hover:border-accent/30 hover:bg-white/[0.04]"
+                    >
+                      <span
+                        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+                        aria-hidden
+                      />
+                      <Icon
+                        size={18}
+                        className="mb-3 text-accent"
+                        strokeWidth={1.75}
+                        aria-hidden
+                      />
+                      <p className="font-display text-sm font-semibold tracking-wide text-text">
+                        {pillar.title}
+                      </p>
+                      <p className="mt-2 text-[13px] leading-relaxed text-muted">
+                        {pillar.text}
+                      </p>
+                    </motion.li>
+                  )
+                })}
               </ul>
             </div>
 
-            {/* Une seule ligne */}
-            <motion.p
-              initial={{ opacity: 0, x: -12 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={viewportOnce}
-              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-9 overflow-x-auto whitespace-nowrap font-mono text-[11px] tracking-wide text-slate-400 sm:text-xs"
-            >
-              {interestsLine}
-            </motion.p>
-
-            {/* CTA sans magnetic — zoom au scroll */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.92, y: 18 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={viewportOnce}
-              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-10"
+              transition={{ duration: 0.5, ease }}
+              className="mt-11 flex flex-wrap items-center gap-4"
             >
               <Button
                 size="lg"
@@ -200,8 +194,15 @@ export function About() {
                 {t.about.cta}
                 <ArrowUpRight size={18} />
               </Button>
+              <button
+                type="button"
+                onClick={() => scrollToSection('projects')}
+                className="text-sm font-medium text-muted transition-colors hover:text-text"
+              >
+                {t.hero.ctaProjects} →
+              </button>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

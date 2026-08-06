@@ -20,6 +20,7 @@ export const messages = {
       title: 'Développeur Full Stack',
       subtitle:
         'Je conçois et développe des applications web complètes — du front à l’API — avec une exigence forte sur la performance, la qualité du code et l’expérience utilisateur. Mon objectif : transformer un brief en produit fiable, élégant et prêt pour la production.',
+      tagline: 'Brief → produit en production. Front, API, UX.',
       ctaProjects: 'Voir mes projets',
       ctaContact: 'Me contacter',
       scroll: 'Scroll',
@@ -177,6 +178,7 @@ export const messages = {
       title: 'Full Stack Developer',
       subtitle:
         'I design and build complete web applications — from UI to API — with a strong focus on performance, code quality, and user experience. My goal: turn a brief into a reliable, elegant, production-ready product.',
+      tagline: 'Brief → shipped product. UI, API, UX.',
       ctaProjects: 'View my work',
       ctaContact: 'Contact me',
       scroll: 'Scroll',

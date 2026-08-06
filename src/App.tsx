@@ -5,6 +5,7 @@ import { LoadingScreen } from '@/components/layout/LoadingScreen'
 import { CustomCursor } from '@/components/layout/CustomCursor'
 import { ScrollProgress } from '@/components/layout/ScrollProgress'
 import { SmoothScroll } from '@/components/layout/SmoothScroll'
+import { WhatsAppFloat } from '@/components/layout/WhatsAppFloat'
 import { Hero } from '@/components/sections/Hero'
 import { About } from '@/components/sections/About'
 import { Skills } from '@/components/sections/Skills'
@@ -33,7 +34,7 @@ export default function App() {
           <ScrollProgress />
           <Navbar />
 
-          <main id="main" className="relative">
+          <main id="main" className="relative w-full bg-bg">
             <Hero />
             <About />
             <Skills />
@@ -46,6 +47,7 @@ export default function App() {
           </main>
 
           <Footer />
+          <WhatsAppFloat />
         </SmoothScroll>
       )}
     </>

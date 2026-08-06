@@ -103,8 +103,7 @@ function JourneyNode({
   const accent = brand ?? meta.accent
   const start = Math.max(0, index * 0.09)
   const end = Math.min(1, start + 0.22)
-  const nodeOpacity = useTransform(progress, [start, end], [0.35, 1])
-  const nodeScale = useTransform(progress, [start, end], [0.92, 1])
+  const nodeScale = useTransform(progress, [start, end], [0.96, 1])
   const glow = useTransform(progress, [start, (start + end) / 2, end], [0, 1, 0.55])
   const nodeGlow = useTransform(
     glow,
@@ -113,6 +112,7 @@ function JourneyNode({
   )
   const side = index % 2 === 0 ? 'left' : 'right'
 
+  // Fonds opaques — la corde ne doit jamais transparaître à travers la carte
   const cardStyle = light
     ? {
         background: '#ffffff',
@@ -121,7 +121,7 @@ function JourneyNode({
       }
     : tinted
       ? {
-          background: `linear-gradient(145deg, ${brand}2e 0%, #101827 38%, #0a1220 100%)`,
+          background: `linear-gradient(145deg, ${brand}40 0%, #0d1524 42%, #0a1220 100%)`,
           borderColor: `${border}66`,
           boxShadow: `0 0 0 1px ${border}40, 0 24px 60px rgba(0,0,0,0.45), 0 0 48px ${brand}18, inset 0 1px 0 ${brand}22`,
         }
@@ -133,24 +133,29 @@ function JourneyNode({
 
   return (
     <motion.li
-      style={{ opacity: nodeOpacity, scale: nodeScale }}
-      initial={{ opacity: 0, y: 48, filter: 'blur(8px)' }}
+      style={{ scale: nodeScale }}
+      initial={{ opacity: 0, y: 56, filter: 'blur(10px)' }}
       whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-      viewport={{ once: true, amount: 0.35, margin: '-40px' }}
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: Math.min(index * 0.04, 0.2) }}
-      className="relative grid grid-cols-1 gap-4 lg:grid-cols-[1fr_auto_1fr] lg:gap-0"
+      viewport={{ once: true, amount: 0.28, margin: '-24px' }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: Math.min(index * 0.05, 0.25) }}
+      className="relative z-10 grid grid-cols-1 gap-0 lg:grid-cols-[1fr_auto_1fr] lg:gap-0"
     >
-      {/* Carte — alterne gauche / droite sur desktop */}
+      {/* Carte — centrée mobile, alterne desktop */}
       <div
         className={cn(
-          'lg:row-start-1',
+          'relative z-10 mx-auto w-full max-w-md pt-8 lg:mx-0 lg:max-w-none lg:pt-0 lg:row-start-1',
           side === 'left' ? 'lg:col-start-1 lg:pr-10 lg:text-right' : 'lg:col-start-3 lg:pl-10',
           side === 'right' && 'lg:col-start-3',
         )}
       >
+        {/* Masque opaque derrière la carte (coupe la corde) */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-8 bottom-0 z-0 rounded-[1.4rem] bg-[#050816] lg:hidden"
+        />
         <motion.article
           whileHover={{ y: -6, transition: { type: 'spring', stiffness: 380, damping: 28 } }}
-          className="group relative overflow-hidden rounded-[1.4rem] border p-5 text-left sm:p-6"
+          className="group relative z-[1] overflow-hidden rounded-[1.4rem] border p-5 text-left sm:p-6"
           style={cardStyle}
         >
           {tinted && (
@@ -425,28 +430,40 @@ export function Timeline() {
           viewport={viewportOnce}
           className="mb-10 flex flex-col items-center gap-4 sm:mb-14"
         >
-          <div className="inline-flex flex-wrap items-center justify-center gap-1 rounded-full border border-white/10 bg-white/[0.03] p-1.5">
+          <div
+            className="flex w-full max-w-xl items-stretch gap-0.5 overflow-x-auto rounded-2xl border border-white/[0.1] bg-[#0b1220]/75 p-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] backdrop-blur-md [-ms-overflow-style:none] [scrollbar-width:none] sm:w-auto sm:max-w-none sm:rounded-full sm:p-1.5 [&::-webkit-scrollbar]:hidden"
+            role="tablist"
+            aria-label={t.journey.eyebrow}
+          >
             {filters.map((f) => {
               const active = filter === f.key
               return (
                 <button
                   key={f.key}
                   type="button"
+                  role="tab"
+                  aria-selected={active}
                   onClick={() => setFilter(f.key)}
                   data-cursor={f.label}
                   className={cn(
-                    'relative rounded-full px-4 py-2 text-sm font-medium transition-colors',
+                    'relative min-w-0 flex-1 whitespace-nowrap rounded-xl px-2.5 py-2.5 text-center text-[11px] font-medium tracking-tight transition-colors sm:flex-none sm:rounded-full sm:px-4 sm:py-2 sm:text-sm',
                     active ? 'text-text' : 'text-muted hover:text-text/85',
                   )}
                 >
                   {active && (
                     <motion.span
                       layoutId="journey-filter-pill"
-                      className="absolute inset-0 rounded-full border border-accent-cyan/35 bg-accent-cyan/15 shadow-[0_0_24px_rgba(34,211,238,0.16)]"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      className="absolute inset-0 rounded-xl border border-accent-cyan/40 bg-accent-cyan/15 shadow-[0_0_20px_rgba(34,211,238,0.18)] sm:rounded-full"
+                      transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                     />
                   )}
                   <span className="relative z-10">{f.label}</span>
+                  {active && (
+                    <span
+                      aria-hidden
+                      className="absolute inset-x-3 bottom-1 mx-auto h-[2px] rounded-full bg-gradient-to-r from-accent-cyan via-accent to-accent-violet sm:hidden"
+                    />
+                  )}
                 </button>
               )
             })}
@@ -463,19 +480,37 @@ export function Timeline() {
         </motion.div>
 
         <div className="relative mx-auto max-w-5xl">
-          {/* Rail — sous les icônes (z-0) */}
+          {/* Corde / rail central */}
           <div
-            className="pointer-events-none absolute top-0 bottom-0 left-6 z-0 w-px -translate-x-1/2 bg-white/10 sm:left-1/2 lg:left-1/2"
+            className="pointer-events-none absolute top-0 bottom-0 left-1/2 z-0 w-[3px] -translate-x-1/2 rounded-full bg-white/[0.08]"
             aria-hidden
           >
+            {/* Texture corde (tirets) */}
+            <div
+              className="absolute inset-0 opacity-40 lg:hidden"
+              style={{
+                backgroundImage:
+                  'repeating-linear-gradient(180deg, transparent 0 10px, rgba(255,255,255,0.14) 10px 12px)',
+              }}
+            />
             <motion.div
               className="absolute top-0 left-0 w-full origin-top rounded-full"
               style={{
                 height: pathHeight,
                 background:
                   'linear-gradient(180deg, #3B82F6 0%, #A78BFA 45%, #22D3EE 100%)',
-                boxShadow: '0 0 24px rgba(59,130,246,0.45)',
+                boxShadow:
+                  '0 0 18px rgba(59,130,246,0.55), 0 0 36px rgba(167,139,250,0.25)',
               }}
+            />
+            {/* Perle lumineuse qui descend avec le scroll */}
+            <motion.span
+              className="absolute left-1/2 z-[1] hidden h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-white shadow-[0_0_16px_rgba(34,211,238,0.95)] lg:block"
+              style={{ top: pathHeight }}
+            />
+            <motion.span
+              className="absolute left-1/2 z-[1] h-3 w-3 -translate-x-1/2 rounded-full bg-accent-cyan shadow-[0_0_20px_rgba(34,211,238,0.9)] lg:hidden"
+              style={{ top: pathHeight }}
             />
           </div>
 
@@ -486,38 +521,60 @@ export function Timeline() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.35 }}
-              className="relative z-10 space-y-10 sm:space-y-14 lg:space-y-16"
+              className="relative z-10 space-y-12 sm:space-y-14 lg:space-y-16"
             >
               {visible.map((item, i) => {
                 const nodeColor =
                   item.brandBorder ?? item.brandColor ?? TYPE_META[item.type].accent
+                const MobileIcon = TYPE_META[item.type].icon
                 return (
-                  <div key={item.id} className="relative">
-                    {/* Point mobile — fond plein */}
-                    <span className="absolute top-6 left-6 z-20 flex -translate-x-1/2 items-center justify-center lg:hidden">
+                  <div key={item.id} className="relative z-10 isolate">
+                    {/* Nœud mobile — sur la corde centrale */}
+                    <motion.span
+                      className="absolute left-1/2 top-0 z-20 flex -translate-x-1/2 items-center justify-center lg:hidden"
+                      initial={{ scale: 0.5, opacity: 0 }}
+                      whileInView={{ scale: 1, opacity: 1 }}
+                      viewport={{ once: true, amount: 0.8 }}
+                      transition={{ type: 'spring', stiffness: 320, damping: 18 }}
+                    >
                       <span
                         aria-hidden
-                        className="absolute h-11 w-11 rounded-full bg-[#050816]"
+                        className="absolute h-12 w-12 rounded-full bg-[#050816]"
                       />
                       <span
-                        className="relative flex h-9 w-9 items-center justify-center rounded-full"
+                        className="absolute h-11 w-11 rounded-full border border-white/10"
+                        aria-hidden
+                      />
+                      <motion.span
+                        aria-hidden
+                        className="absolute h-14 w-14 rounded-full border"
+                        style={{ borderColor: `${nodeColor}55` }}
+                        animate={{ scale: [1, 1.28, 1], opacity: [0.5, 0, 0.5] }}
+                        transition={{
+                          duration: 2.6,
+                          repeat: Infinity,
+                          ease: 'easeInOut',
+                          delay: i * 0.12,
+                        }}
+                      />
+                      <span
+                        className="relative flex h-10 w-10 items-center justify-center rounded-full"
                         style={{
-                          background: nodeColor,
-                          boxShadow: `0 0 18px ${nodeColor}55`,
+                          background: `linear-gradient(145deg, ${nodeColor}, ${nodeColor}cc)`,
+                          boxShadow: `0 0 22px ${nodeColor}66, inset 0 1px 0 rgba(255,255,255,0.25)`,
                         }}
                       >
-                        {(() => {
-                          const MobileIcon = TYPE_META[item.type].icon
-                          return (
-                            <MobileIcon
-                              className="h-4 w-4 text-white"
-                              strokeWidth={2.4}
-                            />
-                          )
-                        })()}
+                        <MobileIcon className="h-4 w-4 text-white" strokeWidth={2.4} />
                       </span>
-                    </span>
-                    <div className="pl-14 lg:pl-0">
+                    </motion.span>
+
+                    {/* Segment corde décoratif mobile (sous le nœud → carte) */}
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute left-1/2 top-10 z-[1] h-6 w-px -translate-x-1/2 bg-gradient-to-b from-white/25 to-transparent lg:hidden"
+                    />
+
+                    <div className="lg:pl-0">
                       <JourneyNode
                         item={item}
                         index={i}
