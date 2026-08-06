@@ -1,12 +1,14 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
-import { ArrowUpRight, MapPin } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { personalInfo } from '@/data/personal'
 import portrait from '@/assets/brand/ld-didier.png'
+import iconPattern from '@/assets/brand/iconpattern.png'
 import { fadeInUp, slideInLeft, slideInRight, staggerContainer, viewportOnce } from '@/lib/animations'
 import { useLanguage } from '@/i18n/LanguageProvider'
 import { scrollToSection } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+import ProfileCard from '@/components/shared/ProfileCard'
 
 export function About() {
   const { t } = useLanguage()
@@ -38,7 +40,7 @@ export function About() {
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid items-center gap-14 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.1fr)] lg:gap-16 xl:gap-20">
-          {/* Portrait + zoom au scroll */}
+          {/* Portrait — ProfileCard (React Bits) */}
           <motion.div
             style={{ scale: photoScale, y: photoY }}
             className="relative mx-auto w-full max-w-[420px] lg:mx-0 lg:max-w-none"
@@ -50,58 +52,23 @@ export function About() {
               viewport={viewportOnce}
               className="relative"
             >
-              <div
-                className="absolute -inset-3 rounded-[2rem] border border-accent/20 sm:-inset-4"
-                aria-hidden
+              <ProfileCard
+                name={personalInfo.name}
+                title={t.hero.title}
+                handle="didier-lobognon"
+                status={t.hero.availability}
+                contactText={t.hero.ctaContact}
+                avatarUrl={portrait}
+                iconUrl={iconPattern}
+                showUserInfo={false}
+                enableTilt
+                enableMobileTilt={false}
+                behindGlowEnabled
+                behindGlowColor="rgba(125, 190, 255, 0.67)"
+                behindGlowSize="55%"
+                innerGradient="linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)"
+                onContactClick={() => scrollToSection('contact')}
               />
-              <div
-                className="absolute -right-3 -bottom-3 h-full w-full rounded-[1.75rem] bg-gradient-to-br from-accent/25 via-accent-violet/15 to-transparent sm:-right-4 sm:-bottom-4"
-                aria-hidden
-              />
-
-              <div className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#070b16] shadow-[0_40px_100px_rgba(0,0,0,0.55)]">
-                <img
-                  src={portrait}
-                  alt={personalInfo.name}
-                  className="aspect-[4/5] w-full object-cover object-[center_12%]"
-                  width={640}
-                  height={800}
-                  loading="lazy"
-                  decoding="async"
-                />
-                <div
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050816] via-transparent to-transparent opacity-80"
-                  aria-hidden
-                />
-                <div
-                  className="pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,transparent_40%,rgba(59,130,246,0.12)_50%,transparent_60%)]"
-                  aria-hidden
-                />
-
-                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
-                  <p className="font-name text-xl font-semibold tracking-tight text-text sm:text-2xl">
-                    {personalInfo.name}
-                  </p>
-                  <p className="mt-1 font-mono text-xs tracking-[0.18em] text-accent-cyan uppercase">
-                    {t.hero.title}
-                  </p>
-                  <p className="mt-3 inline-flex items-center gap-1.5 text-sm text-muted">
-                    <MapPin size={14} className="text-accent/80" aria-hidden />
-                    {personalInfo.location}
-                  </p>
-                </div>
-              </div>
-
-              <motion.div
-                className="absolute -top-3 right-4 hidden rounded-full border border-emerald-400/35 bg-emerald-400/10 px-3 py-1.5 text-[11px] font-medium tracking-wide text-emerald-300 backdrop-blur-md sm:block"
-                initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={viewportOnce}
-                transition={{ delay: 0.35 }}
-              >
-                <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
-                {t.hero.availability}
-              </motion.div>
             </motion.div>
           </motion.div>
 
