@@ -103,7 +103,7 @@ export function HeroMobile() {
             DL
           </motion.span>
 
-          <div className="mx-auto h-[88px] w-full font-name">
+          <div className="mx-auto h-[100px] w-full font-name">
             <ParticleText
               key={`name-${locale}`}
               text={personalInfo.name}
@@ -118,12 +118,12 @@ export function HeroMobile() {
               repelRadius={120}
               idleDrift={0.8}
               trigger="mount"
-              fontSize="clamp(1.65rem, 7.2vw, 2.15rem)"
+              fontSize="clamp(1.9rem, 8.5vw, 2.45rem)"
               fontWeight={600}
               fontFamily='"Unbounded", ui-sans-serif, system-ui, sans-serif'
               glow
               className="!min-h-0"
-              style={{ minHeight: 88 }}
+              style={{ minHeight: 100 }}
             />
           </div>
 

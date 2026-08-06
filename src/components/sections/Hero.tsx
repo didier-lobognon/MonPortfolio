@@ -499,7 +499,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              className="h-[4.5rem] w-full max-w-xl font-name sm:h-[5.25rem] md:h-[5.75rem]"
+              className="h-[5rem] w-full max-w-2xl font-name sm:h-[5.75rem] md:h-[6.5rem]"
             >
               <ParticleText
                 key={`name-d-${locale}`}
@@ -515,9 +515,10 @@ export function Hero() {
                 repelRadius={120}
                 idleDrift={0.8}
                 trigger="mount"
-                fontSize="clamp(1.5rem, 4.2vw, 3rem)"
+                fontSize="clamp(2rem, 4.8vw, 3.4rem)"
                 fontWeight={600}
                 fontFamily='"Unbounded", ui-sans-serif, system-ui, sans-serif'
+                align="left"
                 glow
                 className="!min-h-0"
                 style={{ minHeight: '100%' }}

@@ -33,6 +33,7 @@ export type ParticleTextProps = {
   fontSize?: string | number
   fontWeight?: number | string
   fontFamily?: string
+  align?: 'left' | 'center'
   glow?: boolean
   className?: string
   style?: CSSProperties
@@ -105,6 +106,7 @@ export default function ParticleText({
   fontSize = 'clamp(3rem, 12vw, 8rem)',
   fontWeight = 800,
   fontFamily = 'inherit',
+  align = 'center',
   glow = true,
   className = '',
   style,
@@ -264,7 +266,7 @@ export default function ParticleText({
       if (!offCtx) return
 
       const content = String(text || ' ')
-      const maxTextWidth = width * 0.96
+      const maxTextWidth = align === 'left' ? width * 0.98 : width * 0.92
       offCtx.font = font
       let metrics = offCtx.measureText(content)
       const measuredWidth = Math.max(1, metrics.width)
@@ -297,14 +299,17 @@ export default function ParticleText({
       const imageData = offCtx.getImageData(0, 0, offscreen.width, offscreen.height)
       const targets: { x: number; y: number; alpha: number }[] = []
       const step = Math.max(2, Math.floor(density))
+      // Left: strip offscreen padding so first glyph aligns with sibling text
+      const originX = align === 'left' ? -padding : width / 2 - offscreen.width / 2
+      const originY = height / 2 - offscreen.height / 2
 
       for (let y = 0; y < offscreen.height; y += step) {
         for (let x = 0; x < offscreen.width; x += step) {
           const alpha = imageData.data[(y * offscreen.width + x) * 4 + 3]
           if (alpha > 40) {
             targets.push({
-              x: width / 2 - offscreen.width / 2 + x,
-              y: height / 2 - offscreen.height / 2 + y,
+              x: originX + x,
+              y: originY + y,
               alpha: alpha / 255,
             })
           }
@@ -435,6 +440,7 @@ export default function ParticleText({
     fontSize,
     fontWeight,
     fontFamily,
+    align,
     glow,
   ])
 
