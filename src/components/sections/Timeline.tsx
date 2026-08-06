@@ -103,8 +103,7 @@ function JourneyNode({
   const accent = brand ?? meta.accent
   const start = Math.max(0, index * 0.09)
   const end = Math.min(1, start + 0.22)
-  const nodeOpacity = useTransform(progress, [start, end], [0.35, 1])
-  const nodeScale = useTransform(progress, [start, end], [0.92, 1])
+  const nodeScale = useTransform(progress, [start, end], [0.96, 1])
   const glow = useTransform(progress, [start, (start + end) / 2, end], [0, 1, 0.55])
   const nodeGlow = useTransform(
     glow,
@@ -113,6 +112,7 @@ function JourneyNode({
   )
   const side = index % 2 === 0 ? 'left' : 'right'
 
+  // Fonds opaques — la corde ne doit jamais transparaître à travers la carte
   const cardStyle = light
     ? {
         background: '#ffffff',
@@ -121,7 +121,7 @@ function JourneyNode({
       }
     : tinted
       ? {
-          background: `linear-gradient(145deg, ${brand}2e 0%, #101827 38%, #0a1220 100%)`,
+          background: `linear-gradient(145deg, ${brand}40 0%, #0d1524 42%, #0a1220 100%)`,
           borderColor: `${border}66`,
           boxShadow: `0 0 0 1px ${border}40, 0 24px 60px rgba(0,0,0,0.45), 0 0 48px ${brand}18, inset 0 1px 0 ${brand}22`,
         }
@@ -133,24 +133,29 @@ function JourneyNode({
 
   return (
     <motion.li
-      style={{ opacity: nodeOpacity, scale: nodeScale }}
+      style={{ scale: nodeScale }}
       initial={{ opacity: 0, y: 56, filter: 'blur(10px)' }}
       whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       viewport={{ once: true, amount: 0.28, margin: '-24px' }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: Math.min(index * 0.05, 0.25) }}
-      className="relative grid grid-cols-1 gap-0 lg:grid-cols-[1fr_auto_1fr] lg:gap-0"
+      className="relative z-10 grid grid-cols-1 gap-0 lg:grid-cols-[1fr_auto_1fr] lg:gap-0"
     >
       {/* Carte — centrée mobile, alterne desktop */}
       <div
         className={cn(
-          'mx-auto w-full max-w-md pt-8 lg:mx-0 lg:max-w-none lg:pt-0 lg:row-start-1',
+          'relative z-10 mx-auto w-full max-w-md pt-8 lg:mx-0 lg:max-w-none lg:pt-0 lg:row-start-1',
           side === 'left' ? 'lg:col-start-1 lg:pr-10 lg:text-right' : 'lg:col-start-3 lg:pl-10',
           side === 'right' && 'lg:col-start-3',
         )}
       >
+        {/* Masque opaque derrière la carte (coupe la corde) */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-8 bottom-0 z-0 rounded-[1.4rem] bg-[#050816] lg:hidden"
+        />
         <motion.article
           whileHover={{ y: -6, transition: { type: 'spring', stiffness: 380, damping: 28 } }}
-          className="group relative overflow-hidden rounded-[1.4rem] border p-5 text-left sm:p-6"
+          className="group relative z-[1] overflow-hidden rounded-[1.4rem] border p-5 text-left sm:p-6"
           style={cardStyle}
         >
           {tinted && (
@@ -511,7 +516,7 @@ export function Timeline() {
                   item.brandBorder ?? item.brandColor ?? TYPE_META[item.type].accent
                 const MobileIcon = TYPE_META[item.type].icon
                 return (
-                  <div key={item.id} className="relative">
+                  <div key={item.id} className="relative z-10 isolate">
                     {/* Nœud mobile — sur la corde centrale */}
                     <motion.span
                       className="absolute left-1/2 top-0 z-20 flex -translate-x-1/2 items-center justify-center lg:hidden"
