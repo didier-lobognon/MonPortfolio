@@ -108,7 +108,7 @@ export function SkillRing({
         </span>
       </div>
 
-      <p className="max-w-[7.5rem] text-center font-display text-sm font-medium tracking-tight text-text/90 sm:text-[15px]">
+      <p className="max-w-[6.5rem] text-center font-display text-xs font-medium tracking-tight text-text/90 sm:max-w-[7.5rem] sm:text-sm sm:text-[15px]">
         {name}
       </p>
     </div>
