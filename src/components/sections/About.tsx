@@ -21,8 +21,6 @@ export function About() {
   const photoY = useTransform(scrollYProgress, [0.1, 0.5], [40, 0])
   const contentOpacity = useTransform(scrollYProgress, [0.15, 0.4], [0.55, 1])
 
-  const interestsLine = personalInfo.interests.join('/')
-
   return (
     <section
       id="about"
@@ -137,17 +135,6 @@ export function About() {
                 ))}
               </ul>
             </div>
-
-            {/* Une seule ligne */}
-            <motion.p
-              initial={{ opacity: 0, x: -12 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={viewportOnce}
-              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-9 overflow-x-auto whitespace-nowrap font-mono text-[11px] tracking-wide text-slate-400 sm:text-xs"
-            >
-              {interestsLine}
-            </motion.p>
 
             {/* CTA sans magnetic — zoom au scroll */}
             <motion.div

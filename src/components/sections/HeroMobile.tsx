@@ -118,7 +118,7 @@ export function HeroMobile() {
         </motion.div>
 
         <div className="relative mx-auto w-full max-w-sm text-center">
-          <h1 className="mt-2 font-name text-[1.85rem] font-semibold leading-[1.05] tracking-[-0.03em] text-text drop-shadow-[0_2px_24px_rgba(5,8,22,0.85)]">
+          <h1 className="mt-2 font-name text-[clamp(1.15rem,5.8vw,1.85rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-text whitespace-nowrap drop-shadow-[0_2px_24px_rgba(5,8,22,0.85)]">
             {letters.map((char, i) => (
               <motion.span
                 key={`${char}-${i}`}
