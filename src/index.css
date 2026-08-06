@@ -196,6 +196,26 @@ a {
   animation: spin-slow 24s linear infinite;
 }
 
+@keyframes hero-mobile-shimmer {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.hero-mobile-shimmer {
+  animation: hero-mobile-shimmer 5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-mobile-shimmer {
+    animation: none;
+  }
+}
+
 /* Scrollbar discrète */
 ::-webkit-scrollbar {
   width: 8px;
