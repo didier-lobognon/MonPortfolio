@@ -8,7 +8,7 @@ export const personalInfo: PersonalInfo = {
   subtitle:
     'Je conçois et développe des applications web complètes — du front à l’API — avec une exigence forte sur la performance, la qualité du code et l’expérience utilisateur. Mon objectif : transformer un brief en produit fiable, élégant et prêt pour la production.',
   email: 'didierlobognon56@gmail.com',
-  phone: '+33 6 00 00 00 00',
+  phone: '+225 01 61 87 59 57',
   location: 'Abidjan, Côte d\'Ivoire',
   availability: 'Disponible — nouvelles opportunités',
   bio: [
