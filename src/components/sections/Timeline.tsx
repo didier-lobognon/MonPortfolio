@@ -430,28 +430,40 @@ export function Timeline() {
           viewport={viewportOnce}
           className="mb-10 flex flex-col items-center gap-4 sm:mb-14"
         >
-          <div className="inline-flex flex-wrap items-center justify-center gap-1 rounded-full border border-white/10 bg-white/[0.03] p-1.5">
+          <div
+            className="flex w-full max-w-xl items-stretch gap-0.5 overflow-x-auto rounded-2xl border border-white/[0.1] bg-[#0b1220]/75 p-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] backdrop-blur-md [-ms-overflow-style:none] [scrollbar-width:none] sm:w-auto sm:max-w-none sm:rounded-full sm:p-1.5 [&::-webkit-scrollbar]:hidden"
+            role="tablist"
+            aria-label={t.journey.eyebrow}
+          >
             {filters.map((f) => {
               const active = filter === f.key
               return (
                 <button
                   key={f.key}
                   type="button"
+                  role="tab"
+                  aria-selected={active}
                   onClick={() => setFilter(f.key)}
                   data-cursor={f.label}
                   className={cn(
-                    'relative rounded-full px-4 py-2 text-sm font-medium transition-colors',
+                    'relative min-w-0 flex-1 whitespace-nowrap rounded-xl px-2.5 py-2.5 text-center text-[11px] font-medium tracking-tight transition-colors sm:flex-none sm:rounded-full sm:px-4 sm:py-2 sm:text-sm',
                     active ? 'text-text' : 'text-muted hover:text-text/85',
                   )}
                 >
                   {active && (
                     <motion.span
                       layoutId="journey-filter-pill"
-                      className="absolute inset-0 rounded-full border border-accent-cyan/35 bg-accent-cyan/15 shadow-[0_0_24px_rgba(34,211,238,0.16)]"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      className="absolute inset-0 rounded-xl border border-accent-cyan/40 bg-accent-cyan/15 shadow-[0_0_20px_rgba(34,211,238,0.18)] sm:rounded-full"
+                      transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                     />
                   )}
                   <span className="relative z-10">{f.label}</span>
+                  {active && (
+                    <span
+                      aria-hidden
+                      className="absolute inset-x-3 bottom-1 mx-auto h-[2px] rounded-full bg-gradient-to-r from-accent-cyan via-accent to-accent-violet sm:hidden"
+                    />
+                  )}
                 </button>
               )
             })}
