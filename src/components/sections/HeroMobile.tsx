@@ -44,17 +44,21 @@ export function HeroMobile() {
   const letters = personalInfo.name.split('')
 
   return (
-    <div className="relative flex flex-col overflow-hidden px-5 pb-6 pt-32">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-        {/* Portrait atmosphère — fond captivant */}
+    <div className="relative flex min-h-[100svh] w-full flex-col overflow-hidden bg-bg px-5 pb-8 pt-32">
+      {/* Fond noir full-bleed (passe sous tout padding / parent) */}
+      <div
+        className="pointer-events-none absolute inset-y-0 left-1/2 z-0 w-screen max-w-none -translate-x-1/2 bg-bg"
+        aria-hidden
+      >
+        <div className="absolute inset-0 bg-bg" />
+
+        {/* Portrait atmosphère */}
         <div className="absolute left-1/2 top-[4.5rem] w-[min(92vw,420px)] -translate-x-1/2">
           <div className="relative mx-auto aspect-[3/4] w-full">
-            {/* Halo marque — discret */}
             <div className="absolute left-1/2 top-[38%] h-[70%] w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/18 blur-[80px]" />
             <div className="absolute left-[18%] top-[55%] h-[42%] w-[42%] rounded-full bg-accent-cyan/10 blur-[60px]" />
             <div className="absolute right-[12%] top-[42%] h-[36%] w-[36%] rounded-full bg-accent-violet/12 blur-[55px]" />
 
-            {/* Anneau discret */}
             <div
               className="absolute left-1/2 top-[42%] h-[58%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.08]"
               style={{
@@ -77,16 +81,22 @@ export function HeroMobile() {
               decoding="async"
             />
 
-            {/* Voile sombre — zone vraiment noire */}
-            <div className="absolute inset-0 bg-[#050816]/55" />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#050816]/4 via-[#050816]/65 to-[#050816]" />
-            <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-[#050816] via-[#050816]/9 to-transparent" />
+            <div className="absolute inset-0 bg-bg/55" />
+            <div className="absolute inset-0 bg-gradient-to-b from-bg/40 via-bg/65 to-bg" />
+            <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-bg via-bg/90 to-transparent" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_28%,transparent_15%,rgba(5,8,22,0.72)_72%)]" />
           </div>
         </div>
 
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-8%,rgba(59,130,246,0.14),transparent_55%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_90%_40%,rgba(34,211,238,0.05),transparent_38%)]" />
+        {/* Voiles latéraux + global pour un noir uniforme bord à bord */}
+        <div className="absolute inset-y-0 left-0 w-[18%] bg-gradient-to-r from-bg via-bg/90 to-transparent" />
+        <div className="absolute inset-y-0 right-0 w-[18%] bg-gradient-to-l from-bg via-bg/90 to-transparent" />
+        <div className="absolute inset-0 bg-bg/30" />
+        <div className="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-bg via-bg/95 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-bg to-transparent" />
+
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-8%,rgba(59,130,246,0.12),transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_90%_40%,rgba(34,211,238,0.04),transparent_38%)]" />
         <div
           className="absolute inset-0 opacity-[0.05]"
           style={{

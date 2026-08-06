@@ -464,14 +464,14 @@ export function Hero() {
   const { t, locale } = useLanguage()
 
   return (
-    <section id="hero" className="relative overflow-x-clip">
+    <section id="hero" className="relative w-full max-w-none overflow-x-clip bg-bg">
       {/* ——— Mobile (composition dédiée) ——— */}
-      <div className="md:hidden">
+      <div className="w-full bg-bg md:hidden">
         <HeroMobile />
       </div>
 
       {/* ——— Desktop / tablette (rendu validé) ——— */}
-      <div className="relative hidden min-h-screen items-center pt-28 pb-16 sm:pt-32 md:flex">
+      <div className="relative hidden min-h-screen w-full items-center bg-bg pt-28 pb-16 sm:pt-32 md:flex">
         <GradientMesh />
         <ParticleBackground />
 

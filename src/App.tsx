@@ -33,7 +33,7 @@ export default function App() {
           <ScrollProgress />
           <Navbar />
 
-          <main id="main" className="relative">
+          <main id="main" className="relative w-full bg-bg">
             <Hero />
             <About />
             <Skills />

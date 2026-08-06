@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { Menu, MessageCircle, X } from 'lucide-react'
 import { cn, scrollToSection } from '@/lib/utils'
 import logo from '@/assets/brand/logo-ld-didier.png'
 import { LanguageToggle } from '@/components/layout/LanguageToggle'
@@ -132,14 +132,15 @@ export function Navbar() {
           })}
         </ul>
 
-        <div className="flex items-center gap-2 sm:gap-3">
-          <LanguageToggle />
+        <div className="flex items-center gap-2 sm:gap-2.5">
+          <LanguageToggle className="h-[34px]" />
 
           <button
             type="button"
             onClick={() => go('contact')}
-            className="hidden sm:inline-flex h-10 items-center rounded-xl bg-accent/15 px-4 text-sm font-medium text-accent border border-accent/25 hover:bg-accent/25 transition-colors"
+            className="hidden sm:inline-flex h-[34px] items-center gap-1.5 rounded-full border border-accent/30 bg-accent/15 px-3 text-[11px] font-semibold tracking-wide text-accent transition-colors hover:border-accent/45 hover:bg-accent/25"
           >
+            <MessageCircle size={14} strokeWidth={2.25} aria-hidden />
             {t.nav.contactCta}
           </button>
 
