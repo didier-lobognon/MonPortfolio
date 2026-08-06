@@ -43,7 +43,7 @@ export function HeroMobile() {
   const letters = personalInfo.name.split('')
 
   return (
-    <div className="relative flex min-h-[100svh] flex-col overflow-hidden px-5 pb-10 pt-32">
+    <div className="relative flex flex-col overflow-hidden px-5 pb-6 pt-32">
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(59,130,246,0.35),transparent_55%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_35%,rgba(34,211,238,0.14),transparent_40%)]" />
@@ -132,7 +132,7 @@ export function HeroMobile() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.68, duration: 0.45, ease }}
-            className="mx-auto mt-4 max-w-[18rem] text-sm leading-relaxed text-muted"
+            className="mx-auto mt-4 max-w-[18rem] whitespace-pre-line text-sm leading-relaxed text-muted"
           >
             {t.hero.tagline}
           </motion.p>
@@ -153,7 +153,7 @@ export function HeroMobile() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.75, duration: 0.7, ease }}
-          className="relative mx-auto mt-6 mb-8 h-[280px] w-full overflow-hidden px-3 [mask-image:linear-gradient(90deg,transparent_0%,#000_10%,#000_90%,transparent_100%)] [-webkit-mask-image:linear-gradient(90deg,transparent_0%,#000_10%,#000_90%,transparent_100%)]"
+          className="relative mx-auto mt-6 mb-5 h-[280px] w-full overflow-hidden px-3 [mask-image:linear-gradient(90deg,transparent_0%,#000_10%,#000_90%,transparent_100%)] [-webkit-mask-image:linear-gradient(90deg,transparent_0%,#000_10%,#000_90%,transparent_100%)]"
         >
           <DomeGallery
             images={TECH_LOGOS}
@@ -207,7 +207,7 @@ export function HeroMobile() {
         <motion.button
           type="button"
           onClick={() => scrollToSection('about')}
-          className="mx-auto mt-6 flex flex-col items-center gap-1.5 text-muted/70"
+          className="mx-auto mt-5 flex flex-col items-center gap-1.5 text-muted/70"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.15 }}

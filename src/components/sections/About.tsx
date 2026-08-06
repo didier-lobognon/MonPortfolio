@@ -25,7 +25,7 @@ export function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative overflow-x-hidden py-24 sm:py-32"
+      className="relative overflow-x-hidden pt-10 pb-20 sm:py-32"
     >
       <div
         className="pointer-events-none absolute inset-0"
