@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowDown, ArrowRight, MapPin, Smartphone } from 'lucide-react'
 import { personalInfo } from '@/data/personal'
+import portrait from '@/assets/brand/ld-didier.png'
 import { Button } from '@/components/ui/button'
 import DomeGallery from '@/components/shared/DomeGallery'
 import { scrollToSection } from '@/lib/utils'
@@ -44,31 +45,55 @@ export function HeroMobile() {
 
   return (
     <div className="relative flex flex-col overflow-hidden px-5 pb-6 pt-32">
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(59,130,246,0.35),transparent_55%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_35%,rgba(34,211,238,0.14),transparent_40%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_70%,rgba(139,92,246,0.18),transparent_42%)]" />
-        <motion.div
-          className="absolute -left-24 top-28 h-64 w-64 rounded-full bg-accent/30 blur-[90px]"
-          animate={
-            reduceMotion ? undefined : { x: [0, 28, 0], y: [0, 18, 0], opacity: [0.45, 0.75, 0.45] }
-          }
-          transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.div
-          className="absolute -right-16 bottom-40 h-56 w-56 rounded-full bg-accent-cyan/25 blur-[80px]"
-          animate={
-            reduceMotion ? undefined : { x: [0, -22, 0], y: [0, -16, 0], opacity: [0.35, 0.65, 0.35] }
-          }
-          transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut' }}
-        />
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+        {/* Portrait atmosphère — fond captivant */}
+        <div className="absolute left-1/2 top-[4.5rem] w-[min(92vw,420px)] -translate-x-1/2">
+          <div className="relative mx-auto aspect-[3/4] w-full">
+            {/* Halo marque — discret */}
+            <div className="absolute left-1/2 top-[38%] h-[70%] w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/18 blur-[80px]" />
+            <div className="absolute left-[18%] top-[55%] h-[42%] w-[42%] rounded-full bg-accent-cyan/10 blur-[60px]" />
+            <div className="absolute right-[12%] top-[42%] h-[36%] w-[36%] rounded-full bg-accent-violet/12 blur-[55px]" />
+
+            {/* Anneau discret */}
+            <div
+              className="absolute left-1/2 top-[42%] h-[58%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.08]"
+              style={{
+                maskImage: 'linear-gradient(180deg, black 40%, transparent 92%)',
+                WebkitMaskImage: 'linear-gradient(180deg, black 40%, transparent 92%)',
+              }}
+            />
+
+            <img
+              src={portrait}
+              alt=""
+              className="relative h-full w-full object-cover object-[center_12%] opacity-[0.22]"
+              style={{
+                WebkitMaskImage:
+                  'radial-gradient(ellipse 78% 74% at 50% 36%, #000 28%, transparent 76%)',
+                maskImage:
+                  'radial-gradient(ellipse 78% 74% at 50% 36%, #000 28%, transparent 76%)',
+                filter: 'brightness(0.35) contrast(1.15) saturate(0.55)',
+              }}
+              decoding="async"
+            />
+
+            {/* Voile sombre — zone vraiment noire */}
+            <div className="absolute inset-0 bg-[#050816]/55" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#050816]/4 via-[#050816]/65 to-[#050816]" />
+            <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-[#050816] via-[#050816]/9 to-transparent" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_28%,transparent_15%,rgba(5,8,22,0.72)_72%)]" />
+          </div>
+        </div>
+
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-8%,rgba(59,130,246,0.14),transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_90%_40%,rgba(34,211,238,0.05),transparent_38%)]" />
         <div
-          className="absolute inset-0 opacity-[0.07]"
+          className="absolute inset-0 opacity-[0.05]"
           style={{
             backgroundImage:
               'linear-gradient(rgba(148,163,184,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,0.35) 1px, transparent 1px)',
             backgroundSize: '48px 48px',
-            maskImage: 'radial-gradient(ellipse at center, black 20%, transparent 75%)',
+            maskImage: 'radial-gradient(ellipse at center, black 15%, transparent 70%)',
           }}
         />
       </div>
@@ -93,17 +118,7 @@ export function HeroMobile() {
         </motion.div>
 
         <div className="relative mx-auto w-full max-w-sm text-center">
-          <motion.span
-            aria-hidden
-            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 -translate-x-1/2 -translate-y-[58%] select-none font-name text-[6.5rem] font-semibold leading-none tracking-tighter text-white/[0.035]"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.15, duration: 0.9, ease }}
-          >
-            DL
-          </motion.span>
-
-          <h1 className="mt-2 font-name text-[1.85rem] font-semibold leading-[1.05] tracking-[-0.03em] text-text">
+          <h1 className="mt-2 font-name text-[1.85rem] font-semibold leading-[1.05] tracking-[-0.03em] text-text drop-shadow-[0_2px_24px_rgba(5,8,22,0.85)]">
             {letters.map((char, i) => (
               <motion.span
                 key={`${char}-${i}`}
