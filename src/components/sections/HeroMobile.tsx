@@ -3,6 +3,7 @@ import { ArrowDown, ArrowRight, MapPin, Smartphone } from 'lucide-react'
 import { personalInfo } from '@/data/personal'
 import { Button } from '@/components/ui/button'
 import DomeGallery from '@/components/shared/DomeGallery'
+import ParticleText from '@/components/shared/ParticleText'
 import { scrollToSection } from '@/lib/utils'
 import { useLanguage } from '@/i18n/LanguageProvider'
 
@@ -40,7 +41,6 @@ const ease = [0.22, 1, 0.36, 1] as const
 export function HeroMobile() {
   const { t, locale } = useLanguage()
   const reduceMotion = useReducedMotion()
-  const letters = personalInfo.name.split('')
 
   return (
     <div className="relative flex flex-col overflow-hidden px-5 pb-6 pt-32">
@@ -103,26 +103,36 @@ export function HeroMobile() {
             DL
           </motion.span>
 
-          <h1 className="font-name text-[2.05rem] font-semibold leading-[1.05] tracking-[-0.03em] text-text">
-            {letters.map((char, i) => (
-              <motion.span
-                key={`${char}-${i}`}
-                className="inline-block"
-                initial={{ opacity: 0, y: 28, filter: 'blur(8px)' }}
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                transition={{ delay: 0.18 + i * 0.028, duration: 0.45, ease }}
-              >
-                {char === ' ' ? '\u00A0' : char}
-              </motion.span>
-            ))}
-          </h1>
+          <div className="mx-auto h-[88px] w-full font-name">
+            <ParticleText
+              key={`name-${locale}`}
+              text={personalInfo.name}
+              particleSize={2.2}
+              density={4}
+              color="#f8fafc"
+              highlightColor="#3b82f6"
+              scatter={190}
+              gatherDuration={1600}
+              stagger={420}
+              pointerRepel={42}
+              repelRadius={120}
+              idleDrift={0.8}
+              trigger="mount"
+              fontSize="clamp(1.65rem, 7.2vw, 2.15rem)"
+              fontWeight={600}
+              fontFamily='"Unbounded", ui-sans-serif, system-ui, sans-serif'
+              glow
+              className="!min-h-0"
+              style={{ minHeight: 88 }}
+            />
+          </div>
 
           <motion.p
             key={`title-m-${locale}`}
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.55, duration: 0.5, ease }}
-            className="hero-mobile-shimmer mt-3 bg-gradient-to-r from-accent-cyan via-accent to-accent-violet bg-[length:200%_100%] bg-clip-text font-display text-lg font-semibold tracking-tight text-transparent"
+            className="hero-mobile-shimmer mt-2 bg-gradient-to-r from-accent-cyan via-accent to-accent-violet bg-[length:200%_100%] bg-clip-text font-display text-lg font-semibold tracking-tight text-transparent"
           >
             {t.hero.title}
           </motion.p>

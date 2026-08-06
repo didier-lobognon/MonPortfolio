@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { AnimatedText } from '@/components/shared/AnimatedText'
 import { MagneticButton } from '@/components/shared/MagneticButton'
 import { ParticleBackground } from '@/components/shared/ParticleBackground'
+import ParticleText from '@/components/shared/ParticleText'
 import { GradientMesh } from '@/components/shared/GradientMesh'
 import { SkillIcon } from '@/components/shared/SkillIcon'
 import { scrollToSection } from '@/lib/utils'
@@ -498,10 +499,29 @@ export function Hero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              className="h-[4.5rem] w-full max-w-xl font-name sm:h-[5.25rem] md:h-[5.75rem]"
             >
-              <h1 className="font-name max-w-full text-[1.5rem] font-semibold leading-[1.12] tracking-[-0.02em] text-text whitespace-nowrap sm:text-[2.75rem] md:text-[3rem]">
-                {personalInfo.name}
-              </h1>
+              <ParticleText
+                key={`name-d-${locale}`}
+                text={personalInfo.name}
+                particleSize={2.2}
+                density={4}
+                color="#f8fafc"
+                highlightColor="#3b82f6"
+                scatter={190}
+                gatherDuration={1600}
+                stagger={420}
+                pointerRepel={42}
+                repelRadius={120}
+                idleDrift={0.8}
+                trigger="mount"
+                fontSize="clamp(1.5rem, 4.2vw, 3rem)"
+                fontWeight={600}
+                fontFamily='"Unbounded", ui-sans-serif, system-ui, sans-serif'
+                glow
+                className="!min-h-0"
+                style={{ minHeight: '100%' }}
+              />
             </motion.div>
 
             <AnimatedText
