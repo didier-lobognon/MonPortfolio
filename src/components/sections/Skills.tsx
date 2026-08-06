@@ -171,82 +171,8 @@ export function Skills() {
             {t.skills.domainsLabel}
           </p>
 
-          {/* Mobile — grille structurée */}
           <div
-            className="w-full max-w-md sm:hidden"
-            role="tablist"
-            aria-label={t.skills.domainsLabel}
-          >
-            <div className="overflow-hidden rounded-2xl border border-white/[0.1] bg-[#0b1220]/70 p-1.5 backdrop-blur-sm">
-              <div className="grid grid-cols-3 gap-1">
-                {domains.slice(0, 3).map((d) => {
-                  const active = domain === d.key
-                  return (
-                    <button
-                      key={d.key}
-                      type="button"
-                      role="tab"
-                      aria-selected={active}
-                      onClick={() => setDomain(d.key)}
-                      className={cn(
-                        'relative rounded-xl px-2 py-2.5 text-center text-[12px] font-medium leading-tight transition-colors',
-                        active ? 'text-text' : 'text-muted/80 active:bg-white/[0.04]',
-                      )}
-                    >
-                      {active && (
-                        <motion.span
-                          layoutId="skills-domain-mobile"
-                          className="absolute inset-0 rounded-xl border border-accent/40 bg-accent/15 shadow-[0_0_20px_rgba(59,130,246,0.16)]"
-                          transition={{ type: 'spring', stiffness: 400, damping: 32 }}
-                        />
-                      )}
-                      <span className="relative z-10">{d.shortLabel}</span>
-                      {active && (
-                        <span className="absolute inset-x-4 bottom-1 z-10 mx-auto h-[2px] rounded-full bg-gradient-to-r from-accent-cyan via-accent to-accent-violet" />
-                      )}
-                    </button>
-                  )
-                })}
-              </div>
-              <div className="mt-1 grid grid-cols-2 gap-1">
-                {domains.slice(3).map((d) => {
-                  const active = domain === d.key
-                  return (
-                    <button
-                      key={d.key}
-                      type="button"
-                      role="tab"
-                      aria-selected={active}
-                      onClick={() => setDomain(d.key)}
-                      className={cn(
-                        'relative rounded-xl px-2 py-2.5 text-center text-[12px] font-medium leading-tight transition-colors',
-                        active ? 'text-text' : 'text-muted/80 active:bg-white/[0.04]',
-                      )}
-                    >
-                      {active && (
-                        <motion.span
-                          layoutId="skills-domain-mobile"
-                          className="absolute inset-0 rounded-xl border border-accent/40 bg-accent/15 shadow-[0_0_20px_rgba(59,130,246,0.16)]"
-                          transition={{ type: 'spring', stiffness: 400, damping: 32 }}
-                        />
-                      )}
-                      <span className="relative z-10">{d.shortLabel}</span>
-                      {active && (
-                        <span className="absolute inset-x-6 bottom-1 z-10 mx-auto h-[2px] rounded-full bg-gradient-to-r from-accent-cyan via-accent to-accent-violet" />
-                      )}
-                    </button>
-                  )
-                })}
-              </div>
-            </div>
-            <p className="mt-2.5 text-center font-mono text-[10px] tracking-wide text-slate-500">
-              {domainSkills.length} · {domains.find((d) => d.key === domain)?.label}
-            </p>
-          </div>
-
-          {/* Desktop / tablette — pills */}
-          <div
-            className="relative hidden flex-wrap items-center justify-center gap-1 rounded-full border border-white/10 bg-white/[0.03] p-1.5 sm:inline-flex"
+            className="flex w-full max-w-xl items-stretch gap-0.5 overflow-x-auto rounded-2xl border border-white/[0.1] bg-[#0b1220]/75 p-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] backdrop-blur-md [-ms-overflow-style:none] [scrollbar-width:none] sm:w-auto sm:max-w-none sm:rounded-full sm:p-1.5 [&::-webkit-scrollbar]:hidden"
             role="tablist"
             aria-label={t.skills.domainsLabel}
           >
@@ -261,22 +187,33 @@ export function Skills() {
                   data-cursor={d.label}
                   onClick={() => setDomain(d.key)}
                   className={cn(
-                    'relative rounded-full px-4 py-2 text-sm font-medium transition-colors',
+                    'relative min-w-0 flex-1 whitespace-nowrap rounded-xl px-2 py-2.5 text-center text-[11px] font-medium tracking-tight transition-colors sm:flex-none sm:rounded-full sm:px-4 sm:py-2 sm:text-sm',
                     active ? 'text-text' : 'text-muted hover:text-text/85',
                   )}
                 >
                   {active && (
                     <motion.span
                       layoutId="skills-domain-pill"
-                      className="absolute inset-0 rounded-full border border-accent/35 bg-accent/15 shadow-[0_0_24px_rgba(59,130,246,0.18)]"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      className="absolute inset-0 rounded-xl border border-accent/40 bg-accent/15 shadow-[0_0_20px_rgba(59,130,246,0.18)] sm:rounded-full"
+                      transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                     />
                   )}
-                  <span className="relative z-10">{d.label}</span>
+                  <span className="relative z-10 sm:hidden">{d.shortLabel}</span>
+                  <span className="relative z-10 hidden sm:inline">{d.label}</span>
+                  {active && (
+                    <span
+                      aria-hidden
+                      className="absolute inset-x-2.5 bottom-1 mx-auto h-[2px] rounded-full bg-gradient-to-r from-accent-cyan via-accent to-accent-violet sm:hidden"
+                    />
+                  )}
                 </button>
               )
             })}
           </div>
+
+          <p className="text-center font-mono text-[10px] tracking-wide text-slate-500 sm:hidden">
+            {domainSkills.length} · {domains.find((d) => d.key === domain)?.label}
+          </p>
         </div>
 
         <div ref={listRef} className="relative w-full">
