@@ -9,12 +9,13 @@ import { ParticleBackground } from '@/components/shared/ParticleBackground'
 import ParticleText from '@/components/shared/ParticleText'
 import { GradientMesh } from '@/components/shared/GradientMesh'
 import { SkillIcon } from '@/components/shared/SkillIcon'
-import { cn, scrollToSection } from '@/lib/utils'
+import { scrollToSection } from '@/lib/utils'
 import { useLanguage } from '@/i18n/LanguageProvider'
 import { useTheme } from '@/i18n/ThemeProvider'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { HeroMobile } from '@/components/sections/HeroMobile'
 import { HeroDomeVisual } from '@/components/sections/HeroDomeVisual'
+import { HeroAvailability } from '@/components/sections/HeroAvailability'
 
 type Token = { t: string; c: string }
 type CodeLine = { tokens: Token[] }
@@ -480,28 +481,7 @@ export function Hero() {
 
         <div className="relative z-10 mx-auto grid w-full min-w-0 max-w-7xl items-center gap-8 px-4 sm:gap-10 sm:px-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)] lg:gap-10 xl:gap-14">
           <div className="flex min-w-0 max-w-full flex-col justify-center lg:max-w-none">
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15 }}
-              className="mb-3 sm:mb-4"
-            >
-              <div
-                className={cn(
-                  'inline-flex max-w-full items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium backdrop-blur-sm sm:gap-2.5 sm:px-4 sm:py-2 sm:text-sm',
-                  isDark
-                    ? 'border-emerald-400/40 bg-emerald-400/10 text-emerald-300 shadow-[0_0_28px_rgba(52,211,153,0.22)]'
-                    : 'border-emerald-500/35 bg-emerald-500/10 text-emerald-700',
-                )}
-                role="status"
-              >
-                <span className="relative flex h-2.5 w-2.5 shrink-0">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
-                </span>
-                <span className="min-w-0 truncate tracking-wide">{t.hero.availability}</span>
-              </div>
-            </motion.div>
+            <HeroAvailability className="mb-3 sm:mb-4" />
 
             <motion.div
               initial={{ opacity: 0, y: 12 }}

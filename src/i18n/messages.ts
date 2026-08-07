@@ -17,6 +17,12 @@ export const messages = {
     },
     hero: {
       availability: 'Disponible — nouvelles opportunités',
+      statusLines: [
+        'Ouvert aux nouvelles missions',
+        'Prêt pour collab produit',
+        'Disponible dès maintenant',
+        'Brief → produit en prod',
+      ],
       title: 'Développeur Full Stack',
       subtitle:
         'Je conçois et développe des applications web complètes — du front à l’API — avec une exigence forte sur la performance, la qualité du code et l’expérience utilisateur. Mon objectif : transformer un brief en produit fiable, élégant et prêt pour la production.',
@@ -175,6 +181,12 @@ export const messages = {
     },
     hero: {
       availability: 'Open to new opportunities',
+      statusLines: [
+        'Open to new missions',
+        'Ready for product collabs',
+        'Available right now',
+        'Brief → shipped product',
+      ],
       title: 'Full Stack Developer',
       subtitle:
         'I design and build complete web applications — from UI to API — with a strong focus on performance, code quality, and user experience. My goal: turn a brief into a reliable, elegant, production-ready product.',

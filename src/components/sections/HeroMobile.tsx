@@ -7,6 +7,7 @@ import { scrollToSection, cn } from '@/lib/utils'
 import { useLanguage } from '@/i18n/LanguageProvider'
 import { useTheme } from '@/i18n/ThemeProvider'
 import { HERO_TECH_LOGOS } from '@/data/heroTechLogos'
+import { HeroAvailability } from '@/components/sections/HeroAvailability'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -48,23 +49,7 @@ export function HeroMobile() {
 
       <div className="relative z-10 flex flex-1 flex-col">
         <div className="text-center">
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.45, ease }}
-            className={cn(
-              'mb-4 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium',
-              isDark
-                ? 'border-emerald-400/40 bg-emerald-400/10 text-emerald-300'
-                : 'border-emerald-500/35 bg-emerald-500/10 text-emerald-700',
-            )}
-          >
-            <span className="relative flex h-2 w-2 shrink-0">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-70" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-            </span>
-            {t.hero.availability}
-          </motion.p>
+          <HeroAvailability className="mb-4" center />
 
           <h1 className="font-name text-[clamp(1.85rem,8.2vw,2.75rem)] font-semibold leading-[1.15] tracking-tight text-text">
             {letters.map((char, i) => (
