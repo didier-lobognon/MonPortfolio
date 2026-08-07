@@ -136,7 +136,7 @@ export function Skills() {
   return (
     <section id="skills" className="relative overflow-x-hidden py-24 sm:py-32">
       <div
-        className="pointer-events-none absolute inset-0"
+        className="theme-ambient pointer-events-none absolute inset-0"
         aria-hidden
         style={{
           background:
@@ -161,7 +161,7 @@ export function Skills() {
           <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">
             {t.skills.description}
           </p>
-          <p className="mt-5 font-name text-sm font-medium tracking-tight text-accent-cyan sm:text-base">
+          <p className="mt-5 font-name text-sm font-medium tracking-tight text-muted sm:text-base">
             {t.skills.reassurance}
           </p>
         </motion.div>
@@ -172,7 +172,7 @@ export function Skills() {
           </p>
 
           <div
-            className="flex w-full max-w-xl items-stretch gap-0.5 overflow-x-auto rounded-2xl border border-white/[0.1] bg-[#0b1220]/75 p-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] backdrop-blur-md [-ms-overflow-style:none] [scrollbar-width:none] sm:w-auto sm:max-w-none sm:rounded-full sm:p-1.5 [&::-webkit-scrollbar]:hidden"
+            className="flex w-full max-w-xl items-stretch gap-0.5 overflow-x-auto rounded-2xl border border-white/[0.1] bg-elevated p-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] [-ms-overflow-style:none] [scrollbar-width:none] sm:w-auto sm:max-w-none sm:rounded-full sm:p-1.5 [&::-webkit-scrollbar]:hidden"
             role="tablist"
             aria-label={t.skills.domainsLabel}
           >

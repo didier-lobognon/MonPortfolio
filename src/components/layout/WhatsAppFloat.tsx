@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { SiWhatsapp } from 'react-icons/si'
 import { personalInfo } from '@/data/personal'
 import { useLanguage } from '@/i18n/LanguageProvider'
+import { useTheme } from '@/i18n/ThemeProvider'
 
 const WHATSAPP_GREEN = '#25D366'
 
@@ -15,6 +16,7 @@ function whatsappHref(phone: string, message?: string) {
 /** Bouton flottant WhatsApp — bas droite, fond flouté sous le bouton */
 export function WhatsAppFloat() {
   const { locale } = useLanguage()
+  const { isDark } = useTheme()
   const reduceMotion = useReducedMotion()
 
   const label = locale === 'fr' ? 'Discuter sur WhatsApp' : 'Chat on WhatsApp'
@@ -37,8 +39,9 @@ export function WhatsAppFloat() {
         aria-hidden
         className="absolute left-1/2 top-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full sm:h-32 sm:w-32"
         style={{
-          background:
-            'radial-gradient(circle, rgba(5,8,22,0.55) 0%, rgba(5,8,22,0.28) 42%, transparent 72%)',
+          background: isDark
+            ? 'radial-gradient(circle, rgba(5,8,22,0.55) 0%, rgba(5,8,22,0.28) 42%, transparent 72%)'
+            : 'radial-gradient(circle, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.45) 42%, transparent 72%)',
           backdropFilter: 'blur(14px) saturate(1.15)',
           WebkitBackdropFilter: 'blur(14px) saturate(1.15)',
           maskImage: 'radial-gradient(circle, #000 28%, transparent 72%)',
@@ -47,7 +50,7 @@ export function WhatsAppFloat() {
       />
       <div
         aria-hidden
-        className="absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.06] bg-[#050816]/35 backdrop-blur-xl sm:h-[5.5rem] sm:w-[5.5rem]"
+        className="absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.06] bg-bg/35 backdrop-blur-xl sm:h-[5.5rem] sm:w-[5.5rem]"
         style={{
           boxShadow: '0 0 40px rgba(37,211,102,0.12)',
         }}
@@ -84,9 +87,13 @@ export function WhatsAppFloat() {
           </>
         )}
 
-        <SiWhatsapp className="relative z-10 h-[1.65rem] w-[1.65rem] drop-shadow-sm sm:h-7 sm:w-7" />
+        <SiWhatsapp
+          className="relative z-10 h-[1.65rem] w-[1.65rem] sm:h-7 sm:w-7"
+          style={{ color: '#ffffff', fill: '#ffffff' }}
+          aria-hidden
+        />
 
-        <span className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-full border border-white/10 bg-[#0b1220]/90 px-3 py-1.5 text-xs font-medium text-text opacity-0 shadow-lg backdrop-blur-md transition-opacity duration-200 group-hover:opacity-100 sm:block">
+        <span className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-full border border-white/10 bg-surface/90 px-3 py-1.5 text-xs font-medium text-text opacity-0 shadow-lg backdrop-blur-md transition-opacity duration-200 group-hover:opacity-100 sm:block">
           {label}
         </span>
       </motion.a>

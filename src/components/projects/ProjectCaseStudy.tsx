@@ -115,13 +115,13 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 32, scale: 0.98 }}
             transition={{ type: 'spring', stiffness: 320, damping: 32 }}
-            className="relative z-10 flex h-[92vh] max-h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-t-[1.75rem] border-2 bg-[#152033] sm:rounded-[1.75rem]"
+            className="relative z-10 flex h-[92vh] max-h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-t-[1.75rem] border-2 bg-card sm:rounded-[1.75rem]"
             style={{
               borderColor: accent,
               boxShadow: `0 0 0 1px ${accent}55, 0 0 48px ${accent}28, 0 40px 120px rgba(0,0,0,0.5)`,
             }}
           >
-            <div className="flex shrink-0 items-center justify-between gap-3 border-b border-white/10 bg-[#1a2740]/95 px-5 py-3.5 backdrop-blur-xl sm:px-7">
+            <div className="flex shrink-0 items-center justify-between gap-3 border-b border-white/10 bg-elevated/95 px-5 py-3.5 backdrop-blur-xl sm:px-7">
               <div className="min-w-0">
                 <p className="truncate font-mono text-[10px] tracking-[0.2em] text-slate-400 uppercase">
                   {fr ? 'Détail du projet' : 'Project details'}
@@ -157,7 +157,7 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
             </div>
 
             <div
-              className="min-h-0 flex-1 overflow-y-auto overscroll-contain bg-[#152033]"
+              className="min-h-0 flex-1 overflow-y-auto overscroll-contain bg-card"
               data-lenis-prevent
               onWheel={(e) => e.stopPropagation()}
             >
@@ -174,7 +174,7 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                     alt={project.title}
                     className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#152033]" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-card" />
                   <span
                     className="absolute right-4 bottom-4 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/45 px-3 py-1.5 text-[11px] font-medium text-white opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100"
                     style={{ boxShadow: `0 0 20px ${accent}33` }}
@@ -189,7 +189,7 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1, duration: 0.45 }}
-                    className="rounded-3xl border border-white/15 bg-[#1c2a42] p-5 shadow-xl sm:p-7"
+                    className="rounded-3xl border border-white/15 bg-elevated p-5 shadow-xl sm:p-7"
                   >
                     <p
                       className="mb-3 font-medium text-[11px] tracking-[0.2em] uppercase"
@@ -235,7 +235,7 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                       {project.technologies.map((tech) => (
                         <span
                           key={tech}
-                          className="rounded-lg border border-white/15 bg-[#121c2e] px-2.5 py-1 font-mono text-[11px] text-slate-200"
+                          className="rounded-lg border border-white/15 bg-bg px-2.5 py-1 font-mono text-[11px] text-slate-200"
                         >
                           {tech}
                         </span>
@@ -272,7 +272,7 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                               whileInView={{ opacity: 1, y: 0 }}
                               viewport={{ once: true }}
                               transition={{ delay: i * 0.06 }}
-                              className="rounded-2xl border border-white/12 bg-[#1c2a42] p-5"
+                              className="rounded-2xl border border-white/12 bg-elevated p-5"
                             >
                               <p className="font-mono text-[10px] tracking-[0.18em] text-slate-500 uppercase">
                                 {fr ? 'Mon apport' : 'My impact'}
@@ -295,7 +295,7 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                         {project.contributions.map((block) => (
                           <ul
                             key={block.area}
-                            className="space-y-2.5 rounded-2xl border border-white/12 bg-[#1c2a42] p-5"
+                            className="space-y-2.5 rounded-2xl border border-white/12 bg-elevated p-5"
                           >
                             <li className="mb-1 list-none font-display text-sm font-semibold text-white">
                               {block.area === 'frontend' ? 'Frontend' : 'Backend'}
@@ -336,9 +336,9 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                             viewport={{ once: true, amount: 0.3 }}
                             transition={{ delay: i * 0.05, duration: 0.4 }}
                             whileHover={{ y: -4 }}
-                            className="rounded-2xl border border-white/12 bg-[#1c2a42] p-4"
+                            className="rounded-2xl border border-white/12 bg-elevated p-4"
                           >
-                            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-[#121c2e] text-slate-300">
+                            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-bg text-slate-300">
                               <Icon className="h-4 w-4" />
                             </div>
                             <h4 className="font-display text-sm font-semibold text-white">
@@ -375,7 +375,7 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                           transition={{ delay: i * 0.06, duration: 0.4 }}
                           className="relative flex gap-4 pb-7 last:pb-0 sm:gap-5"
                         >
-                          <div className="relative z-10 mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/15 bg-[#121c2e] text-slate-300 sm:h-10 sm:w-10">
+                          <div className="relative z-10 mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/15 bg-bg text-slate-300 sm:h-10 sm:w-10">
                             {i === 0 ? (
                               <Boxes className="h-3.5 w-3.5" />
                             ) : i === project.architecture!.length - 1 ? (
@@ -384,7 +384,7 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                               <Server className="h-3.5 w-3.5" />
                             )}
                           </div>
-                          <div className="rounded-2xl border border-white/12 bg-[#1c2a42] px-4 py-3 sm:px-5">
+                          <div className="rounded-2xl border border-white/12 bg-elevated px-4 py-3 sm:px-5">
                             <p className="font-mono text-[10px] tracking-wider text-slate-500 uppercase">
                               {String(i + 1).padStart(2, '0')}
                             </p>
@@ -416,7 +416,7 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                           whileInView={{ opacity: 1, scale: 1 }}
                           viewport={{ once: true }}
                           transition={{ delay: i * 0.04 }}
-                          className="rounded-2xl border border-white/12 bg-[#1c2a42] p-4"
+                          className="rounded-2xl border border-white/12 bg-elevated p-4"
                         >
                           <p
                             className="text-[11px] font-semibold tracking-wide uppercase"
@@ -428,7 +428,7 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                             {group.items.map((item) => (
                               <span
                                 key={item}
-                                className="rounded-md border border-white/12 bg-[#121c2e] px-2 py-1 text-[11px] text-slate-200"
+                                className="rounded-md border border-white/12 bg-bg px-2 py-1 text-[11px] text-slate-200"
                               >
                                 {item}
                               </span>
@@ -476,7 +476,7 @@ export function ProjectCaseStudy({ project, open, onClose }: ProjectCaseStudyPro
                       [1, 2].map((n) => (
                         <div
                           key={`ph-${n}`}
-                          className="flex aspect-[16/10] flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-white/15 bg-[#1c2a42]"
+                          className="flex aspect-[16/10] flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-white/15 bg-elevated"
                         >
                           <ImageIcon className="h-6 w-6 text-slate-500" />
                           <p className="text-xs text-slate-500">
@@ -555,7 +555,7 @@ function ImageLightbox({
           <motion.button
             type="button"
             aria-label={fr ? 'Fermer' : 'Close'}
-            className="absolute inset-0 bg-[#03050f]/88 backdrop-blur-xl"
+            className="absolute inset-0 bg-bg/88 backdrop-blur-xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -564,7 +564,7 @@ function ImageLightbox({
 
           <motion.div
             aria-hidden
-            className="pointer-events-none absolute top-1/2 left-1/2 h-[55vmin] w-[55vmin] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]"
+            className="theme-ambient pointer-events-none absolute top-1/2 left-1/2 h-[55vmin] w-[55vmin] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]"
             style={{ background: accent }}
             initial={{ opacity: 0, scale: 0.6 }}
             animate={{ opacity: 0.22, scale: 1 }}
@@ -603,7 +603,7 @@ function ImageLightbox({
             </div>
 
             <div
-              className="relative overflow-hidden rounded-2xl border border-white/15 bg-[#0b1220]/9 shadow-2xl sm:rounded-3xl"
+              className="relative overflow-hidden rounded-2xl border border-white/15 bg-surface/9 shadow-2xl sm:rounded-3xl"
               style={{
                 boxShadow: `0 0 0 1px ${accent}33, 0 0 60px ${accent}22, 0 40px 100px rgba(0,0,0,0.55)`,
               }}

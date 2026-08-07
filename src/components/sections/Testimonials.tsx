@@ -5,11 +5,13 @@ import { testimonials } from '@/data/testimonials'
 import { SectionHeading } from '@/components/shared/SectionHeading'
 import { cn } from '@/lib/utils'
 import { useLanguage } from '@/i18n/LanguageProvider'
+import { useTheme } from '@/i18n/ThemeProvider'
 
 const AUTO_MS = 7000
 
 export function Testimonials() {
   const { t, locale } = useLanguage()
+  const { isDark } = useTheme()
   const fr = locale === 'fr'
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
@@ -31,7 +33,7 @@ export function Testimonials() {
 
   return (
     <section id="testimonials" className="relative overflow-hidden py-24 sm:py-32">
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
+      <div className="theme-ambient pointer-events-none absolute inset-0" aria-hidden>
         <motion.div
           className="absolute top-[10%] left-[5%] h-72 w-72 rounded-full blur-[110px]"
           style={{ background: current.accent }}
@@ -43,7 +45,7 @@ export function Testimonials() {
           animate={{ opacity: [0.15, 0.3, 0.15], y: [0, -20, 0] }}
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
         />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,#050816_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,var(--color-bg)_70%)]" />
       </div>
 
       <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
@@ -76,7 +78,7 @@ export function Testimonials() {
                   i === index ? 'border-transparent' : 'border-white/10 opacity-70 hover:opacity-100',
                 )}
                 style={{
-                  background: item.companyLogoBg ?? '#0b1220',
+                  background: item.companyLogoBg ?? 'var(--color-surface)',
                   boxShadow:
                     i === index
                       ? `0 0 0 2px ${item.accent}, 0 0 28px ${item.accent}55`
@@ -121,22 +123,29 @@ export function Testimonials() {
                 animate={{ opacity: 1, y: 0, rotateX: 0, filter: 'blur(0px)' }}
                 exit={{ opacity: 0, y: -20, rotateX: -6, filter: 'blur(8px)' }}
                 transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#0b1220]/85 p-6 shadow-2xl backdrop-blur-xl sm:p-10"
-                style={{
-                  boxShadow: `0 30px 80px rgba(0,0,0,0.45), 0 0 0 1px ${current.accent}22, 0 0 60px ${current.accent}18`,
-                }}
+                className={cn(
+                  'relative overflow-hidden rounded-[2rem] border bg-card p-6 sm:p-10',
+                  isDark ? 'border-white/10 shadow-[var(--shadow-card)]' : 'light-card',
+                )}
+                style={
+                  isDark
+                    ? {
+                        boxShadow: `var(--shadow-card), 0 0 0 1px ${current.accent}22`,
+                      }
+                    : undefined
+                }
               >
                 {/* Halo couleur */}
                 <motion.div
                   aria-hidden
-                  className="pointer-events-none absolute -top-24 -right-16 h-64 w-64 rounded-full blur-3xl"
+                  className="theme-ambient pointer-events-none absolute -top-24 -right-16 h-64 w-64 rounded-full blur-3xl"
                   style={{ background: current.accent }}
                   animate={{ opacity: [0.2, 0.35, 0.2], scale: [1, 1.12, 1] }}
                   transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
                 />
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-x-0 top-0 h-px"
+                  className="theme-ambient pointer-events-none absolute inset-x-0 top-0 h-px"
                   style={{
                     background: `linear-gradient(90deg, transparent, ${current.accent}, transparent)`,
                   }}
@@ -163,7 +172,7 @@ export function Testimonials() {
                       />
                       <span
                         className="absolute -right-1 -bottom-1 flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl border border-white/20 shadow-lg"
-                        style={{ background: current.companyLogoBg ?? '#0b1220' }}
+                        style={{ background: current.companyLogoBg ?? 'var(--color-surface)' }}
                       >
                         <img
                           src={current.companyLogo}
@@ -243,7 +252,7 @@ export function Testimonials() {
               onClick={() => go(-1)}
               whileHover={{ scale: 1.06 }}
               whileTap={{ scale: 0.94 }}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-[#0b1220]/80 text-text backdrop-blur-sm transition-colors hover:border-white/30"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-surface/80 text-text backdrop-blur-sm transition-colors hover:border-white/30"
               aria-label={t.testimonials.prev}
               data-cursor={t.testimonials.prev}
             >
@@ -278,7 +287,7 @@ export function Testimonials() {
               onClick={() => go(1)}
               whileHover={{ scale: 1.06 }}
               whileTap={{ scale: 0.94 }}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-[#0b1220]/80 text-text backdrop-blur-sm transition-colors hover:border-white/30"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-surface/80 text-text backdrop-blur-sm transition-colors hover:border-white/30"
               aria-label={t.testimonials.next}
               data-cursor={t.testimonials.next}
             >
@@ -303,7 +312,7 @@ function SideCard({
   return (
     <motion.div
       className={cn(
-        'w-full max-w-[140px] overflow-hidden rounded-3xl border border-white/10 bg-[#0b1220]/7 p-3 opacity-45 blur-[1px]',
+        'w-full max-w-[140px] overflow-hidden rounded-3xl border border-white/10 bg-surface/7 p-3 opacity-45 blur-[1px] light-card-soft',
         side === 'left' ? '-translate-x-2' : 'translate-x-2',
       )}
       style={{ boxShadow: `0 0 30px ${item.accent}15` }}

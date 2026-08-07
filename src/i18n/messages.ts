@@ -319,14 +319,12 @@ export const messages = {
   },
 } as const
 
-export type Messages = {
-  [K in keyof (typeof messages)['fr']]: {
-    [P in keyof (typeof messages)['fr'][K]]: (typeof messages)['fr'][K][P] extends string
-      ? string
-      : (typeof messages)['fr'][K][P] extends readonly (infer Item)[]
-        ? Item extends string
-          ? readonly string[]
-          : readonly { readonly [Key in keyof Item]: string }[]
-        : string
-  }
-}
+type DeepStringify<T> = T extends string
+  ? string
+  : T extends readonly (infer U)[]
+    ? readonly DeepStringify<U>[]
+    : T extends object
+      ? { readonly [K in keyof T]: DeepStringify<T[K]> }
+      : T
+
+export type Messages = DeepStringify<(typeof messages)['fr']>

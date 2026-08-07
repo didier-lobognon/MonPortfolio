@@ -76,7 +76,7 @@ export function Contact() {
 
   return (
     <section id="contact" className="relative overflow-hidden py-24 sm:py-32">
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
+      <div className="theme-ambient pointer-events-none absolute inset-0" aria-hidden>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,211,238,0.1),transparent_55%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(59,130,246,0.12),transparent_50%)]" />
         <motion.div
@@ -102,13 +102,13 @@ export function Contact() {
             viewport={viewportOnce}
             className="space-y-5"
           >
-            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#0b1220]/8 p-7 backdrop-blur-xl sm:p-8">
+            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-card p-7 shadow-[var(--shadow-card)] light-card sm:p-8">
               <div
                 aria-hidden
-                className="pointer-events-none absolute -top-20 -right-16 h-56 w-56 rounded-full bg-accent-cyan/20 blur-3xl"
+                className="theme-ambient pointer-events-none absolute -top-20 -right-16 h-56 w-56 rounded-full bg-accent-cyan/20 blur-3xl"
               />
               <div className="relative flex flex-wrap gap-2">
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-[11px] font-medium text-emerald-300">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-[11px] font-medium text-emerald-600">
                   <span className="relative flex h-1.5 w-1.5">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
                     <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
@@ -191,10 +191,9 @@ export function Contact() {
             whileInView="visible"
             viewport={viewportOnce}
             onSubmit={onSubmit}
-            className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#0b1220]/85 p-6 shadow-2xl backdrop-blur-xl sm:p-8"
+            className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-card p-6 shadow-[var(--shadow-card)] light-card sm:p-8"
             style={{
-              boxShadow:
-                '0 30px 80px rgba(0,0,0,0.35), 0 0 0 1px rgba(34,211,238,0.08)',
+              boxShadow: 'var(--shadow-card)',
             }}
             noValidate
           >
@@ -383,13 +382,13 @@ function InfoCard({
   accent: string
 }) {
   const inner = (
-    <div className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-[#0b1220]/7 px-4 py-3.5 transition-colors hover:border-white/20">
+    <div className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-elevated px-4 py-3.5 transition-colors hover:border-white/20 light-card-soft">
       <span
         className="flex h-11 w-11 items-center justify-center rounded-xl transition-transform group-hover:scale-105"
         style={{
           color: accent,
-          background: `linear-gradient(135deg, ${accent}33, ${accent}12)`,
-          boxShadow: `0 0 20px ${accent}22`,
+          background: `${accent}18`,
+          boxShadow: `0 0 20px ${accent}14`,
         }}
       >
         <Icon size={18} />
@@ -431,7 +430,7 @@ function SocialBtn({
       data-cursor={label}
       whileHover={{ y: -4, scale: 1.05 }}
       whileTap={{ scale: 0.96 }}
-      className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-[#0b1220]/8 text-slate-300 transition-colors"
+      className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-elevated text-slate-300 transition-colors"
       style={{ ['--hover' as string]: accent }}
       onMouseEnter={(e) => {
         e.currentTarget.style.color = accent

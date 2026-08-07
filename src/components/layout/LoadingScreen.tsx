@@ -48,7 +48,7 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-[#03050f]"
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-bg"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
@@ -93,7 +93,7 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
                   cy={size / 2}
                   r={radius}
                   fill="none"
-                  stroke="rgba(255,255,255,0.08)"
+                  stroke="rgba(148,163,184,0.25)"
                   strokeWidth={stroke}
                 />
                 <circle

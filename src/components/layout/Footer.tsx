@@ -18,7 +18,7 @@ export function Footer() {
 
   return (
     <footer className="relative overflow-hidden border-t border-white/10 pb-24 sm:pb-0">
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
+      <div className="theme-ambient pointer-events-none absolute inset-0" aria-hidden>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(59,130,246,0.12),transparent_55%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(34,211,238,0.08),transparent_50%)]" />
       </div>
@@ -30,15 +30,15 @@ export function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.35 }}
           transition={{ duration: 0.55, ease }}
-          className="relative mb-10 overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#0b1220]/85 px-5 py-8 text-center backdrop-blur-xl sm:mb-14 sm:rounded-[2rem] sm:px-10 sm:py-10 sm:text-left"
+          className="relative mb-10 overflow-hidden rounded-[1.75rem] border border-white/10 bg-card px-5 py-8 text-center shadow-[var(--shadow-card)] light-card sm:mb-14 sm:rounded-[2rem] sm:px-10 sm:py-10 sm:text-left"
         >
           <div
             aria-hidden
-            className="pointer-events-none absolute -top-24 left-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-accent/30 blur-3xl sm:left-auto sm:right-[-4rem] sm:translate-x-0"
+            className="theme-ambient pointer-events-none absolute -top-24 left-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-accent/30 blur-3xl sm:left-auto sm:right-[-4rem] sm:translate-x-0"
           />
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-cyan/55 to-transparent"
+            className="theme-ambient pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-cyan/55 to-transparent"
           />
 
           <div className="relative flex flex-col items-center gap-5 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
@@ -57,7 +57,7 @@ export function Footer() {
               type="button"
               onClick={() => scrollToSection('contact')}
               data-cursor={t.footer.cta}
-              className="inline-flex w-full max-w-xs shrink-0 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-violet px-6 py-3.5 text-sm font-semibold text-white shadow-[0_12px_40px_rgba(59,130,246,0.4)] transition-transform hover:scale-[1.02] sm:w-auto sm:py-3"
+              className="inline-flex w-full max-w-xs shrink-0 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-violet px-6 py-3.5 text-sm font-semibold text-white shadow-[0_12px_40px_rgba(59,130,246,0.4)] transition-transform hover:scale-[1.02] sm:w-auto sm:py-3 light-cta"
             >
               {t.nav.contactCta}
               <ArrowRight className="h-4 w-4" />

@@ -52,14 +52,14 @@ function StatCard({
     <motion.div
       ref={ref}
       variants={fadeInUp}
-      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#0b1220]/75 p-6 backdrop-blur-sm sm:p-7"
+      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-card p-6 shadow-[var(--shadow-card)] light-card sm:p-7"
       style={{
         boxShadow: `inset 0 1px 0 rgba(255,255,255,0.04), 0 0 0 0 ${accent}00`,
       }}
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-16 right-0 h-40 w-40 rounded-full opacity-40 blur-3xl transition-opacity duration-500 group-hover:opacity-70"
+        className="theme-ambient pointer-events-none absolute -top-16 right-0 h-40 w-40 rounded-full opacity-40 blur-3xl transition-opacity duration-500 group-hover:opacity-70"
         style={{ background: accent }}
       />
       <div
@@ -75,8 +75,8 @@ function StatCard({
           className="inline-flex h-11 w-11 items-center justify-center rounded-2xl"
           style={{
             color: accent,
-            background: `linear-gradient(135deg, ${accent}33 0%, ${accent}12 100%)`,
-            boxShadow: `0 0 20px ${accent}22`,
+            background: `${accent}18`,
+            boxShadow: `0 0 20px ${accent}14`,
           }}
         >
           <Icon size={20} />
@@ -113,7 +113,7 @@ export function Stats() {
 
   return (
     <section id="stats" className="relative overflow-hidden py-24 sm:py-32">
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
+      <div className="theme-ambient pointer-events-none absolute inset-0" aria-hidden>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(245,158,11,0.08),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(34,211,238,0.08),transparent_55%)]" />
         <motion.div
@@ -159,7 +159,7 @@ export function Stats() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportOnce}
             transition={{ duration: 0.45 }}
-            className="rounded-3xl border border-white/10 bg-[#0b1220]/65 p-6 backdrop-blur-sm sm:p-7"
+            className="rounded-3xl border border-white/10 bg-card p-6 shadow-[var(--shadow-card)] light-card sm:p-7"
           >
             <div className="mb-5 flex items-center gap-2 text-xs font-medium tracking-[0.16em] text-slate-400 uppercase">
               <Sparkles className="h-3.5 w-3.5 text-amber-400" />
@@ -174,7 +174,7 @@ export function Stats() {
                   viewport={viewportOnce}
                   transition={{ delay: 0.05 * i, duration: 0.35 }}
                   className={cn(
-                    'rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3',
+                    'rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 light-card-soft',
                     'transition-colors hover:border-white/15 hover:bg-white/[0.05]',
                   )}
                 >
@@ -194,7 +194,7 @@ export function Stats() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportOnce}
             transition={{ duration: 0.45, delay: 0.08 }}
-            className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#12203a] to-[#0b1220] p-6 sm:p-7"
+            className="relative overflow-hidden rounded-3xl border border-white/10 bg-elevated p-6 light-card-soft sm:p-7"
           >
             <div
               aria-hidden

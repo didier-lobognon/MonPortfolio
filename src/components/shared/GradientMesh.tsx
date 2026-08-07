@@ -1,9 +1,13 @@
 import { motion } from 'framer-motion'
+import { useTheme } from '@/i18n/ThemeProvider'
 
-/** Mesh / blobs animés pour l'atmosphère du Hero */
+/** Mesh / blobs animés — dark uniquement (light = fond blanc net) */
 export function GradientMesh() {
+  const { isDark } = useTheme()
+  if (!isDark) return null
+
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+    <div className="theme-ambient pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
       <motion.div
         className="absolute -top-24 -left-24 h-[420px] w-[420px] rounded-full bg-accent/25 blur-[100px] animate-pulse-glow"
         animate={{ x: [0, 40, 0], y: [0, 30, 0] }}

@@ -153,6 +153,28 @@ main.sphere-main {
   display: none;
 }
 
+/* Globe nu — aucun cadre / vignette / clipping */
+.sphere-root--frameless.sphere-root,
+.sphere-root--frameless .sphere-main {
+  overflow: visible;
+  background: transparent;
+}
+
+.sphere-root--frameless .overlay,
+.sphere-root--frameless .overlay--blur,
+.sphere-root--frameless .edge-fade {
+  display: none !important;
+}
+
+html.light .sphere-root--logos .overlay,
+html.light .sphere-root--logos .overlay--blur {
+  display: none;
+}
+
+html.light .sphere-root--logos .item__image img {
+  filter: drop-shadow(0 3px 10px rgba(15, 23, 42, 0.14)) !important;
+}
+
 .sphere-root--logos .viewer .enlarge {
   background: transparent;
   border: none;
@@ -227,7 +249,7 @@ main.sphere-main {
 }
 
 .sphere-root--logos .viewer .enlarge {
-  background: #0b1220;
+  background: var(--color-surface);
 }
 
 .sphere-root--logos .viewer .enlarge img {

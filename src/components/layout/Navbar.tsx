@@ -4,12 +4,15 @@ import { Menu, MessageCircle, X } from 'lucide-react'
 import { cn, scrollToSection } from '@/lib/utils'
 import logo from '@/assets/brand/logo-ld-didier.png'
 import { LanguageToggle } from '@/components/layout/LanguageToggle'
+import { ThemeToggle } from '@/components/layout/ThemeToggle'
 import { useLanguage } from '@/i18n/LanguageProvider'
+import { useTheme } from '@/i18n/ThemeProvider'
 
 const SECTION_IDS = ['about', 'skills', 'projects', 'journey', 'services', 'contact'] as const
 
 export function Navbar() {
   const { t } = useLanguage()
+  const { isDark } = useTheme()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const [activeId, setActiveId] = useState<string | null>(null)
@@ -97,7 +100,10 @@ export function Navbar() {
           <img
             src={logo}
             alt="LD Didier"
-            className="h-[4.15rem] w-auto sm:h-20 md:h-[5.5rem]"
+            className={cn(
+              'h-[4.15rem] w-auto transition-[filter] duration-300 sm:h-20 md:h-[5.5rem]',
+              !isDark && 'brightness-0',
+            )}
             width={352}
             height={88}
             decoding="async"
@@ -122,7 +128,12 @@ export function Navbar() {
                   {active && (
                     <motion.span
                       layoutId="nav-active-underline"
-                      className="absolute inset-x-3.5 -bottom-px h-[2px] rounded-full bg-gradient-to-r from-accent-cyan via-accent to-accent-violet shadow-[0_0_12px_rgba(59,130,246,0.55)]"
+                      className={cn(
+                        'absolute inset-x-3.5 -bottom-px h-[2px] rounded-full',
+                        isDark
+                          ? 'bg-gradient-to-r from-accent-cyan via-accent to-accent-violet shadow-[0_0_12px_rgba(59,130,246,0.55)]'
+                          : 'bg-text',
+                      )}
                       transition={{ type: 'spring', stiffness: 380, damping: 32 }}
                     />
                   )}
@@ -133,12 +144,18 @@ export function Navbar() {
         </ul>
 
         <div className="flex items-center gap-2 sm:gap-2.5">
+          <ThemeToggle />
           <LanguageToggle className="h-[34px]" />
 
           <button
             type="button"
             onClick={() => go('contact')}
-            className="hidden sm:inline-flex h-[34px] items-center gap-1.5 rounded-full border border-accent/30 bg-accent/15 px-3 text-[11px] font-semibold tracking-wide text-accent transition-colors hover:border-accent/45 hover:bg-accent/25"
+            className={cn(
+              'hidden sm:inline-flex h-[34px] items-center gap-1.5 rounded-full border px-3 text-[11px] font-semibold tracking-wide transition-colors',
+              isDark
+                ? 'border-accent/30 bg-accent/15 text-accent hover:border-accent/45 hover:bg-accent/25'
+                : 'border-text bg-text text-white hover:bg-bg hover:text-text',
+            )}
           >
             <MessageCircle size={14} strokeWidth={2.25} aria-hidden />
             {t.nav.contactCta}
@@ -182,7 +199,14 @@ export function Navbar() {
                     >
                       {link.label}
                       {active && (
-                        <span className="absolute inset-x-4 bottom-1.5 h-[2px] rounded-full bg-gradient-to-r from-accent-cyan via-accent to-accent-violet" />
+                        <span
+                          className={cn(
+                            'absolute inset-x-4 bottom-1.5 h-[2px] rounded-full',
+                            isDark
+                              ? 'bg-gradient-to-r from-accent-cyan via-accent to-accent-violet'
+                              : 'bg-text',
+                          )}
+                        />
                       )}
                     </button>
                   </li>
@@ -192,7 +216,12 @@ export function Navbar() {
                 <button
                   type="button"
                   onClick={() => go('contact')}
-                  className="w-full rounded-xl bg-accent/15 px-4 py-2.5 text-left font-medium text-accent"
+                  className={cn(
+                    'w-full rounded-xl px-4 py-2.5 text-left font-medium',
+                    isDark
+                      ? 'bg-accent/15 text-accent'
+                      : 'border border-text bg-text text-white hover:bg-bg hover:text-text',
+                  )}
                 >
                   {t.nav.contactCta}
                 </button>

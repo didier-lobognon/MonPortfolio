@@ -5,14 +5,15 @@
    ========================================================================== */
 @theme {
   --color-bg: #050816;
-  --color-surface: #0f172a;
-  --color-card: #111827;
+  --color-surface: #0b1220;
+  --color-card: #0f172a;
   --color-text: #f8fafc;
   --color-muted: #94a3b8;
   --color-accent: #3b82f6;
   --color-accent-violet: #8b5cf6;
   --color-accent-cyan: #22d3ee;
   --color-border: rgba(148, 163, 184, 0.12);
+  --color-elevated: #1c2a42;
 
   --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
@@ -32,6 +33,146 @@
   --shadow-card: 0 20px 50px rgba(0, 0, 0, 0.45);
 }
 
+/* Mode clair — noir / gris / blanc, accents non bleu-violet */
+html.light {
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-card: #ffffff;
+  --color-text: #0b1220;
+  --color-muted: #64748b;
+  --color-accent: #0b1220;
+  --color-accent-violet: #3f3f46;
+  --color-accent-cyan: #0f766e;
+  --color-border: rgba(15, 23, 42, 0.12);
+  --color-elevated: #f4f4f5;
+  --shadow-glow: 0 10px 28px rgba(15, 23, 42, 0.14);
+  --shadow-glow-violet: 0 10px 28px rgba(15, 23, 42, 0.1);
+  --shadow-card: 0 2px 4px rgba(15, 23, 42, 0.06), 0 10px 28px rgba(15, 23, 42, 0.1),
+    0 28px 56px rgba(15, 23, 42, 0.14);
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+/* Blobs / mesh / auras — masqués en light */
+html.light .theme-ambient {
+  display: none !important;
+}
+
+html.light .mesh-bg {
+  background: var(--color-bg);
+}
+
+/* Cartes light — relief par ombre, pas de bordure noire dure */
+html.light .light-card {
+  background: #ffffff !important;
+  border: 1px solid rgba(15, 23, 42, 0.07) !important;
+  box-shadow:
+    0 2px 4px rgba(15, 23, 42, 0.06),
+    0 10px 28px rgba(15, 23, 42, 0.1),
+    0 28px 56px rgba(15, 23, 42, 0.14) !important;
+  backdrop-filter: none !important;
+  transition:
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease;
+}
+
+html.light .group:hover > .light-card,
+html.light .light-card:hover,
+html.light article.light-card:hover {
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  box-shadow:
+    0 4px 8px rgba(15, 23, 42, 0.07),
+    0 16px 40px rgba(15, 23, 42, 0.12),
+    0 36px 72px rgba(15, 23, 42, 0.16) !important;
+}
+
+/* Variante secondaire (sous-cartes) */
+html.light .light-card-soft {
+  background: #fafafa !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow:
+    0 2px 4px rgba(15, 23, 42, 0.05),
+    0 8px 20px rgba(15, 23, 42, 0.08) !important;
+  backdrop-filter: none !important;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+html.light .light-card-soft:hover {
+  border-color: rgba(15, 23, 42, 0.14) !important;
+  box-shadow:
+    0 3px 6px rgba(15, 23, 42, 0.06),
+    0 12px 32px rgba(15, 23, 42, 0.11) !important;
+}
+
+/* Boutons dégradés bleu/violet → noir solid en light */
+html.light .animate-gradient,
+html.light .bg-gradient-to-r.from-accent,
+html.light .from-accent.to-accent-violet,
+html.light .from-accent.via-accent-violet,
+html.light .light-cta {
+  background-image: none !important;
+  background-color: #0b1220 !important;
+  color: #ffffff !important;
+  animation: none !important;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.16) !important;
+}
+
+html.light .bg-gradient-to-r.from-accent:hover,
+html.light .animate-gradient:hover,
+html.light .light-cta:hover {
+  background-color: #18181b !important;
+}
+
+/* Progress / barres dégradées → gris anthracite */
+html.light .bg-gradient-to-r.from-accent.via-accent-violet.to-accent-cyan {
+  background-image: none !important;
+  background-color: #0b1220 !important;
+}
+
+/* Titres / icônes accent → neutre (teal uniquement pour cyan utilitaire) */
+html.light .text-accent {
+  color: #0b1220;
+}
+
+html.light .text-accent-violet {
+  color: #52525b;
+}
+
+html.light .border-accent\/30,
+html.light .border-accent\/35,
+html.light .border-accent\/40,
+html.light .border-accent\/45 {
+  border-color: rgba(11, 18, 32, 0.22);
+}
+
+html.light .bg-accent\/10,
+html.light .bg-accent\/15,
+html.light .bg-accent\/20,
+html.light .bg-accent\/25 {
+  background-color: rgba(11, 18, 32, 0.06);
+}
+
+html.light .hover\:bg-accent\/10:hover,
+html.light .hover\:bg-accent\/20:hover,
+html.light .hover\:bg-accent\/25:hover {
+  background-color: rgba(11, 18, 32, 0.1);
+}
+
+html.light .border-accent-cyan\/35,
+html.light .border-accent-cyan\/40 {
+  border-color: rgba(15, 118, 110, 0.35);
+}
+
+html.light .bg-accent-cyan\/10,
+html.light .bg-accent-cyan\/15,
+html.light .bg-accent-cyan\/20 {
+  background-color: rgba(15, 118, 110, 0.1);
+}
+
 /* ==========================================================================
    Base
    ========================================================================== */
@@ -43,8 +184,7 @@
 
 html {
   scroll-behavior: auto;
-  color-scheme: dark;
-  background-color: #050816;
+  background-color: var(--color-bg);
 }
 
 html.lenis,
@@ -63,7 +203,7 @@ html.lenis body {
 body {
   margin: 0;
   min-height: 100vh;
-  background-color: #050816;
+  background-color: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-sans);
   font-size: 1.05rem;
@@ -80,7 +220,7 @@ p {
 
 #root {
   min-height: 100vh;
-  background-color: #050816;
+  background-color: var(--color-bg);
 }
 
 /* Curseur personnalisé : masquer le curseur natif sur desktop */
@@ -94,6 +234,26 @@ p {
 ::selection {
   background: rgba(59, 130, 246, 0.35);
   color: #fff;
+}
+
+html.light ::selection {
+  background: rgba(37, 99, 235, 0.25);
+  color: #0b1220;
+}
+
+/* View Transitions — cercle type Hostinger */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
 }
 
 img,
@@ -115,6 +275,12 @@ a {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+html.light .glass {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
 }
 
 .gradient-text {
@@ -152,7 +318,130 @@ a {
     radial-gradient(ellipse 80% 60% at 20% 20%, rgba(59, 130, 246, 0.18), transparent 50%),
     radial-gradient(ellipse 60% 50% at 80% 30%, rgba(139, 92, 246, 0.16), transparent 50%),
     radial-gradient(ellipse 50% 40% at 50% 80%, rgba(34, 211, 238, 0.1), transparent 50%),
-    #050816;
+    var(--color-bg);
+}
+
+html.light .mesh-bg {
+  background: var(--color-bg);
+}
+
+/* Hardcodes dark → light */
+html.light .bg-\[\#050816\],
+html.light .bg-\[\#03050f\],
+html.light .bg-\[\#0b1220\],
+html.light .bg-\[\#0a1220\],
+html.light .bg-\[\#0d1524\],
+html.light .bg-\[\#070b16\],
+html.light .bg-\[\#080e1a\],
+html.light .bg-\[\#101827\],
+html.light .bg-\[\#0c1424\],
+html.light .bg-\[\#0a1020\],
+html.light .bg-\[\#152033\],
+html.light .bg-\[\#1a2740\],
+html.light .bg-\[\#1c2a42\],
+html.light .bg-\[\#121c2e\],
+html.light .bg-\[\#121a2e\] {
+  background-color: var(--color-surface) !important;
+}
+
+/* ProfileCard — light : portrait net, sans glow / dégradé */
+html.light .pc-behind {
+  display: none !important;
+}
+
+html.light .pc-card {
+  background: #0f172a !important;
+  background-image: none !important;
+  animation: none !important;
+  box-shadow:
+    0 16px 40px rgba(15, 23, 42, 0.12),
+    0 0 0 1px rgba(15, 23, 42, 0.08) !important;
+}
+
+html.light .text-emerald-300,
+html.light .text-emerald-300\/90 {
+  color: #059669;
+}
+
+/* Modal projet — texte lisible sur fond blanc */
+html.light [role='dialog'] .text-white {
+  color: var(--color-text);
+}
+
+html.light [role='dialog'] .text-slate-200,
+html.light [role='dialog'] .text-slate-300 {
+  color: #475569;
+}
+
+html.light [role='dialog'] .bg-white\/10 {
+  background-color: rgba(15, 23, 42, 0.06);
+}
+
+html.light [role='dialog'] .hover\:bg-white\/15:hover {
+  background-color: rgba(15, 23, 42, 0.1);
+}
+
+html.light [role='dialog'] .text-slate-200.hover\:text-white:hover,
+html.light [role='dialog'] .hover\:text-white:hover {
+  color: var(--color-text);
+}
+
+html.light .text-slate-300,
+html.light .text-slate-200 {
+  color: #334155;
+}
+
+html.light .text-slate-400,
+html.light .text-slate-500,
+html.light .text-slate-600 {
+  color: var(--color-muted);
+}
+
+html.light .bg-white\/5,
+html.light .hover\:bg-white\/5:hover,
+html.light .bg-white\/\[0\.02\],
+html.light .bg-white\/\[0\.03\],
+html.light .bg-white\/\[0\.04\],
+html.light .bg-white\/\[0\.05\],
+html.light .bg-white\/\[0\.06\] {
+  background-color: rgba(15, 23, 42, 0.04);
+}
+
+html.light .border-white\/10,
+html.light .border-white\/15,
+html.light .border-white\/\[0\.08\],
+html.light .border-white\/\[0\.1\],
+html.light .border-white\/\[0\.07\],
+html.light .border-white\/\[0\.06\],
+html.light .border-white\/\[0\.05\] {
+  border-color: rgba(15, 23, 42, 0.1);
+}
+
+html.light .hover\:border-white\/20:hover,
+html.light .hover\:border-white\/30:hover {
+  border-color: rgba(15, 23, 42, 0.18);
+}
+
+html.light .bg-black\/45 {
+  background-color: rgba(15, 23, 42, 0.55);
+}
+
+html.light .text-white\/90 {
+  color: rgba(248, 250, 252, 0.95);
+}
+
+html.light .shadow-\[inset_0_1px_0_rgba\(255\,255\,255\,0\.04\)\] {
+  box-shadow: inset 0 1px 0 rgba(15, 23, 42, 0.04);
+}
+
+/* Navbar / surfaces translucides */
+html.light .bg-surface\/60,
+html.light .bg-surface\/70,
+html.light .bg-surface\/75,
+html.light .bg-surface\/80,
+html.light .bg-surface\/85,
+html.light .bg-surface\/90 {
+  background-color: color-mix(in srgb, var(--color-surface) 85%, transparent);
 }
 
 @keyframes float {
@@ -241,7 +530,7 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-  background: #050816;
+  background: var(--color-bg);
 }
 
 ::-webkit-scrollbar-thumb {

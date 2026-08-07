@@ -7,6 +7,7 @@ import { viewportOnce } from '@/lib/animations'
 import type { Project } from '@/types'
 import { cn } from '@/lib/utils'
 import { useLanguage } from '@/i18n/LanguageProvider'
+import { useTheme } from '@/i18n/ThemeProvider'
 
 type FilterKey = 'all' | 'featured'
 /** heroL/R = grande ; side = petite à côté d’une grande ; base = normale */
@@ -126,6 +127,7 @@ function ProjectCard({
 }) {
   const theme = themeOf(project.id, project)
   const { locale, t } = useLanguage()
+  const { isDark } = useTheme()
   const fr = locale === 'fr'
   const [hovered, setHovered] = useState(false)
   const [expanded, setExpanded] = useState(false)
@@ -147,29 +149,34 @@ function ProjectCard({
       className={cn(
         'relative',
         spanClass(size),
-        /* Petite à côté d’une grande : taille naturelle, centrée verticalement */
         isSide && 'lg:self-center',
-        /* Grande ≈ hauteur petite (+ un peu), zoom conservé */
         isHero &&
-          'z-20 my-2 origin-center scale-[1.035] p-[4px] sm:my-3 lg:mx-2 lg:my-4 lg:min-h-[29rem] lg:scale-[1.045]',
+          (isDark
+            ? 'z-20 my-2 origin-center scale-[1.035] p-[4px] sm:my-3 lg:mx-2 lg:my-4 lg:min-h-[29rem] lg:scale-[1.045]'
+            : 'z-20 my-2 sm:my-3 lg:mx-2 lg:my-4 lg:min-h-[29rem]'),
       )}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {isHero && <OrbitBorder accent={theme.accent} active={hovered} />}
+      {isHero && isDark && <OrbitBorder accent={theme.accent} active={hovered} />}
 
       <motion.article
         whileHover={{ y: isHero ? 0 : -5 }}
         className={cn(
-          'group relative z-10 flex h-full overflow-hidden rounded-[1.35rem] border bg-[#0c1424]',
-          isHero ? 'flex-col border-white/12 lg:flex-row' : 'flex-col border-white/[0.1]',
+          'group relative z-10 flex h-full overflow-hidden rounded-[1.35rem] border bg-card',
+          isHero ? 'flex-col lg:flex-row' : 'flex-col',
           mirror && 'lg:flex-row-reverse',
+          isDark ? (isHero ? 'border-white/12' : 'border-white/[0.1]') : 'light-card',
         )}
-        style={{
-          boxShadow: isHero
-            ? `0 0 0 1px ${theme.accent}40, 0 28px 64px rgba(0,0,0,0.55), 0 0 56px ${theme.accent}28`
-            : `0 0 0 1px ${theme.accent}22, 0 16px 40px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.06)`,
-        }}
+        style={
+          isDark
+            ? {
+                boxShadow: isHero
+                  ? `0 0 0 1px ${theme.accent}40, 0 28px 64px rgba(0,0,0,0.55), 0 0 56px ${theme.accent}28`
+                  : `0 0 0 1px ${theme.accent}22, 0 16px 40px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.06)`,
+              }
+            : undefined
+        }
       >
         <button
           type="button"
@@ -194,7 +201,9 @@ function ProjectCard({
           <div
             className="absolute inset-0"
             style={{
-              background: `linear-gradient(180deg, transparent 40%, #0b1220 100%), linear-gradient(135deg, ${theme.accent}35, transparent 55%)`,
+              background: isDark
+                ? `linear-gradient(180deg, transparent 40%, var(--color-surface) 100%), linear-gradient(135deg, ${theme.accent}35, transparent 55%)`
+                : 'linear-gradient(180deg, transparent 72%, rgba(255,255,255,0.55) 100%)',
             }}
           />
 
@@ -204,11 +213,19 @@ function ProjectCard({
             </span>
             <span
               className="rounded-md border px-2 py-1 text-[10px] font-medium backdrop-blur-sm"
-              style={{
-                color: theme.accent,
-                borderColor: `${theme.accent}55`,
-                background: `${theme.accent}22`,
-              }}
+              style={
+                isDark
+                  ? {
+                      color: theme.accent,
+                      borderColor: `${theme.accent}55`,
+                      background: `${theme.accent}22`,
+                    }
+                  : {
+                      color: '#0b1220',
+                      borderColor: 'rgba(15,23,42,0.14)',
+                      background: 'rgba(15,23,42,0.05)',
+                    }
+              }
             >
               {theme.label}
             </span>
@@ -275,7 +292,7 @@ function ProjectCard({
 
           {project.contributionTeaser && (
             <p className="text-[11px] leading-snug text-slate-400">
-              <span className="font-medium" style={{ color: theme.accent }}>
+              <span className="font-medium" style={{ color: isDark ? theme.accent : '#0b1220' }}>
                 Contribution
               </span>
               <span className="text-slate-600"> — </span>
@@ -306,12 +323,15 @@ function ProjectCard({
                 onClick={() => onOpen(project)}
                 data-cursor={ctaCase}
                 className={cn(
-                  'inline-flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-semibold text-[#050816] transition-transform hover:scale-[1.02]',
+                  'inline-flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-semibold transition-transform hover:scale-[1.02]',
                   isHero || project.demo ? 'px-4' : 'flex-1',
+                  isDark ? 'text-[#050816]' : 'text-white',
                 )}
                 style={{
-                  background: theme.accent,
-                  boxShadow: `0 8px 24px ${theme.accent}33`,
+                  background: isDark ? theme.accent : '#0b1220',
+                  boxShadow: isDark
+                    ? `0 8px 24px ${theme.accent}33`
+                    : '0 8px 24px rgba(15,23,42,0.14)',
                 }}
               >
                 {ctaCase}
@@ -328,13 +348,16 @@ function ProjectCard({
                   'inline-flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-semibold transition-colors',
                   project.caseStudy
                     ? 'border border-white/15 bg-white/[0.05] px-4 text-text hover:bg-white/[0.1]'
-                    : 'flex-1 text-[#050816] hover:scale-[1.02]',
+                    : 'flex-1 hover:scale-[1.02]',
+                  !project.caseStudy && (isDark ? 'text-[#050816]' : 'text-white'),
                 )}
                 style={
                   !project.caseStudy
                     ? {
-                        background: theme.accent,
-                        boxShadow: `0 8px 24px ${theme.accent}33`,
+                        background: isDark ? theme.accent : '#0b1220',
+                        boxShadow: isDark
+                          ? `0 8px 24px ${theme.accent}33`
+                          : '0 8px 24px rgba(15,23,42,0.14)',
                       }
                     : undefined
                 }
@@ -383,7 +406,7 @@ export function Projects() {
   return (
     <section id="projects" className="relative overflow-x-hidden py-24 sm:py-32">
       <div
-        className="pointer-events-none absolute inset-0"
+        className="theme-ambient pointer-events-none absolute inset-0"
         aria-hidden
         style={{
           background:
@@ -412,7 +435,7 @@ export function Projects() {
 
         <div className="mb-10 flex justify-center">
           <div
-            className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] p-1.5"
+            className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-elevated p-1.5"
             role="tablist"
             aria-label={locale === 'fr' ? 'Filtrer les projets' : 'Filter projects'}
           >

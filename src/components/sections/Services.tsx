@@ -31,7 +31,7 @@ export function Services() {
 
   return (
     <section id="services" className="relative overflow-hidden py-24 sm:py-32">
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
+      <div className="theme-ambient pointer-events-none absolute inset-0" aria-hidden>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,211,238,0.08),transparent_55%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(59,130,246,0.1),transparent_50%)]" />
       </div>
@@ -66,8 +66,8 @@ export function Services() {
                     className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-105"
                     style={{
                       color,
-                      background: `linear-gradient(135deg, ${color}33 0%, ${color}14 100%)`,
-                      boxShadow: `0 0 24px ${color}22`,
+                      background: `${color}18`,
+                      boxShadow: `0 0 24px ${color}14`,
                     }}
                   >
                     <Icon size={22} />

@@ -42,7 +42,7 @@ export function SkillRing({
       >
         {/* Soft ambient glow */}
         <span
-          className="pointer-events-none absolute inset-[-12%] rounded-full opacity-40 blur-2xl transition-opacity duration-500 group-hover:opacity-70"
+          className="theme-ambient pointer-events-none absolute inset-[-12%] rounded-full opacity-40 blur-2xl transition-opacity duration-500 group-hover:opacity-70"
           style={{ background: `radial-gradient(circle, ${color}55 0%, transparent 68%)` }}
           aria-hidden
         />
@@ -68,7 +68,7 @@ export function SkillRing({
             cy={size / 2}
             r={radius}
             fill="none"
-            stroke="rgba(255,255,255,0.08)"
+            stroke="color-mix(in srgb, var(--color-muted) 40%, transparent)"
             strokeWidth={stroke}
           />
 
@@ -93,7 +93,7 @@ export function SkillRing({
 
         {/* Icon plate */}
         <div
-          className="absolute inset-[18%] flex items-center justify-center rounded-full border border-white/[0.08] bg-[#0a1020]/92 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-sm transition-transform duration-300 group-hover:scale-[1.04]"
+          className="absolute inset-[18%] flex items-center justify-center rounded-full border border-white/[0.08] bg-elevated shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-sm transition-transform duration-300 group-hover:scale-[1.04]"
           style={{ color }}
         >
           <SkillIcon name={icon} className="h-[38%] w-[38%]" />
@@ -101,7 +101,7 @@ export function SkillRing({
 
         {/* Percentage badge */}
         <span
-          className="absolute -bottom-0.5 left-1/2 z-10 -translate-x-1/2 rounded-full border border-white/10 bg-[#0b1220]/95 px-2 py-0.5 font-mono text-[10px] tabular-nums text-text/90 shadow-lg sm:text-[11px]"
+          className="absolute -bottom-0.5 left-1/2 z-10 -translate-x-1/2 rounded-full border border-white/10 bg-surface/95 px-2 py-0.5 font-mono text-[10px] tabular-nums text-text/90 shadow-lg sm:text-[11px]"
           style={{ boxShadow: `0 0 16px ${color}22` }}
         >
           {clamped}%
