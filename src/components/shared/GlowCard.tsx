@@ -1,14 +1,16 @@
 import { useRef, type MouseEvent, type ReactNode } from 'react'
 import { motion, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion'
 import { cn } from '@/lib/utils'
+import { useTheme } from '@/i18n/ThemeProvider'
 
 interface GlowCardProps {
   children: ReactNode
   className?: string
 }
 
-/** Carte glass avec glow qui suit la souris + léger tilt 3D */
+/** Carte glass avec glow souris (dark) — light = carte plate nette */
 export function GlowCard({ children, className }: GlowCardProps) {
+  const { isDark } = useTheme()
   const ref = useRef<HTMLDivElement>(null)
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
@@ -16,6 +18,7 @@ export function GlowCard({ children, className }: GlowCardProps) {
   const rotateY = useSpring(0, { stiffness: 150, damping: 20 })
 
   function handleMouseMove(e: MouseEvent<HTMLDivElement>) {
+    if (!isDark) return
     const el = ref.current
     if (!el) return
     const rect = el.getBoundingClientRect()
@@ -48,17 +51,22 @@ export function GlowCard({ children, className }: GlowCardProps) {
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+      style={isDark ? { rotateX, rotateY, transformStyle: 'preserve-3d' } : undefined}
       className={cn(
-        'group relative rounded-2xl border border-border bg-card/80 backdrop-blur-md overflow-hidden transition-shadow duration-300 hover:shadow-glow',
+        'group relative overflow-hidden rounded-2xl border border-border bg-card transition-shadow duration-300',
+        isDark
+          ? 'bg-card/80 backdrop-blur-md hover:shadow-glow'
+          : 'light-card hover:border-text',
         className,
       )}
     >
-      <motion.div
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        style={{ background }}
-      />
-      <div className="relative z-10" style={{ transform: 'translateZ(20px)' }}>
+      {isDark && (
+        <motion.div
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          style={{ background }}
+        />
+      )}
+      <div className="relative z-10" style={isDark ? { transform: 'translateZ(20px)' } : undefined}>
         {children}
       </div>
     </motion.div>

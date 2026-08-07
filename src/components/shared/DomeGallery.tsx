@@ -43,6 +43,8 @@ export type DomeGalleryProps = {
   grayscale?: boolean
   /** Logos flottants sans carte / cadre */
   logosMode?: boolean
+  /** Sans vignette / overlay / clipping cadre */
+  frameless?: boolean
   /** Rotation continue automatique (deg/sec) */
   autoRotate?: boolean
   autoRotateSpeed?: number
@@ -198,6 +200,7 @@ export default function DomeGallery({
   openedImageBorderRadius = '30px',
   grayscale = true,
   logosMode = false,
+  frameless = false,
   autoRotate = false,
   autoRotateSpeed = 10,
   className = '',
@@ -721,7 +724,7 @@ export default function DomeGallery({
   return (
     <div
       ref={rootRef}
-      className={`sphere-root${logosMode ? ' sphere-root--logos' : ''}${className ? ` ${className}` : ''}`}
+      className={`sphere-root${logosMode ? ' sphere-root--logos' : ''}${frameless ? ' sphere-root--frameless' : ''}${className ? ` ${className}` : ''}`}
       style={rootStyle}
     >
       <main ref={mainRef} className="sphere-main">
@@ -760,10 +763,14 @@ export default function DomeGallery({
           </div>
         </div>
 
-        <div className="overlay" />
-        <div className="overlay overlay--blur" />
-        <div className="edge-fade edge-fade--top" />
-        <div className="edge-fade edge-fade--bottom" />
+        {!frameless && (
+          <>
+            <div className="overlay" />
+            <div className="overlay overlay--blur" />
+            <div className="edge-fade edge-fade--top" />
+            <div className="edge-fade edge-fade--bottom" />
+          </>
+        )}
 
         <div className="viewer" ref={viewerRef}>
           <div ref={scrimRef} className="scrim" />

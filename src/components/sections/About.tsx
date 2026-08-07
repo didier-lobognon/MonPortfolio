@@ -6,6 +6,7 @@ import portrait from '@/assets/brand/ld-didier.png'
 import iconPattern from '@/assets/brand/iconpattern.png'
 import { viewportOnce } from '@/lib/animations'
 import { useLanguage } from '@/i18n/LanguageProvider'
+import { useTheme } from '@/i18n/ThemeProvider'
 import { scrollToSection } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import ProfileCard from '@/components/shared/ProfileCard'
@@ -15,6 +16,7 @@ const ease = [0.22, 1, 0.36, 1] as const
 
 export function About() {
   const { t } = useLanguage()
+  const { isDark } = useTheme()
   const sectionRef = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -29,7 +31,7 @@ export function About() {
       className="relative overflow-x-hidden pt-14 pb-24 sm:py-32"
     >
       <div
-        className="pointer-events-none absolute inset-0"
+        className="theme-ambient pointer-events-none absolute inset-0"
         aria-hidden
         style={{
           background:
@@ -52,7 +54,7 @@ export function About() {
           <h2 className="font-display text-3xl font-bold tracking-tight text-text sm:text-4xl md:text-5xl">
             {t.about.title}
           </h2>
-          <div className="mt-5 h-px w-16 bg-gradient-to-r from-accent via-accent-violet to-transparent" />
+          <div className="mt-5 h-px w-16 bg-text/25" />
         </motion.div>
 
         <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.15fr)] lg:gap-16 xl:gap-20">
@@ -76,10 +78,14 @@ export function About() {
               showUserInfo={false}
               enableTilt
               enableMobileTilt={false}
-              behindGlowEnabled
+              behindGlowEnabled={isDark}
               behindGlowColor="rgba(125, 190, 255, 0.55)"
               behindGlowSize="55%"
-              innerGradient="linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)"
+              innerGradient={
+                isDark
+                  ? 'linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)'
+                  : undefined
+              }
               onContactClick={() => scrollToSection('contact')}
             />
 
@@ -89,7 +95,7 @@ export function About() {
                 {personalInfo.location}
               </p>
               <span className="hidden h-1 w-1 rounded-full bg-white/20 sm:inline-block" aria-hidden />
-              <p className="text-xs text-emerald-300/90">{t.hero.availability}</p>
+              <p className="text-xs text-emerald-600">{t.hero.availability}</p>
             </div>
           </motion.div>
 
@@ -133,7 +139,7 @@ export function About() {
               whileInView={{ opacity: 1 }}
               viewport={viewportOnce}
               transition={{ delay: 0.15, duration: 0.5 }}
-              className="mt-9 font-name text-base font-medium tracking-tight text-accent-cyan sm:text-lg"
+              className="mt-9 font-name text-base font-medium tracking-tight text-muted sm:text-lg"
             >
               {t.about.signature}
             </motion.p>
@@ -153,7 +159,7 @@ export function About() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={viewportOnce}
                       transition={{ delay: 0.08 * i, duration: 0.5, ease }}
-                      className="group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] px-4 py-5 transition-colors hover:border-accent/30 hover:bg-white/[0.04]"
+                      className="group relative overflow-hidden rounded-2xl border border-border bg-elevated px-4 py-5 transition-colors hover:border-accent/30 light-card-soft"
                     >
                       <span
                         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
@@ -161,7 +167,7 @@ export function About() {
                       />
                       <Icon
                         size={18}
-                        className="mb-3 text-accent"
+                        className="mb-3 text-text"
                         strokeWidth={1.75}
                         aria-hidden
                       />

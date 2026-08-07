@@ -25,6 +25,7 @@ import { viewportOnce } from '@/lib/animations'
 import { cn } from '@/lib/utils'
 import type { TimelineItem, TimelineType } from '@/types'
 import { useLanguage } from '@/i18n/LanguageProvider'
+import { useTheme } from '@/i18n/ThemeProvider'
 
 type FilterKey = 'all' | 'experience' | 'formation' | 'certificat'
 
@@ -98,8 +99,9 @@ function JourneyNode({
   const Icon = meta.icon
   const brand = item.brandColor
   const border = item.brandBorder ?? brand
-  const light = Boolean(item.lightCard)
-  const tinted = Boolean(brand) && !light
+  const { isDark } = useTheme()
+  const light = Boolean(item.lightCard) || !isDark
+  const tinted = Boolean(brand) && !light && isDark
   const accent = brand ?? meta.accent
   const start = Math.max(0, index * 0.09)
   const end = Math.min(1, start + 0.22)
@@ -113,23 +115,31 @@ function JourneyNode({
   const side = index % 2 === 0 ? 'left' : 'right'
 
   // Fonds opaques — la corde ne doit jamais transparaître à travers la carte
-  const cardStyle = light
+  const cardStyle = !isDark
     ? {
         background: '#ffffff',
-        borderColor: 'rgba(15,23,42,0.12)',
-        boxShadow: '0 20px 50px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.8)',
+        borderColor: 'rgba(15,23,42,0.06)',
+        borderWidth: 1,
+        boxShadow:
+          '0 2px 4px rgba(15,23,42,0.06), 0 10px 28px rgba(15,23,42,0.1), 0 28px 56px rgba(15,23,42,0.14)',
       }
-    : tinted
+    : light
       ? {
-          background: `linear-gradient(145deg, ${brand}40 0%, #0d1524 42%, #0a1220 100%)`,
-          borderColor: `${border}66`,
-          boxShadow: `0 0 0 1px ${border}40, 0 24px 60px rgba(0,0,0,0.45), 0 0 48px ${brand}18, inset 0 1px 0 ${brand}22`,
+          background: '#ffffff',
+          borderColor: 'rgba(15,23,42,0.12)',
+          boxShadow: '0 20px 50px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.8)',
         }
-      : {
-          background: '#0d1524',
-          borderColor: 'rgba(255,255,255,0.12)',
-          boxShadow: '0 16px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)',
-        }
+      : tinted
+        ? {
+            background: `linear-gradient(145deg, ${brand}40 0%, #0d1524 42%, #0a1220 100%)`,
+            borderColor: `${border}66`,
+            boxShadow: `0 0 0 1px ${border}40, 0 24px 60px rgba(0,0,0,0.45), 0 0 48px ${brand}18, inset 0 1px 0 ${brand}22`,
+          }
+        : {
+            background: '#0d1524',
+            borderColor: 'rgba(255,255,255,0.12)',
+            boxShadow: '0 16px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)',
+          }
 
   return (
     <motion.li
@@ -151,12 +161,24 @@ function JourneyNode({
         {/* Masque opaque derrière la carte (coupe la corde) */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-8 bottom-0 z-0 rounded-[1.4rem] bg-[#050816] lg:hidden"
+          className="pointer-events-none absolute inset-x-0 top-8 bottom-0 z-0 rounded-[1.4rem] bg-bg lg:hidden"
         />
         <motion.article
-          whileHover={{ y: -6, transition: { type: 'spring', stiffness: 380, damping: 28 } }}
-          className="group relative z-[1] overflow-hidden rounded-[1.4rem] border p-5 text-left sm:p-6"
+          className={cn(
+            'group relative z-[1] overflow-hidden rounded-[1.4rem] border p-5 text-left sm:p-6',
+            !isDark && 'light-card',
+          )}
           style={cardStyle}
+          whileHover={
+            !isDark
+              ? {
+                  y: -6,
+                  boxShadow:
+                    '0 4px 8px rgba(15,23,42,0.07), 0 16px 40px rgba(15,23,42,0.12), 0 36px 72px rgba(15,23,42,0.16)',
+                  transition: { type: 'spring', stiffness: 380, damping: 28 },
+                }
+              : { y: -6, transition: { type: 'spring', stiffness: 380, damping: 28 } }
+          }
         >
           {tinted && (
             <>
@@ -327,7 +349,7 @@ function JourneyNode({
         <div className="relative mt-7 flex items-center justify-center">
           <span
             aria-hidden
-            className="absolute h-[4.5rem] w-[4.5rem] rounded-full bg-[#050816]"
+            className="absolute h-[4.5rem] w-[4.5rem] rounded-full bg-bg"
           />
           <motion.div
             style={{
@@ -394,7 +416,7 @@ export function Timeline() {
       className="relative overflow-hidden py-24 sm:py-32"
     >
       {/* Atmosphère */}
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
+      <div className="theme-ambient pointer-events-none absolute inset-0" aria-hidden>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(59,130,246,0.12),transparent_55%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(167,139,250,0.1),transparent_50%)]" />
         <div
@@ -431,7 +453,7 @@ export function Timeline() {
           className="mb-10 flex flex-col items-center gap-4 sm:mb-14"
         >
           <div
-            className="flex w-full max-w-xl items-stretch gap-0.5 overflow-x-auto rounded-2xl border border-white/[0.1] bg-[#0b1220]/75 p-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] backdrop-blur-md [-ms-overflow-style:none] [scrollbar-width:none] sm:w-auto sm:max-w-none sm:rounded-full sm:p-1.5 [&::-webkit-scrollbar]:hidden"
+            className="flex w-full max-w-xl items-stretch gap-0.5 overflow-x-auto rounded-2xl border border-white/[0.1] bg-elevated p-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] [-ms-overflow-style:none] [scrollbar-width:none] sm:w-auto sm:max-w-none sm:rounded-full sm:p-1.5 [&::-webkit-scrollbar]:hidden"
             role="tablist"
             aria-label={t.journey.eyebrow}
           >
@@ -539,7 +561,7 @@ export function Timeline() {
                     >
                       <span
                         aria-hidden
-                        className="absolute h-12 w-12 rounded-full bg-[#050816]"
+                        className="absolute h-12 w-12 rounded-full bg-bg"
                       />
                       <span
                         className="absolute h-11 w-11 rounded-full border border-white/10"

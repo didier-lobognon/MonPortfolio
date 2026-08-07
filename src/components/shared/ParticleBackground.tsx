@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { useTheme } from '@/i18n/ThemeProvider'
 
 interface Particle {
   x: number
@@ -9,11 +10,13 @@ interface Particle {
   a: number
 }
 
-/** Canvas de particules discrètes pour le Hero */
+/** Canvas de particules discrètes pour le Hero — dark uniquement */
 export function ParticleBackground() {
+  const { isDark } = useTheme()
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
+    if (!isDark) return
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
@@ -62,7 +65,6 @@ export function ParticleBackground() {
         ctx.fill()
       }
 
-      // Liaisons subtiles
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const a = particles[i]
@@ -90,7 +92,9 @@ export function ParticleBackground() {
       cancelAnimationFrame(raf)
       window.removeEventListener('resize', resize)
     }
-  }, [])
+  }, [isDark])
+
+  if (!isDark) return null
 
   return (
     <canvas
