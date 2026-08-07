@@ -464,14 +464,14 @@ export function Hero() {
   const { t, locale } = useLanguage()
 
   return (
-    <section id="hero" className="relative w-full max-w-none overflow-x-clip bg-bg">
+    <section id="hero" className="relative w-full bg-[#050816]">
       {/* ——— Mobile (composition dédiée) ——— */}
-      <div className="w-full bg-bg md:hidden">
+      <div className="w-full bg-[#050816] md:hidden">
         <HeroMobile />
       </div>
 
       {/* ——— Desktop / tablette (rendu validé) ——— */}
-      <div className="relative hidden min-h-screen w-full items-center bg-bg pt-28 pb-16 sm:pt-32 md:flex">
+      <div className="relative hidden min-h-screen w-full items-center bg-[#050816] pt-28 pb-16 sm:pt-32 md:flex">
         <GradientMesh />
         <ParticleBackground />
 
@@ -499,7 +499,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              className="h-[5rem] w-full max-w-2xl font-name sm:h-[5.75rem] md:h-[6.5rem]"
+              className="h-[5rem] w-full max-w-2xl font-name sm:h-[6rem] md:h-[7.25rem] md:max-w-3xl lg:h-[8rem] lg:max-w-4xl xl:h-[8.5rem]"
             >
               <ParticleText
                 key={`name-d-${locale}`}
@@ -515,7 +515,7 @@ export function Hero() {
                 repelRadius={120}
                 idleDrift={0.8}
                 trigger="mount"
-                fontSize="clamp(2rem, 4.8vw, 3.4rem)"
+                fontSize="clamp(2.35rem, 5.8vw, 4.1rem)"
                 fontWeight={600}
                 fontFamily='"Unbounded", ui-sans-serif, system-ui, sans-serif'
                 align="left"

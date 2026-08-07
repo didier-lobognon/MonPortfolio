@@ -1,8 +1,7 @@
 import { motion, useReducedMotion } from 'framer-motion'
-import { ArrowDown, ArrowRight, MapPin, Smartphone } from 'lucide-react'
+import { ArrowDown, MapPin } from 'lucide-react'
 import { personalInfo } from '@/data/personal'
 import portrait from '@/assets/brand/ld-didier.png'
-import { Button } from '@/components/ui/button'
 import DomeGallery from '@/components/shared/DomeGallery'
 import { scrollToSection } from '@/lib/utils'
 import { useLanguage } from '@/i18n/LanguageProvider'
@@ -44,68 +43,30 @@ export function HeroMobile() {
   const letters = personalInfo.name.split('')
 
   return (
-    <div className="relative flex min-h-[100svh] w-full flex-col overflow-hidden bg-bg px-5 pb-8 pt-32">
-      {/* Fond noir full-bleed (passe sous tout padding / parent) */}
-      <div
-        className="pointer-events-none absolute inset-y-0 left-1/2 z-0 w-screen max-w-none -translate-x-1/2 bg-bg"
-        aria-hidden
-      >
-        <div className="absolute inset-0 bg-bg" />
-
-        {/* Portrait atmosphère */}
-        <div className="absolute left-1/2 top-[4.5rem] w-[min(92vw,420px)] -translate-x-1/2">
-          <div className="relative mx-auto aspect-[3/4] w-full">
-            <div className="absolute left-1/2 top-[38%] h-[70%] w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/18 blur-[80px]" />
-            <div className="absolute left-[18%] top-[55%] h-[42%] w-[42%] rounded-full bg-accent-cyan/10 blur-[60px]" />
-            <div className="absolute right-[12%] top-[42%] h-[36%] w-[36%] rounded-full bg-accent-violet/12 blur-[55px]" />
-
-            <div
-              className="absolute left-1/2 top-[42%] h-[58%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.08]"
-              style={{
-                maskImage: 'linear-gradient(180deg, black 40%, transparent 92%)',
-                WebkitMaskImage: 'linear-gradient(180deg, black 40%, transparent 92%)',
-              }}
-            />
-
-            <img
-              src={portrait}
-              alt=""
-              className="relative h-full w-full object-cover object-[center_12%] opacity-[0.22]"
-              style={{
-                WebkitMaskImage:
-                  'radial-gradient(ellipse 78% 74% at 50% 36%, #000 28%, transparent 76%)',
-                maskImage:
-                  'radial-gradient(ellipse 78% 74% at 50% 36%, #000 28%, transparent 76%)',
-                filter: 'brightness(0.35) contrast(1.15) saturate(0.55)',
-              }}
-              decoding="async"
-            />
-
-            <div className="absolute inset-0 bg-bg/55" />
-            <div className="absolute inset-0 bg-gradient-to-b from-bg/40 via-bg/65 to-bg" />
-            <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-bg via-bg/90 to-transparent" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_28%,transparent_15%,rgba(5,8,22,0.72)_72%)]" />
-          </div>
+    <div className="relative flex min-h-[100svh] w-full flex-col bg-[#050816] px-5 pb-8 pt-32">
+      {/* Fond unique — aucun cadre / panneau distinct */}
+      <div className="pointer-events-none absolute inset-0 z-0 bg-[#050816]" aria-hidden>
+        {/* Portrait soft, fondu dans le même noir */}
+        <div className="absolute inset-x-0 top-0 h-[70%]">
+          <img
+            src={portrait}
+            alt=""
+            className="mx-auto h-full w-full max-w-lg object-cover object-[center_18%] opacity-[0.18]"
+            style={{
+              WebkitMaskImage:
+                'radial-gradient(ellipse 85% 75% at 50% 40%, #000 10%, transparent 70%)',
+              maskImage:
+                'radial-gradient(ellipse 85% 75% at 50% 40%, #000 10%, transparent 70%)',
+              filter: 'brightness(0.28) contrast(1.1) saturate(0.5)',
+            }}
+            decoding="async"
+          />
+          <div className="absolute inset-0 bg-[#050816]/50" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#050816]/25 via-[#050816]/7 to-[#050816]" />
         </div>
 
-        {/* Voiles latéraux + global pour un noir uniforme bord à bord */}
-        <div className="absolute inset-y-0 left-0 w-[18%] bg-gradient-to-r from-bg via-bg/90 to-transparent" />
-        <div className="absolute inset-y-0 right-0 w-[18%] bg-gradient-to-l from-bg via-bg/90 to-transparent" />
-        <div className="absolute inset-0 bg-bg/30" />
-        <div className="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-bg via-bg/95 to-transparent" />
-        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-bg to-transparent" />
-
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-8%,rgba(59,130,246,0.12),transparent_55%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_90%_40%,rgba(34,211,238,0.04),transparent_38%)]" />
-        <div
-          className="absolute inset-0 opacity-[0.05]"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(148,163,184,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,0.35) 1px, transparent 1px)',
-            backgroundSize: '48px 48px',
-            maskImage: 'radial-gradient(ellipse at center, black 15%, transparent 70%)',
-          }}
-        />
+        {/* Ambiance très légère — sans bords nets */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_45%_at_50%_18%,rgba(59,130,246,0.1),transparent_60%)]" />
       </div>
 
       <div className="relative z-10 flex flex-1 flex-col">
@@ -116,7 +77,7 @@ export function HeroMobile() {
           className="mb-8 flex justify-center"
         >
           <div
-            className="inline-flex max-w-full items-center gap-2 rounded-full border border-emerald-400/45 bg-emerald-400/10 px-3.5 py-1.5 text-[11px] font-medium tracking-wide text-emerald-300 backdrop-blur-md"
+            className="inline-flex max-w-full items-center gap-2 rounded-full border border-emerald-400/45 bg-emerald-400/10 px-3.5 py-2 text-xs font-medium tracking-wide text-emerald-300 sm:text-sm"
             role="status"
           >
             <span className="relative flex h-2 w-2 shrink-0">
@@ -127,8 +88,8 @@ export function HeroMobile() {
           </div>
         </motion.div>
 
-        <div className="relative mx-auto w-full max-w-sm text-center">
-          <h1 className="mt-2 font-name text-[1.85rem] font-semibold leading-[1.05] tracking-[-0.03em] text-text whitespace-nowrap drop-shadow-[0_2px_24px_rgba(5,8,22,0.85)] max-[250px]:text-[clamp(1.05rem,8.5vw,1.85rem)]">
+        <div className="relative mx-auto w-full max-w-md text-center">
+          <h1 className="mt-2 font-name text-[clamp(2.05rem,7.2vw,2.55rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-text whitespace-nowrap drop-shadow-[0_2px_24px_rgba(5,8,22,0.85)] max-[280px]:text-[clamp(1.35rem,8vw,2.05rem)] sm:text-[clamp(2.45rem,6.5vw,3.1rem)]">
             {letters.map((char, i) => (
               <motion.span
                 key={`${char}-${i}`}
@@ -147,7 +108,7 @@ export function HeroMobile() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.55, duration: 0.5, ease }}
-            className="hero-mobile-shimmer mt-5 bg-gradient-to-r from-accent-cyan via-accent to-accent-violet bg-[length:200%_100%] bg-clip-text font-display text-lg font-semibold tracking-tight text-transparent"
+            className="hero-mobile-shimmer mt-5 bg-gradient-to-r from-accent-cyan via-accent to-accent-violet bg-[length:200%_100%] bg-clip-text font-display text-xl font-semibold tracking-tight text-transparent sm:text-2xl"
           >
             {t.hero.title}
           </motion.p>
@@ -157,7 +118,7 @@ export function HeroMobile() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.68, duration: 0.45, ease }}
-            className="mx-auto mt-4 max-w-sm whitespace-nowrap text-sm leading-relaxed text-muted"
+            className="mx-auto mt-5 max-w-md text-base leading-relaxed text-muted sm:text-lg"
           >
             {t.hero.tagline}
           </motion.p>
@@ -166,9 +127,9 @@ export function HeroMobile() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
-            className="mt-3 inline-flex items-center justify-center gap-1.5 text-xs text-muted/75"
+            className="mt-4 inline-flex items-center justify-center gap-1.5 text-sm text-muted/80"
           >
-            <MapPin size={12} className="text-accent-cyan/80" aria-hidden />
+            <MapPin size={14} className="text-accent-cyan/80" aria-hidden />
             {personalInfo.location}
           </motion.p>
         </div>
@@ -178,7 +139,7 @@ export function HeroMobile() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.75, duration: 0.7, ease }}
-          className="relative mx-auto mt-6 mb-5 h-[280px] w-full overflow-hidden px-3 [mask-image:linear-gradient(90deg,transparent_0%,#000_10%,#000_90%,transparent_100%)] [-webkit-mask-image:linear-gradient(90deg,transparent_0%,#000_10%,#000_90%,transparent_100%)]"
+          className="relative mx-auto mt-8 mb-4 h-[280px] w-full overflow-hidden px-3"
         >
           <DomeGallery
             images={TECH_LOGOS}
@@ -201,49 +162,21 @@ export function HeroMobile() {
           />
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.95, duration: 0.5, ease }}
-          className="mt-2 flex w-full gap-2.5"
-        >
-          <Button
-            size="lg"
-            variant="gradient"
-            className="h-12 min-w-0 flex-1 justify-center gap-1.5 px-3 text-sm shadow-[0_0_32px_rgba(59,130,246,0.35)]"
-            data-cursor="projets"
-            onClick={() => scrollToSection('projects')}
-          >
-            {t.hero.ctaProjects}
-            <ArrowRight size={16} />
-          </Button>
-          <Button
-            size="lg"
-            variant="secondary"
-            className="h-12 min-w-0 flex-1 justify-center gap-1.5 border-white/15 px-3 text-sm backdrop-blur-sm"
-            data-cursor="contact"
-            onClick={() => scrollToSection('contact')}
-          >
-            <Smartphone size={15} strokeWidth={2} />
-            {t.hero.ctaContact}
-          </Button>
-        </motion.div>
-
         <motion.button
           type="button"
           onClick={() => scrollToSection('about')}
-          className="mx-auto mt-5 flex flex-col items-center gap-1.5 text-muted/70"
+          className="mx-auto mt-4 flex flex-col items-center gap-1.5 text-muted/70"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.15 }}
+          transition={{ delay: 1.0 }}
           aria-label={t.nav.about}
         >
-          <span className="text-[9px] tracking-[0.28em] uppercase">{t.hero.scroll}</span>
+          <span className="text-[10px] tracking-[0.28em] uppercase">{t.hero.scroll}</span>
           <motion.span
             animate={reduceMotion ? undefined : { y: [0, 6, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
           >
-            <ArrowDown size={14} />
+            <ArrowDown size={15} />
           </motion.span>
         </motion.button>
       </div>

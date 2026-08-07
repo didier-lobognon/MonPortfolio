@@ -45,7 +45,7 @@ export function SectionHeading({
         {title}
       </h2>
       {description && (
-        <p className="mt-4 text-muted text-[15px] sm:text-lg leading-relaxed text-pretty">{description}</p>
+        <p className="mt-4 text-muted text-base sm:text-lg leading-relaxed text-pretty">{description}</p>
       )}
     </motion.div>
   )

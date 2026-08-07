@@ -121,7 +121,7 @@ export function About() {
                   >
                     0{i + 1}
                   </span>
-                  <p className="text-[15px] leading-relaxed text-muted sm:text-base">
+                  <p className="text-base leading-relaxed text-muted sm:text-lg">
                     {paragraph}
                   </p>
                 </motion.div>
